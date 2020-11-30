@@ -15,6 +15,7 @@ public class TaskA1 {
             if (length>=7){
                 dynText.setCharAt(index+6,'#');
             }
+
         }
         System.out.println(dynText);
     }

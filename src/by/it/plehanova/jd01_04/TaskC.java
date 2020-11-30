@@ -66,7 +66,7 @@ public class TaskC {
             return array;
         }
         int average = array.length / 2;
-        double[] buffer = array;
+
         double[] arr1 = new double[average];
         double[] arr2 = new double[array.length - arr1.length];
 
@@ -78,9 +78,9 @@ public class TaskC {
         }
         arr1 = mergeSort(arr1, 0, average);
         arr2 = mergeSort(arr2, average + 1, array.length - 1);
-        buffer = merge(arr1, arr2);
+        array = merge(arr1, arr2);
 
-        return buffer;
+        return array;
     }
 
 
