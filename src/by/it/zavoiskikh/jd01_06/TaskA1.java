@@ -6,10 +6,21 @@ import java.util.regex.Matcher;
 public class TaskA1 {
     public static void main(String[] args) {
         StringBuilder dynText = new StringBuilder (Poem.text);
-        Pattern pattern = Pattern.compile("[a-яA-яёЁ]+");
+        Pattern pattern = Pattern.compile("[a-яA-яёЁ]{4,}");
         Matcher matcher = pattern.matcher (dynText);
         while (matcher.find()) {
-            System.out.println (matcher.group ());
+            int index = matcher.start();
+            dynText.setCharAt(index + 3, '#');
+            int length = matcher.end() - matcher.start();
+            if (length>=7) {
+            dynText.setCharAt(index+6,'#');
+
         }
+            System.out.println(dynText);
+    }
     }
 }
+
+
+
+
