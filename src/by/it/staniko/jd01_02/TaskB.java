@@ -85,7 +85,7 @@ public class TaskB {
                     //{21,22,23,24,25}
             //};
 
-            for (int i = 0; i <=25 ; i++) {
+            for (int i = 1; i <=25 ; i++) {
                 System.out.print(i + " ");
             if (i%5==0) {
                 System.out.println();
