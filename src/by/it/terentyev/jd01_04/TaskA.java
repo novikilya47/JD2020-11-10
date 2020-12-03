@@ -11,10 +11,7 @@ public class TaskA {
         System.out.println("Введите значения для массива: ");
         String lineArray = sc.nextLine();
         buildOneDimArray(lineArray);
-        //String line = "18 1 2 35 5 76 1009 5 6 8 56 51 15";
-
-        //Helper.sort(array);
-    }
+            }
 
     static void printMulTable() {
         for (int i = 2; i <= 9; i++) {
