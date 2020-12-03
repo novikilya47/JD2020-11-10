@@ -14,26 +14,23 @@ class Scalar extends Var {
         this.value = otherScalar.value;
     }
 
-    @Override
     public Var addWith(Scalar leftScalarInExpression){
         double otherValue = leftScalarInExpression.value;
         double result = this.value + otherValue;
         return new Scalar(result);
     }
 
-    @Override
     public Var addWith(Vector leftVectorInExpression){
         return leftVectorInExpression.add(this);
     }
 
-    @Override
     public Var addWith(Matrix leftMatrixInExpression){
         return leftMatrixInExpression.add(this);
     }
 
      @Override
      public Var add(Var other) {
-         return other.addWith(this);
+         return null;
      }
 
 

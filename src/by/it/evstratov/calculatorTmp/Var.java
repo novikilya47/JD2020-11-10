@@ -39,15 +39,6 @@ abstract class Var implements Operation {
          return null;
      }
 
-    public Var addWith(Vector var){
-        return null;
-    }
-     public Var addWith(Scalar var){
-        return null;
-     }
-    public Var addWith(Matrix var){
-        return null;
-    }
 
     @Override
     public String toString() {
