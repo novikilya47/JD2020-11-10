@@ -8,6 +8,10 @@ class Scalar extends Var {
         this.value = value;
     }
 
+    public double getValue() {
+        return value;
+    }
+
     Scalar(String strValue) {
         this.value = Double.parseDouble(strValue);
     }
@@ -24,11 +28,10 @@ class Scalar extends Var {
 
             // Возвращаемый тип должен быть Var или его потмком
             return new Scalar(sum);
-        }
-        else
+        } else
             // если other vector -> vector.add
             // если other matrix -> matrix.add
-        return other.add(this);
+            return other.add(this);
     }
 
     @Override
@@ -39,8 +42,7 @@ class Scalar extends Var {
 
             // Возвращаемый тип должен быть Var или его потмком
             return new Scalar(subs);
-        }
-        else
+        } else
             // если other vector -> vector.add
             // если other matrix -> matrix.add
             return new Scalar(-1).mul(other).add(this); //  (-1) * Vector + Scalar
@@ -55,8 +57,7 @@ class Scalar extends Var {
 
             // Возвращаемый тип должен быть Var или его потмком
             return new Scalar(mulres);
-        }
-        else
+        } else
             // если other vector -> vector.mul
             // если other matrix -> matrix.mul
             return other.mul(this);
@@ -70,8 +71,7 @@ class Scalar extends Var {
 
             // Возвращаемый тип должен быть Var или его потмком
             return new Scalar(div);
-        }
-        else
+        } else
             // если other vector -> vector.div
             // если other matrix -> matrix.div
             return other.div(this);
