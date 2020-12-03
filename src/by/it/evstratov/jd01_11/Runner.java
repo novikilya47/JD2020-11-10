@@ -3,22 +3,27 @@ package by.it.evstratov.jd01_11;
 import by.it._khmelov_.jd01_11.ListA;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Runner {
     public static void main(String[] args) {
-        List<String> list1=new ListB<>();
-        List<String> list2=new ListB<>();
-        list1.add("One"); //0
-        list1.add("Two"); //1
-        list1.add("Three"); //2
-        list1.add("Four");
-        list1.add("Five");
-        list2.add("Six");
-        list2.add("Seven");
-        System.out.println(list1);
-        System.out.println(list2);
-        list1.addAll(list2);
-        System.out.println(list1);
+
+        Set<String> hashSet = new HashSet<>();
+        hashSet.add("1");
+        hashSet.add("2");
+        hashSet.add("3");
+        hashSet.add("4");
+        System.out.println(hashSet.toString());
+
+        Set<String> set = new SetC<>();
+        set.add("3");
+        set.add("3");
+        set.add("4");
+        set.add("3");
+        set.add("5");
+        System.out.println(set.size());
+        System.out.println(set.toString());
     }
 }

@@ -38,6 +38,11 @@ public class ListB<E> implements List<E>{
     }
 
     @Override
+    public int size() {
+        return 0;
+    }
+
+    @Override
     public E get(int i) {
         return elements[i];
     }
@@ -77,11 +82,6 @@ public class ListB<E> implements List<E>{
     @Override
     public boolean remove(Object o) {
         return false;
-    }
-
-    @Override
-    public int size() {
-        return 0;
     }
 
     @Override
