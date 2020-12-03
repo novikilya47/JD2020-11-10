@@ -65,6 +65,21 @@ public class SetC<E> implements Set<E> {
     }
 
     @Override
+    public boolean remove(Object o) {
+        if(contains(o)){
+            int index = 0;
+            for (int i = 0; i < size; i++) {
+                if(elements[i].equals(o)){
+                    System.out.println(elements[i]);
+                }
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
     public Iterator<E> iterator() {
         return null;
     }
@@ -77,11 +92,6 @@ public class SetC<E> implements Set<E> {
     @Override
     public <T> T[] toArray(T[] ts) {
         return null;
-    }
-
-    @Override
-    public boolean remove(Object o) {
-        return false;
     }
 
     @Override
