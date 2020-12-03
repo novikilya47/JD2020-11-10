@@ -1,27 +1,29 @@
 package by.it.kglushchenko.jd01_10;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 
 public class BeanTester {
     public static void main(String[] args) throws Exception {
         Class<Bean> cls = Bean.class;
-        for (Method declaredMethod : cls.getDeclaredMethods()) {
+         for (Method declaredMethod : cls.getDeclaredMethods()) {
             if (declaredMethod.isAnnotationPresent(Param.class)) {         // проверяем есть ли у метода аннотация Param
                 Param ann = declaredMethod.getAnnotation(Param.class);     // получили саму анотацию
 
-                System.out.println("Поле в Param аннотации a=" + ann.a());
-                System.out.println("Поле в Param аннотации b=" + ann.b());
+                //System.out.println("Поле в Param аннотации a=" + ann.a());
+                //System.out.println("Поле в Param аннотации b=" + ann.b());
 
-                Object o = null;
-
-                if (o == null) {
-                    //создали экземпляр класса  помеченного @Param
-                    o = cls.getDeclaredConstructor().newInstance();
+                int modifiers = declaredMethod.getModifiers();
+                //declaredMethod.invoke(null, a, b);                  //вызывали метод помеченный @Param
+                if (Modifier.isStatic(modifiers)) {
+                    System.out.println(declaredMethod.getName() + " " + declaredMethod.invoke(null, ann.a(), ann.b()));
+                } else {
+                    Constructor<Bean> beanConstructor = cls.getConstructor();
+                    Bean bean = beanConstructor.newInstance();
+                    System.out.println((declaredMethod.getName() + " " + declaredMethod.invoke(bean, ann.a(), ann.b())));
                 }
-                declaredMethod.invoke(o);                  //вызывали метод помеченный @Param
-                System.out.println(o.getClass().getSimpleName());
-
             }
         }
     }
