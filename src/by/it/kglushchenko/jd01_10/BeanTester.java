@@ -1,13 +1,33 @@
 package by.it.kglushchenko.jd01_10;
 
-
 import java.lang.reflect.Method;
 
 
 public class BeanTester {
     public static void main(String[] args) throws Exception {
-        //processParamCreate(Bean.class);
         Class<Bean> cls = Bean.class;
+        for (Method declaredMethod : cls.getDeclaredMethods()) {
+            if (declaredMethod.isAnnotationPresent(Param.class)) {         // проверяем есть ли у метода аннотация Param
+                Param ann = declaredMethod.getAnnotation(Param.class);     // получили саму анотацию
+
+                System.out.println("Поле в Param аннотации a=" + ann.a());
+                System.out.println("Поле в Param аннотации b=" + ann.b());
+
+                Object o = null;
+
+                if (o == null) {
+                    //создали экземпляр класса  помеченного @Param
+                    o = cls.getDeclaredConstructor().newInstance();
+                }
+                declaredMethod.invoke(o);                  //вызывали метод помеченный @Param
+                System.out.println(o.getClass().getSimpleName());
+
+            }
+        }
+    }
+}
+
+        /*
         if (cls.isAnnotationPresent(Param.class)) {             // проверяем есть ли аннотация Param
             Param ann = cls.getAnnotation(Param.class);         // получили саму анотацию
             System.out.println((cls.isAnnotationPresent(Param.class)));
@@ -110,4 +130,4 @@ public class BeanTester {
         Method[] methods = bean.getDeclaredMethods();
         System.out.println();
  */
-}
+
