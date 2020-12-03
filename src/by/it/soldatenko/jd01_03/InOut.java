@@ -16,8 +16,8 @@ class InOut {
 
    }
    static void printArray(double[ ] arr){
-       for (int i = 0; i < arr.length; i++) {
-           System.out.print(arr[i] + " ");
+       for (double v : arr) {
+           System.out.print(v + " ");
        }
        System.out.println();
    }
