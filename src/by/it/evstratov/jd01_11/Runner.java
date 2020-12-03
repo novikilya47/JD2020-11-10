@@ -25,7 +25,10 @@ public class Runner {
         set.add("5");
         set.add("7");
         set.remove("3");
-        //System.out.println(set.size());
-        //System.out.println(set.toString());
+        set.remove("9");
+        set.remove("3");
+        set.remove("5");
+        System.out.println(set.size());
+        System.out.println(set.toString());
     }
 }

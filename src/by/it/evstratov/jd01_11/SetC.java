@@ -70,9 +70,11 @@ public class SetC<E> implements Set<E> {
             int index = 0;
             for (int i = 0; i < size; i++) {
                 if(elements[i].equals(o)){
-                    System.out.println(elements[i]);
+                    index = i;
                 }
             }
+            System.arraycopy(elements,index + 1,elements, index, size - index - 1);
+            size--;
             return true;
         }else{
             return false;
