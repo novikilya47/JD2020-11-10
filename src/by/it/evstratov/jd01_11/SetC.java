@@ -82,6 +82,19 @@ public class SetC<E> implements Set<E> {
     }
 
     @Override
+    public boolean addAll(Collection<? extends E> collection) {
+        String[] col = ((collection.toString()).replaceAll("[{}\\[\\],]","")).split(" ");
+        if(size != 0){
+            for (int i = 0; i < col.length; i++) {
+                add((E)col[i]);
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
     public Iterator<E> iterator() {
         return null;
     }
@@ -98,11 +111,6 @@ public class SetC<E> implements Set<E> {
 
     @Override
     public boolean containsAll(Collection<?> collection) {
-        return false;
-    }
-
-    @Override
-    public boolean addAll(Collection<? extends E> collection) {
         return false;
     }
 

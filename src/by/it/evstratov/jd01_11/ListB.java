@@ -71,7 +71,6 @@ public class ListB<E> implements List<E>{
 
     @Override
     public boolean addAll(Collection<? extends E> collection) {
-        System.out.println(collection);
         String[] col = ((collection.toString()).replaceAll("[{}\\[\\],]","")).split(" ");
         for (String s : col) {
             add((E) s);
