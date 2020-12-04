@@ -14,29 +14,23 @@ public class Runner {
         Set<String> set2 = new SetC<>();
         set2.add("3");
         set2.add(null);
+        set2.add("null");
         set2.add("1");
+        set2.add("7");
+        set2.add("null");
+        set2.add(null);
+
+        System.out.println(set2.toString());
 
         set1.add("3");
-        set1.add("3");
         set1.add("4");
-        set1.add("3");
-        set1.add("5");
-        set1.add("5");
-        set1.add("5");
-        set1.add("5");
-        set1.add("5");
+        set1.add(null);
         set1.add("6");
-        set1.add("3");
-        set1.add("5");
+        set1.add("1");
         set1.add("7");
-        set1.remove("3");
-        set1.remove("9");
-        set1.remove("3");
-        set1.remove("5");
-        //System.out.println(set1.size());
+        set1.add("null");
         System.out.println(set1.toString());
+        set2.addAll(set1);
         System.out.println(set2.toString());
-        set1.addAll(set2);
-        System.out.println(set1.toString());
     }
 }

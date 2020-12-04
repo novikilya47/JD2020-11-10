@@ -41,10 +41,21 @@ public class SetC<E> implements Set<E> {
     public boolean contains(Object o) {
         boolean result = false;
         if(!isEmpty()){
-            for (int i = 0; i < size; i++) {
-                if(elements[i].equals(o)){
-                    result = true;
-                    break;
+            if(o == null || o.toString().equals("null")){
+                for (int i = 0; i < size; i++) {
+                    if(elements[i] == null || elements[i] == "null"){
+                        result = true;
+                        break;
+                    }
+                }
+            }else{
+                for (int i = 0; i < size; i++) {
+                    if(elements[i] != null){
+                        if(elements[i].equals(o)){
+                            result = true;
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -68,9 +79,16 @@ public class SetC<E> implements Set<E> {
     public boolean remove(Object o) {
         if(contains(o)){
             int index = 0;
+
             for (int i = 0; i < size; i++) {
-                if(elements[i].equals(o)){
-                    index = i;
+                if(elements[i] == null){
+                    if(elements[i] == o){
+                        index = i;
+                    }
+                }else{
+                    if(elements[i].equals(o)){
+                        index = i;
+                    }
                 }
             }
             System.arraycopy(elements,index + 1,elements, index, size - index - 1);
@@ -86,7 +104,9 @@ public class SetC<E> implements Set<E> {
         String[] col = ((collection.toString()).replaceAll("[{}\\[\\],]","")).split(" ");
         if(size != 0){
             for (int i = 0; i < col.length; i++) {
-                add((E)col[i]);
+                if(!contains(col[i])){
+                    add((E)col[i]);
+                }
             }
             return true;
         }else{
