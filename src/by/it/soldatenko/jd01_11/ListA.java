@@ -4,34 +4,36 @@ import java.util.*;
 
 public class ListA<E>implements List<E> {
     @SuppressWarnings("unchecked")
-    private E[] elements = (E[])new Object[10];
+    private E[] elements = (E[])new Object[]{};
 
    private int  size =0;
 
     @Override
     public boolean add(E e) {
         if (size==elements.length) {
-            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
+            elements = Arrays.copyOf(elements, size * 3 / 2 + 1);
         }
         elements[size++]=e;
         return true;
     }
     @Override
     public String toString(){
-        StringJoiner joiner = new StringJoiner(", ", "[","]");
+       StringBuilder sb = new StringBuilder("[");
+       String delimiter = "";
         for (int i = 0; i < size; i++) {
-           joiner.add(elements[i].toString());
+            sb.append(delimiter).append(elements[i]);
+            delimiter = ", ";
         }
-        return super.toString();
+        sb.append("]");
+        return sb.toString();
     }
 
     @Override
     public E remove(int index) {
-
-        E element = elements[index];
-        System.arraycopy(elements,index +1,elements,index,-index-1);
+        E element=elements[index];
+        System.arraycopy(elements,index+1,elements,index,size-index-1);
         size--;
-        elements[size]= null;// for GC
+        elements[size]=null;
         return element;
     }
 
