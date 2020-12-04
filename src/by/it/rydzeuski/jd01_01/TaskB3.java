@@ -1,4 +1,4 @@
-package by.it.rydzeuski._tasks_.jd01_01;
+package by.it.rydzeuski.jd01_01;
 /*
         Уберите комментарии с части кода, чтобы на экран вывелось сообщение «C началом курса».
 

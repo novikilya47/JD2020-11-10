@@ -1,4 +1,4 @@
-package by.it.rydzeuski._tasks_.jd01_01;
+package by.it.rydzeuski.jd01_01;
 
 /*
 напишите тело main программы которая выводит на экран 5 строк

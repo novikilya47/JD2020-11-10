@@ -1,4 +1,4 @@
-package by.it.rydzeuski._tasks_.jd01_01;
+package by.it.rydzeuski.jd01_01;
 
 import java.util.Scanner;
 
@@ -19,17 +19,16 @@ OCT:42+32=74
 */
 
 
+class TaskC2{
 
-        class TaskC2{
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int i=sc.nextInt();
+        int j=sc.nextInt();
+        System.out.printf("DEC:%d+%d=%d\n",i,j,i+j);
+        System.out.printf("BIN:%+%=%\n",i,j,i+j);
+        System.out.printf("HEX:%x+%x=%x\n",i,j,i+j);
+        System.out.printf("OCT:%o+%o=%o\n",i,j,i+j);
+    }
 
-            public static void main(String[] args) {
-                Scanner sc=new Scanner(System.in);
-                int i=sc.nextInt();
-                int j=sc.nextInt();
-                System.out.printf("DEC:%d+%d=%d\n",i,j,i+j);
-                System.out.printf("BIN:%+%=%\n",i,j,i+j);
-                System.out.printf("HEX:%x+%x=%x\n",i,j,i+j);
-                System.out.printf("OCT:%o+%o=%o\n",i,j,i+j);
-            }
-
-        }
+}
