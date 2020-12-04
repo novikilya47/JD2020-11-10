@@ -1,4 +1,4 @@
-package by.it.rydzeuski._tasks_.jd01_01;
+package by.it.rydzeuski.jd01_01;
 /*
 Подойдет только 20
 В методе main расставь правильно знаки плюс и минус, чтобы значение переменной result получилось равным 20.
