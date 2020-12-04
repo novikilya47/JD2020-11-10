@@ -13,5 +13,15 @@ public class Runner {
         System.out.println(list);
         list.remove(2);
         System.out.println(list);
+
+        List<String> listb = new ListB<>();
+        listb.add("Ptivet");
+        listb.add("Hello");
+        listb.add("Zdraste");
+        listb.add("poka");
+        System.out.println(listb);
+        listb.remove(3);
+        System.out.println(listb);
+
     }
 }
