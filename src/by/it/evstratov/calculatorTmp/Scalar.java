@@ -1,6 +1,4 @@
-package by.it.evstratov.calculator;
-
-import java.util.Objects;
+package by.it.evstratov.calculatorTmp;
 
 class Scalar extends Var {
 
@@ -16,18 +14,25 @@ class Scalar extends Var {
         this.value = otherScalar.value;
     }
 
+    public Var addWith(Scalar leftScalarInExpression){
+        double otherValue = leftScalarInExpression.value;
+        double result = this.value + otherValue;
+        return new Scalar(result);
+    }
+
+    public Var addWith(Vector leftVectorInExpression){
+        return leftVectorInExpression.add(this);
+    }
+
+    public Var addWith(Matrix leftMatrixInExpression){
+        return leftMatrixInExpression.add(this);
+    }
 
      @Override
      public Var add(Var other) {
-
-         if (other instanceof Scalar) {
-             double otherValue = ((Scalar) other).value;
-             double result = this.value + otherValue;
-             return new Scalar(result);
-         }
-         else
-             return other.add(this);
+         return null;
      }
+
 
      @Override
      public Var sub(Var other) {
