@@ -19,7 +19,6 @@ public class SetC<T> implements Set<T> {
         sb.append("]");
         return sb.toString();
     }
-
     @Override
     public boolean add(T t) {
         if (size == elements.length) {
