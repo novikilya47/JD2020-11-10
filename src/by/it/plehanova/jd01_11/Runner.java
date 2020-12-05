@@ -1,6 +1,7 @@
 package by.it.plehanova.jd01_11;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -56,14 +57,13 @@ public class Runner {
         System.out.println("\nmyBList: " + myBList + "   " + s);
 
         SetC<Short> number = new SetC<>();
-        number.add(3);
-        number.add(4);
-        number.add(5);
-        number.add(6);
+
         boolean check = number.contains(7);
 
-        number.addAll(number);
-        System.out.println(number + "   " + check);
+        number.addAll(Arrays.asList(null,null,1,2,3,4,5));
+        System.out.println(number + "   " + number.size() + check);
+        number.removeAll(Arrays.asList(null,null,1,2,3,4,5));
+        System.out.println(number + "   " + number.size() + check);
 
 
     }

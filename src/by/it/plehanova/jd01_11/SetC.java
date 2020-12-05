@@ -3,35 +3,29 @@ package by.it.plehanova.jd01_11;
 import java.util.*;
 
 public class SetC<E> implements Set {
-    private ListB<E> elements = new ListB<>();
-    int size = elements.size();
+    private E[] elements = (E[]) new Object[0];
+    private int size = 0;
 
     @Override
     public boolean add(Object o) {
 
         if (!contains(o)) {
-            elements.add((E) o);
-            size++;
+            if (size == elements.length) {
+                elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
+            }
+            elements[size++] = (E) o;
             return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean addAll(Collection c) {
-        for (Object o : c) {
-            elements.add((E) o);
-            size++;
         }
         return true;
     }
 
     @Override
     public boolean remove(Object o) {
-        for (int i = 0; i < elements.size(); i++) {
-            if (elements.get(i) == o) {
-                elements.remove(elements.get(i));
+        for (int i = 0; i < size; i++) {
+            if (elements[i] == o || elements.equals(o)) {
+                System.arraycopy(elements, i + 1, elements, i, size - i - 1);
                 size--;
+                elements[size] = null;   //for GC
                 return true;
             }
         }
@@ -39,30 +33,36 @@ public class SetC<E> implements Set {
     }
 
     @Override
-    public boolean removeAll(Collection c) {
+    public boolean addAll(Collection c) {
+
         for (Object o : c) {
-            for (int i = 0; i < elements.size(); i++) {
-                if (o.equals(elements.get(i))) {
-                    elements.remove(elements.get(i));
-                }
-            }
+            add(o);
         }
         return true;
     }
 
     @Override
-    public boolean contains(Object o) {
-        if (o == null) {
-            return false;
-        } else {
-            for (int i = 0; i < elements.size(); i++) {
-                if (o.equals(elements.get(i))) {
-                    return true;
-                } else {
-                    continue;
-                }
+    public boolean removeAll(Collection c) {
+        int count = 0;
+        for (Object o : c) {
+            if (contains(o)) {
+                remove(o);
+                count++;
             }
+        }
+        return count <= c.size();
+    }
 
+    @Override
+    public boolean contains(Object o) {
+
+        for (int i = 0; i < size; i++) {
+            if (o == null && elements[i] == null) {
+                return true;
+
+            } else if (elements[i] != null && elements[i].equals(o)) {
+                return true;
+            }
         }
         return false;
     }
@@ -70,20 +70,14 @@ public class SetC<E> implements Set {
 
     @Override
     public boolean containsAll(Collection c) {
-        int count = 0;
         if (!isEmpty()) {
-            for (E element : elements) {
-                for (Object o : c) {
-                    if (element.equals(o)) {
-                        count++;
-                    }
+            for (Object o : c) {
+                if (!contains(o)) {
+                    return false;
                 }
             }
-            if (count == c.size()) {
-                return true;
-            }
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -101,8 +95,12 @@ public class SetC<E> implements Set {
 
     @Override
     public String toString() {
+        StringJoiner joiner = new StringJoiner(", ", "[", "]");
 
-        return elements.toString();
+        for (int i = 0; i < size; i++) {
+            joiner.add(elements[i] == null ? "null" : elements[i].toString());
+        }
+        return joiner.toString();
     }
 
     @Override
@@ -129,7 +127,8 @@ public class SetC<E> implements Set {
 
     @Override
     public void clear() {
-
+        removeAll(Arrays.asList(elements));
+        size=0;
     }
 
     @Override

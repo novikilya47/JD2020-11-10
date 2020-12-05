@@ -28,7 +28,7 @@ public class ListB<E> implements List<E> {
     @Override
     public boolean addAll(Collection<? extends E> c) {
 
-        if (size + 1 == elements.length) {
+        if (size+1 >= elements.length) {
             elements = Arrays.copyOf(elements, elements.length * 3 / 2 + c.size());
         }
         for (E e : c) {
@@ -83,12 +83,30 @@ public class ListB<E> implements List<E> {
 
     @Override
     public boolean contains(Object o) {
-        for (E element : elements) {
-            if(element==o){
-                return true;
+        if (o == null) {
+            for (E element : elements) {
+                if (element == null) {
+                    return true;
+                }
+            }
+        } else {
+            for (E element : elements) {
+                if (element!=null && element.equals(o)) {
+                    return true;
+                }
             }
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 
     @Override
