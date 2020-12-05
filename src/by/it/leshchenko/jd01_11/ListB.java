@@ -5,7 +5,7 @@ import java.util.*;
 public class ListB<E> implements List<E> {
 
     @SuppressWarnings("unchecked")
-    private E[] elements = (E[]) new Object[0];
+    private E[] elements = (E[]) new Object[]{};
     private int size = 0;
 
     @Override
@@ -22,7 +22,7 @@ public class ListB<E> implements List<E> {
         E element = elements[index];
         System.arraycopy(elements, index + 1, elements, index, size - index - 1);
         size--;
-        elements[size] = null; // for GC
+        elements[size] = null;
         return element;
     }
 
@@ -81,6 +81,8 @@ public class ListB<E> implements List<E> {
         sb.append("]");
         return sb.toString();
     }
+
+    // stubs
 
     @Override
     public int size() {

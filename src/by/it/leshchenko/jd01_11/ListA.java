@@ -5,7 +5,7 @@ import java.util.*;
 public class ListA<E> implements List<E> {
 
     @SuppressWarnings("unchecked")
-    private E[] elements = (E[]) new Object[0];
+    private E[] elements = (E[]) new Object[]{};
     private int size = 0;
 
     @Override
