@@ -148,7 +148,7 @@ public class Test_jd01_11 extends HomeWork {
                 fail(message+"\n+!a.contains("+i+")\nexpected:"+e.toString()+")\nactual:"+a.toString());
             }
         }
-    };
+    }
 
     @Test(timeout = 1500)
     public void testTaskC__SetC() throws Exception {

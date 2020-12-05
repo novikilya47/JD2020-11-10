@@ -1,14 +1,26 @@
 package by.it.plehanova.jd01_11;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+
 
 public class Runner {
     public static void main(String[] args) {
-        List<String> arrList = new ArrayList<>();
+        ArrayList<String> arrList = new ArrayList<>();
         List<String> myAList = new ListA<>();
         List<String> myBList = new ListB<>();
+        HashSet hs = new HashSet();
 
+        hs.add("One");
+        hs.add("Two");
+        hs.add("Three");
+        hs.add("Four");
+        hs.add("Five");
+
+        System.out.println(hs);
+
+        System.out.println("====================================================");
         arrList.add("One");
         arrList.add("Two");
         arrList.add("Three");
@@ -42,5 +54,17 @@ public class Runner {
 
         String s = myBList.set(2, "Hello");
         System.out.println("\nmyBList: " + myBList + "   " + s);
+
+        SetC<Short> number = new SetC<>();
+        number.add(3);
+        number.add(4);
+        number.add(5);
+        number.add(6);
+        boolean check = number.contains(7);
+
+        number.addAll(number);
+        System.out.println(number + "   " + check);
+
+
     }
 }

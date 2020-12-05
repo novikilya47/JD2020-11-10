@@ -3,7 +3,7 @@ package by.it.plehanova.jd01_11;
 import java.util.*;
 
 public class ListB<E> implements List<E> {
-    private E[] elements = (E[]) new Object[0];
+    private E[] elements = (E[]) new Object[]{};
     private int size = 0;
 
     @Override
@@ -19,19 +19,22 @@ public class ListB<E> implements List<E> {
     public void add(int index, E element) {
         if (size == elements.length) {
             elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
-            System.arraycopy(elements, index, elements, index + 1, size - index);
         }
+        System.arraycopy(elements, index, elements, index + 1, size - index);
         elements[index] = element;
         size++;
     }
 
     @Override
     public boolean addAll(Collection<? extends E> c) {
-        if (size == elements.length) {
+
+        if (size + 1 == elements.length) {
             elements = Arrays.copyOf(elements, elements.length * 3 / 2 + c.size());
         }
-        System.arraycopy(c, 0, elements, size + 1, c.size());
-        size = size + c.size();
+        for (E e : c) {
+            elements[size] = e;
+            size++;
+        }
         return true;
     }
 
@@ -58,10 +61,10 @@ public class ListB<E> implements List<E> {
 
     @Override
     public String toString() {
-        StringJoiner joiner = new StringJoiner(", ","[","]");
+        StringJoiner joiner = new StringJoiner(", ", "[", "]");
 
         for (int i = 0; i < size; i++) {
-            joiner.add(elements[i].toString());
+            joiner.add(elements[i] == null ? "null" : elements[i].toString());
         }
         return joiner.toString();
     }
@@ -70,7 +73,7 @@ public class ListB<E> implements List<E> {
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
@@ -80,6 +83,11 @@ public class ListB<E> implements List<E> {
 
     @Override
     public boolean contains(Object o) {
+        for (E element : elements) {
+            if(element==o){
+                return true;
+            }
+        }
         return false;
     }
 
