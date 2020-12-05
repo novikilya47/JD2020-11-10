@@ -126,7 +126,7 @@ public class SetC<E> implements Set {
 
     @Override
     public void clear() {
-        elements = (E[]) new Object[0];
+        Arrays.fill(elements,null);
         size = 0;
     }
 
