@@ -1,4 +1,4 @@
-package by.it.evstratov.calculatorTmp;
+package by.it.evstratov.calc;
 
 abstract class Var implements Operation {
 
@@ -38,7 +38,6 @@ abstract class Var implements Operation {
          System.out.printf("Operation %s / %s not found\n", this, other);
          return null;
      }
-
 
     @Override
     public String toString() {
