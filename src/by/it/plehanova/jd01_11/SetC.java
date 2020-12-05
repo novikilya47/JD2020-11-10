@@ -8,7 +8,6 @@ public class SetC<E> implements Set {
 
     @Override
     public boolean add(Object o) {
-
         if (!contains(o)) {
             if (size == elements.length) {
                 elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
