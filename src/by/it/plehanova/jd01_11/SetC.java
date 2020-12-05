@@ -127,8 +127,8 @@ public class SetC<E> implements Set {
 
     @Override
     public void clear() {
-        removeAll(Arrays.asList(elements));
-        size=0;
+        elements = (E[]) new Object[0];
+        size = 0;
     }
 
     @Override
