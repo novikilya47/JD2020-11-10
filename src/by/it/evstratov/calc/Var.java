@@ -12,6 +12,12 @@ abstract class Var implements Operation {
         return var;
     }
 
+    static void printVar(){
+        for(Map.Entry entry: vars.entrySet()){
+            System.out.printf("%s=%s\n",entry.getKey(),entry.getValue().toString());
+        }
+    }
+
     public static Var createVar(String strVar) {
 
         if (strVar.matches(Patterns.SCALAR)){

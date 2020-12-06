@@ -14,6 +14,8 @@ public class ConsoleRunner {
             String expression = scanner.nextLine();
             if(expression.equals("end")){
                 break;
+            }else if(expression.equals("printvar")){
+                Var.printVar();
             }
             Var result = parser.calc(expression);
             printer.print(result);
