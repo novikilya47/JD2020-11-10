@@ -7,5 +7,5 @@ public interface Patterns {
     String MATRIX = "\\{"+VECTOR+"(," + VECTOR +")*}";
 
 
-    String OPERATION = "[-+*/]";
+    String OPERATION = "[-=+*/]";
 }

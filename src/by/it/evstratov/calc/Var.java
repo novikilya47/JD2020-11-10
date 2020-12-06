@@ -1,6 +1,16 @@
 package by.it.evstratov.calc;
 
+import java.util.HashMap;
+import java.util.Map;
+
 abstract class Var implements Operation {
+
+    private static Map<String, Var> vars = new HashMap<>();
+
+    static Var saveVar(String name, Var var){
+        vars.put(name, var);
+        return var;
+    }
 
     public static Var createVar(String strVar) {
 
@@ -10,8 +20,10 @@ abstract class Var implements Operation {
             return new Vector(strVar);
         }else if(strVar.matches(Patterns.MATRIX)){
             return new Matrix(strVar);
+        }else if(vars.containsKey(strVar)){
+            return vars.get(strVar);
         }else{
-            return null; //exception
+            return null;
         }
     }
 

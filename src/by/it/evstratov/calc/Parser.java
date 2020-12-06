@@ -10,12 +10,16 @@ public class Parser {
 
         expression = expression.replaceAll("\\s","");
         String[] part = expression.split(Patterns.OPERATION, 2);
+
         if(part.length < 2){
             return Var.createVar(expression);
         }
 
-        Var left = Var.createVar(part[0]);
         Var right = Var.createVar(part[1]);
+        if(expression.contains("=")){
+            return Var.saveVar(part[0], right);
+        }
+        Var left = Var.createVar(part[0]);
 
         if(Objects.nonNull(left) && Objects.nonNull(right)){
             Pattern compile = Pattern.compile(Patterns.OPERATION);
