@@ -27,81 +27,115 @@ class Vector extends Var {
     }
 
     @Override
-    public Var add(Var other) {
-        if (other instanceof Scalar){
-            double otherValue = ((Scalar) other).getValue();
-            double[] arr = Arrays.copyOf(value, value.length);
-            for (int i = 0; i < arr.length; i++) {
-                arr[i]+=otherValue;
-            }
-            return new Vector(arr);
+    public Var add(Scalar scalar) {
+        double otherValue = scalar.getValue();
+        double[] arr = Arrays.copyOf(value, value.length);
+        for (int i = 0; i < arr.length; i++) {
+            arr[i]+=otherValue;
         }
-        else if (other instanceof Vector){
-            double[] arr = Arrays.copyOf(value, value.length);
-            for (int i = 0; i < arr.length; i++) {
-                arr[i]+=((Vector) other).value[i];
-            }
-            return new Vector(arr);
-        }
-        return super.add(other);
+        return new Vector(arr);
     }
 
     @Override
-    public Var sub(Var other) {
-        if(other instanceof Scalar){
-            return this.add(new Scalar(-1).mul(other));
-        }else if(other instanceof Vector){
-            if(this.value.length == ((Vector) other).value.length){
-                return this.add(new Vector((Vector) other.mul(new Scalar(-1))));
-            }else{
-                System.out.println("Вектора разной длинны");
-                return null;
-            }
+    public Var add(Vector vector) {
+        double[] arr = Arrays.copyOf(value, value.length);
+        for (int i = 0; i < arr.length; i++) {
+            arr[i]+=vector.value[i];
+        }
+        return new Vector(arr);
+    }
+
+    @Override
+    public Var add(Matrix matrix) {
+        return super.add(matrix);
+    }
+
+    @Override
+    public Var div(Scalar scalar) {
+        if (scalar.getValue()==0){
+            System.out.println("Division by zero");
+            return null; //stub
         }else{
-            return super.sub(other);
-        }
-    }
-
-    @Override
-    public Var mul(Var other) {
-        if(other instanceof Scalar){
             double[] res = Arrays.copyOf(value, value.length);
             for (int i = 0; i < res.length; i++) {
-                res[i] = res[i] * ((Scalar) other).getValue();
+                res[i] = res[i] / scalar.getValue();
             }
             return new Vector(res);
-        }else if(other instanceof Vector){
-            if(this.value.length == ((Vector) other).value.length){
-                double res = 0;
-                for (int j = 0; j < this.value.length; j++) {
-                    res = res + ((Vector) other).value[j] * this.value[j];
-                }
-                return new Scalar(res);
-            }else{
-                System.out.println("Вектора разной длинны");
-                return null;
-            }
-        }else{
-            return other.mul(this);
         }
     }
 
     @Override
-    public Var div(Var other) {
-        if(other instanceof Scalar){
-            if (((Scalar) other).getValue()==0){
-                System.out.println("Division by zero");
-                return null; //stub
-            }else{
-                double[] res = Arrays.copyOf(value, value.length);
-                for (int i = 0; i < res.length; i++) {
-                    res[i] = res[i] / ((Scalar) other).getValue();
-                }
-                return new Vector(res);
-            }
-        }else{
-            return super.div(other);
+    public Var div(Vector vector) {
+        return super.div(vector);
+    }
+
+    @Override
+    public Var div(Matrix matrix) {
+        return super.div(matrix);
+    }
+
+    @Override
+    public Var mul(Scalar scalar) {
+        double[] res = Arrays.copyOf(value, value.length);
+        for (int i = 0; i < res.length; i++) {
+            res[i] = res[i] * scalar.getValue();
         }
+        return new Vector(res);
+    }
+
+    @Override
+    public Var mul(Vector vector) {
+        if(this.value.length == vector.value.length){
+            double res = 0;
+            for (int j = 0; j < this.value.length; j++) {
+                res = res + vector.value[j] * this.value[j];
+            }
+            return new Scalar(res);
+        }else{
+            System.out.println("Вектора разной длинны");
+            return null;
+        }
+    }
+
+    @Override
+    public Var mul(Matrix matrix) {
+        return matrix.mul(this);
+    }
+
+    @Override
+    public Var sub(Scalar scalar) {
+        return this.add((Scalar) new Scalar(-1).mul(scalar));
+    }
+
+    @Override
+    public Var sub(Vector vector) {
+        if(this.value.length == vector.value.length){
+            return this.add(new Vector((Vector) vector.mul(new Scalar(-1))));
+        }else{
+            System.out.println("Вектора разной длинны");
+            return null;
+        }
+    }
+
+    @Override
+    public Var sub(Matrix matrix) {
+        return super.sub(matrix);
+    }
+
+    public Var addWidth(Var var){
+        return var.add(this);
+    }
+
+    public Var mulWidth(Var var){
+        return var.mul(this);
+    }
+
+    public Var divWidth(Var var){
+        return var.div(this);
+    }
+
+    public Var subWidth(Var var){
+        return var.sub(this);
     }
 
     public double[] getValue() {

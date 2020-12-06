@@ -1,10 +1,11 @@
 package by.it.evstratov.calc;
 
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-abstract class Var implements Operation {
+abstract class Var implements OperationAdd, OperationDiv, OperationMul, OperationSub {
 
     private static Map<String, Var> vars = new HashMap<>();
 
@@ -37,33 +38,89 @@ abstract class Var implements Operation {
         }else if(vars.containsKey(strVar)){
             return vars.get(strVar);
         }else{
-            return null;
+            return null; //exception
         }
     }
 
     @Override
-     public Var add(Var other) {
-         System.out.printf("Operation %s + %s not found\n", this, other);
-         return null;
-     }
+    public Var add(Scalar scalar) {
+        System.out.printf("Operation %s + %s not found\n", this, scalar);
+        return null;
+    }
 
-     @Override
-     public Var sub(Var other) {
-         System.out.printf("Operation %s - %s not found\n", this, other);
-         return null;
-     }
+    @Override
+    public Var add(Vector vector) {
+        System.out.printf("Operation %s + %s not found\n", this, vector);
+        return null;
+    }
 
-     @Override
-     public Var mul(Var other) {
-         System.out.printf("Operation %s * %s not found\n", this, other);
-         return null;
-     }
+    @Override
+    public Var add(Matrix matrix) {
+        System.out.printf("Operation %s + %s not found\n", this, matrix);
+        return null;
+    }
 
-     @Override
-     public Var div(Var other) {
-         System.out.printf("Operation %s / %s not found\n", this, other);
-         return null;
-     }
+    @Override
+    public Var div(Scalar scalar) {
+        System.out.printf("Operation %s + %s not found\n", this, scalar);
+        return null;
+    }
+
+    @Override
+    public Var div(Vector vector) {
+        System.out.printf("Operation %s + %s not found\n", this, vector);
+        return null;
+    }
+
+    @Override
+    public Var div(Matrix matrix) {
+        System.out.printf("Operation %s + %s not found\n", this, matrix);
+        return null;
+    }
+
+    @Override
+    public Var mul(Scalar scalar) {
+        System.out.printf("Operation %s + %s not found\n", this, scalar);
+        return null;
+    }
+
+    @Override
+    public Var mul(Vector vector) {
+        System.out.printf("Operation %s + %s not found\n", this, vector);
+        return null;
+    }
+
+    @Override
+    public Var mul(Matrix matrix) {
+        System.out.printf("Operation %s + %s not found\n", this, matrix);
+        return null;
+    }
+
+    @Override
+    public Var sub(Scalar scalar) {
+        System.out.printf("Operation %s + %s not found\n", this, scalar);
+        return null;
+    }
+
+    @Override
+    public Var sub(Vector vector) {
+        System.out.printf("Operation %s + %s not found\n", this, vector);
+        return null;
+    }
+
+    @Override
+    public Var sub(Matrix matrix) {
+        System.out.printf("Operation %s + %s not found\n", this, matrix);
+        return null;
+    }
+
+    public abstract Var addWidth(Var right);
+
+    public abstract Var subWidth(Var right);
+
+    public abstract Var mulWidth(Var right);
+
+    public abstract Var divWidth(Var right);
 
     @Override
     public String toString() {
