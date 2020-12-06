@@ -51,8 +51,15 @@ public class TaskB3 {
             people2.add(i+"");
         }
 
+        long start1 = System.nanoTime();
         System.out.println(process(people1));
+        long end1 = System.nanoTime();
+        System.out.println("Метод с ArrayList: "+(end1 - start1));
+
+        long start2 = System.nanoTime();
         System.out.println(process(people2));
+        long end2 = System.nanoTime();
+        System.out.println("Метод с LinkedList: "+(end2 - start2));
     }
     
 }
