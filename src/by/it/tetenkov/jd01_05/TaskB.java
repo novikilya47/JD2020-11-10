@@ -13,7 +13,7 @@ public class TaskB {
         double a = 0;
 
         for (x = -5.5; x < 2; x += 0.5) {
-            if (-2 < x / 2 && x / 2 < -1) {
+            if (-2 < x / 2 && x / 2 <= -1) {
                 a = log10(abs(sin(pow(x, 2)) + 2.74));
                 System.out.printf("При x/2=%f a=%f\n", x / 2, a);
             } else if (-1 < x / 2 && x / 2 < 0.2) {
