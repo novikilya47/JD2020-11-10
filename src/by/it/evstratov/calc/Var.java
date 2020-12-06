@@ -2,6 +2,7 @@ package by.it.evstratov.calc;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 abstract class Var implements Operation {
 
@@ -14,6 +15,13 @@ abstract class Var implements Operation {
 
     static void printVar(){
         for(Map.Entry entry: vars.entrySet()){
+            System.out.printf("%s=%s\n",entry.getKey(),entry.getValue().toString());
+        }
+    }
+
+    static void sortVar() {
+        Map<String, Var> treeMap = new TreeMap<>(vars);
+        for(Map.Entry entry: treeMap.entrySet()){
             System.out.printf("%s=%s\n",entry.getKey(),entry.getValue().toString());
         }
     }

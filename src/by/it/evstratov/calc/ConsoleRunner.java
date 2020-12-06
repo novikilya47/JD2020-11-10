@@ -16,6 +16,8 @@ public class ConsoleRunner {
                 break;
             }else if(expression.equals("printvar")){
                 Var.printVar();
+            }else if(expression.equals("sortvar")){
+                Var.sortVar();
             }
             Var result = parser.calc(expression);
             printer.print(result);
