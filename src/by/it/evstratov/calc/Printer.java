@@ -1,4 +1,4 @@
-package by.it.evstratov.calculatorTmp;
+package by.it.evstratov.calc;
 
 import java.util.Objects;
 

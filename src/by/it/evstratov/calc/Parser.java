@@ -1,4 +1,4 @@
-package by.it.evstratov.calculator;
+package by.it.evstratov.calc;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -10,12 +10,16 @@ public class Parser {
 
         expression = expression.replaceAll("\\s","");
         String[] part = expression.split(Patterns.OPERATION, 2);
+
         if(part.length < 2){
             return Var.createVar(expression);
         }
 
-        Var left = Var.createVar(part[0]);
         Var right = Var.createVar(part[1]);
+        if(expression.contains("=")){
+            return Var.saveVar(part[0], right);
+        }
+        Var left = Var.createVar(part[0]);
 
         if(Objects.nonNull(left) && Objects.nonNull(right)){
             Pattern compile = Pattern.compile(Patterns.OPERATION);
@@ -23,10 +27,10 @@ public class Parser {
             if(matcher.find()){
                 String operation = matcher.group();
                 switch (operation){
-                    case "+" : return left.add(right);
-                    case "-" : return left.sub(right);
-                    case "*" : return left.mul(right);
-                    case "/" : return left.div(right);
+                    case "+" : return left.addWidth(right);
+                    case "-" : return left.subWidth(right);
+                    case "*" : return left.mulWidth(right);
+                    case "/" : return left.divWidth(right);
                 }
             }
         }

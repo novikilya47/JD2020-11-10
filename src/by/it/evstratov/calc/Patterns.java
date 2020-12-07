@@ -1,4 +1,4 @@
-package by.it.evstratov.calculator;
+package by.it.evstratov.calc;
 
 public interface Patterns {
 
@@ -7,5 +7,5 @@ public interface Patterns {
     String MATRIX = "\\{"+VECTOR+"(," + VECTOR +")*}";
 
 
-    String OPERATION = "[-+*/]";
+    String OPERATION = "[-=+*/]";
 }

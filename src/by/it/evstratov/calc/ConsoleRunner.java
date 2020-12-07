@@ -1,4 +1,4 @@
-package by.it.evstratov.calculator;
+package by.it.evstratov.calc;
 
 import java.util.Scanner;
 
@@ -14,6 +14,10 @@ public class ConsoleRunner {
             String expression = scanner.nextLine();
             if(expression.equals("end")){
                 break;
+            }else if(expression.equals("printvar")){
+                Var.printVar();
+            }else if(expression.equals("sortvar")){
+                Var.sortVar();
             }
             Var result = parser.calc(expression);
             printer.print(result);
