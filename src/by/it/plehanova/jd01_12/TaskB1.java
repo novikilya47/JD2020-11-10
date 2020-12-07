@@ -17,7 +17,6 @@ public class TaskB1 {
             if(text.equals("end")){
                 break;
             }
-
             if (map.containsKey(text)) {
                 map.computeIfPresent(text, (k,v) -> v+1);
             } else {
