@@ -1,5 +1,6 @@
 package by.it.plehanova.jd01_12;
 
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -30,24 +31,13 @@ public class TaskC2 {
     private static Set<Number> getUnion(Set<Number>... set) {
         HashSet<Number> result = new HashSet<>();
         for (int i = 0; i < set.length; i++) {
-            Type t = set[i].getClass();
-            if (t == Double.class) {
-                result.addAll(set[i]);
-            } else {
-                result.addAll(parse(set[i]));
-            }
+            result.addAll(parse(set[i]));
         }
         return result;
     }
 
     private static Set<Number> getCross(Set<Number>... set) {
-        HashSet<Number> result = new HashSet<>();
-        Type t = set[0].getClass();
-        if (t == Double.class) {
-            result.addAll(set[0]);
-        }else{
-            result.addAll(parse(set[0]));
-        }
+        HashSet<Number> result = new HashSet<>(parse(set[0]));
         for (int i = 1; i < set.length; i++) {
             result.retainAll(parse(set[i]));
         }
