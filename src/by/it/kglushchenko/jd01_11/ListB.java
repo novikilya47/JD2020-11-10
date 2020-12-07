@@ -10,8 +10,6 @@ public class ListB<E> implements List<E> {
 
     private int size=0;
 
-    ArrayList<String> test = new ArrayList<>();
-
 
     /**
      * Appends the specified element to the end of this list (optional
@@ -37,10 +35,10 @@ public class ListB<E> implements List<E> {
      */
     @Override
     public boolean add(E e) {
-        if(size==elements.length) {
+        if (size == elements.length) {
             elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
         }
-        elements[size++]=e;
+        elements[size++] = e;
         return true;
     }
 
@@ -65,7 +63,12 @@ public class ListB<E> implements List<E> {
      */
     @Override
     public void add(int index, E element) {
-       // E element = elements[index];
+        if (size == elements.length) {
+            elements = Arrays.copyOf(elements, size * 3 / 2 + 1);
+        }
+        System.arraycopy(elements, index, elements, index + 1, size - index);
+        elements[index] = element;
+        size++;
     }
 
     /**
@@ -122,46 +125,41 @@ public class ListB<E> implements List<E> {
      * @throws IndexOutOfBoundsException     if the index is out of range
      *                                       ({@code index < 0 || index >= size()})
      */
+
     @Override
     public E set(int index, E element) {
-        //
-        return null;
+        E e = elements[index];
+        elements[index] = element;
+        return e;
     }
 
-    /**
-     * Appends all of the elements in the specified collection to the end of
-     * this list, in the order that they are returned by the specified
-     * collection's iterator (optional operation).  The behavior of this
-     * operation is undefined if the specified collection is modified while
-     * the operation is in progress.  (Note that this will occur if the
-     * specified collection is this list, and it's nonempty.)
-     *
-     * @param c collection containing elements to be added to this list
-     * @return {@code true} if this list changed as a result of the call
-     * @throws UnsupportedOperationException if the {@code addAll} operation
-     *                                       is not supported by this list
-     * @throws ClassCastException            if the class of an element of the specified
-     *                                       collection prevents it from being added to this list
-     * @throws NullPointerException          if the specified collection contains one
-     *                                       or more null elements and this list does not permit null
-     *                                       elements, or if the specified collection is null
-     * @throws IllegalArgumentException      if some property of an element of the
-     *                                       specified collection prevents it from being added to this list
-     * @see #add(Object)
-     */
+
     @Override
     public boolean addAll(Collection<? extends E> c) {
-        //
+
+        E[] cArr = (E[]) c.toArray();
+        for (E e : cArr) {
+            System.out.println(e);
+            if (size == elements.length) {
+                elements = Arrays.copyOf(elements, size * 3 / 2 + 1);
+            }
+            elements[size++] = e;
+
+        }
         return false;
     }
 
+
     @Override
     public String toString() {
-        StringJoiner joiner = new StringJoiner(", ", "[", "]");
+        StringBuilder sb = new StringBuilder("[");
+        String delimiter = "";
         for (int i = 0; i < size; i++) {
-            joiner.add(elements[i].toString());
+            sb.append(delimiter).append(elements[i]);
+            delimiter = ", ";
         }
-        return joiner.toString();
+        sb.append("]");
+        return sb.toString();
     }
 
     //

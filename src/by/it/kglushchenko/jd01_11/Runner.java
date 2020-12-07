@@ -1,6 +1,7 @@
 package by.it.kglushchenko.jd01_11;
 
 import java.util.List;
+import java.util.Set;
 
 public class Runner {
     public static void main(String[] args) {
@@ -23,5 +24,12 @@ public class Runner {
         listb.remove(3);
         System.out.println(listb);
 
+        Set<String> listc = new SetC<>();
+        listc.add("eniki");
+        listc.add("beniki");
+        listc.add("yeli");
+        listc.add("vareniki");
+        listc.add(".");
+        //System.out.println(listc);
     }
 }
