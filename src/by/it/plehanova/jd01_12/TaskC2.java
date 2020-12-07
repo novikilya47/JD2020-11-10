@@ -1,5 +1,6 @@
 package by.it.plehanova.jd01_12;
 
+import java.lang.reflect.Type;
 import java.util.*;
 
 public class TaskC2 {
@@ -15,9 +16,9 @@ public class TaskC2 {
         TreeSet<Number> treeSet = new TreeSet<>(doubles);
         LinkedHashSet<Number> linkedSet = new LinkedHashSet<>(longs);
 
-        System.out.printf("hashset=%s\n" , hashSet);
-        System.out.printf("treeSet=%s\n" , treeSet);
-        System.out.printf("linkedSet=%s\n" , linkedSet);
+        System.out.printf("hashset=%s\n", hashSet);
+        System.out.printf("treeSet=%s\n", treeSet);
+        System.out.printf("linkedSet=%s\n", linkedSet);
 
         Set<Number> union = getUnion(hashSet, treeSet, linkedSet);
         System.out.printf("union=%s\n", union);
@@ -29,24 +30,34 @@ public class TaskC2 {
     private static Set<Number> getUnion(Set<Number>... set) {
         HashSet<Number> result = new HashSet<>();
         for (int i = 0; i < set.length; i++) {
-            result.addAll(parse(set[i]));
+            Type t = set[i].getClass();
+            if (t == Double.class) {
+                result.addAll(set[i]);
+            } else {
+                result.addAll(parse(set[i]));
+            }
         }
         return result;
     }
 
-    private static Set<Number> getCross(Set<Number>... set ) {
-        HashSet<Number> result = new HashSet<>(parse(set[0]));
-        for (int i = 0; i < set.length; i++) {
+    private static Set<Number> getCross(Set<Number>... set) {
+        HashSet<Number> result = new HashSet<>();
+        Type t = set[0].getClass();
+        if (t == Double.class) {
+            result.addAll(set[0]);
+        }else{
+            result.addAll(parse(set[0]));
+        }
+        for (int i = 1; i < set.length; i++) {
             result.retainAll(parse(set[i]));
         }
-
         return result;
     }
 
-    private static Set<Double> parse(Set<Number> set){
+    private static Set<Double> parse(Set<Number> set) {
         Set<Double> result = new TreeSet<>();
         Iterator<Number> iterator = set.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Number n = iterator.next();
             Double d = n.doubleValue();
             result.add(d);
