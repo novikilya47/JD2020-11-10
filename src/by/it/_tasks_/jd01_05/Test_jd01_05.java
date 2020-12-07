@@ -7,7 +7,7 @@ import org.junit.Test;
 @SuppressWarnings("all")
 
 //поставьте курсор на следующую строку и нажмите Ctrl+Shift+F10
-public class Test_jd01_05  extends HomeWork {
+public class Test_jd01_05 extends HomeWork {
 
     @Test(timeout = 5000)
     public void testTaskA1__TaskA() throws Exception {

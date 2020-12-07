@@ -6,10 +6,8 @@ public class Run2 {
     public static void main(String[] args) {
         String line = "2 1 3 0.5 0.1 85 68 15 9 -0.5";
         double[] array=Helper.printLine(line);
-        //System.out.println(Arrays.toString(array));
         Helper.findMin(array);
         Helper.findMax(array);
-       // Helper.sort1(array);
         Helper.sort(array);
         System.out.println(Arrays.toString(array));
     }
