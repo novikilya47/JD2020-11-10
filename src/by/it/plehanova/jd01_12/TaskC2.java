@@ -27,8 +27,8 @@ public class TaskC2 {
     }
 
     private static Set<Number> getUnion(Set<Number>... set) {
-        HashSet<Number> result = new HashSet<>(parse(set[0]));
-        for (int i = 1; i < set.length; i++) {
+        HashSet<Number> result = new HashSet<>();
+        for (int i = 0; i < set.length; i++) {
             result.addAll(parse(set[i]));
         }
         return result;
