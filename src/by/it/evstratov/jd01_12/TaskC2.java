@@ -29,10 +29,20 @@ public class TaskC2 {
     private static Set<?> getCross(Set<? extends Number>... sets){
         Set<Number> result = new TreeSet<>(new Comparator<Number>() {
             @Override
-            public int compare(Number number, Number t1) {
-                return 0;
+            public int compare(Number n1, Number n2) {
+                BigDecimal b1 = new BigDecimal(n1.doubleValue());
+                BigDecimal b2 = new BigDecimal(n2.doubleValue());
+                return b1.compareTo(b2);
             }
         });
+
+        for (Set<? extends Number> set : sets) {
+            Iterator<? extends Number> iterator = set.iterator();
+            while (iterator.hasNext()){
+                Number next = iterator.next();
+                result.add(next);
+            }
+        }
 
         return result;
     }
