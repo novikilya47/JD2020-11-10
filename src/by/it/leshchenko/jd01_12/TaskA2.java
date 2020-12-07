@@ -23,7 +23,7 @@ public class TaskA2 {
 
     private static Set<Integer> getCross(Set<Integer> set1, Set<Integer> set2) {
         HashSet<Integer> result = new HashSet<>(set1);
-        Iterator<Integer> iterator = result.iterator();
+//        Iterator<Integer> iterator = result.iterator();
 //        while (iterator.hasNext()) {
 //            Integer integer = iterator.next();
 //            if (!set2.contains(integer)) {

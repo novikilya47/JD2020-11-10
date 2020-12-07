@@ -21,7 +21,7 @@ public class TaskA1 {
     }
 
     @SuppressWarnings("Java8CollectionRemoveIf")
-    void clearBad(List<Integer> grades) {
+    private void clearBad(List<Integer> grades) {
         Iterator<Integer> iterator = grades.iterator();
         while (iterator.hasNext()) {
             Integer v = iterator.next();
@@ -30,4 +30,8 @@ public class TaskA1 {
             }
         }
     }
+
+//    private void clearBad(List<Integer> grades) {
+//        grades.removeIf(v -> v < 4);
+//    }
 }
