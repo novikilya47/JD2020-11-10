@@ -1,9 +1,6 @@
 package by.it.evstratov.jd01_11;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class SetC<E> implements Set<E> {
 
@@ -101,17 +98,42 @@ public class SetC<E> implements Set<E> {
 
     @Override
     public boolean addAll(Collection<? extends E> collection) {
-        String[] col = ((collection.toString()).replaceAll("[{}\\[\\],]","")).split(" ");
-        if(size != 0){
-            for (int i = 0; i < col.length; i++) {
-                if(!contains(col[i])){
-                    add((E)col[i]);
-                }
-            }
-            return true;
-        }else{
-            return false;
+        boolean modified = false;
+        for (E e : collection){
+            if (add(e)) modified = true;
         }
+        return modified;
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> collection) {
+        boolean modified = true;
+        for (Object o : collection) {
+            if(!contains(o)){
+                modified = false;
+            }
+        }
+        return modified;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> collection) {
+        boolean modified = false;
+        for (Object o : collection) {
+            if(contains(o)){
+                remove(o);
+                modified = true;
+            }
+        }
+        return modified;
+    }
+
+    @Override
+    public void clear() {
+        for (E element : elements) {
+            remove(element);
+        }
+        size = 0;
     }
 
     @Override
@@ -130,22 +152,7 @@ public class SetC<E> implements Set<E> {
     }
 
     @Override
-    public boolean containsAll(Collection<?> collection) {
-        return false;
-    }
-
-    @Override
     public boolean retainAll(Collection<?> collection) {
         return false;
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> collection) {
-        return false;
-    }
-
-    @Override
-    public void clear() {
-
     }
 }

@@ -12,6 +12,8 @@ public class Runner {
 
         Set<String> set1 = new SetC<>();
         Set<String> set2 = new SetC<>();
+        Set<String> set3 = new HashSet<>();
+        set3.add(null);
         set2.add("3");
         set2.add(null);
         set2.add("null");
