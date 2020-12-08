@@ -52,7 +52,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var add(Matrix matrix) {
+    public Var add(Matrix matrix) throws CalcException {
         if(this.value.length == matrix.value.length && this.value[0].length == matrix.value[0].length){
             double[][] res = new double[this.value.length][];
             for (int i = 0; i < res.length; i++) {
@@ -65,8 +65,7 @@ class Matrix extends Var {
             }
             return new Matrix(res);
         }else{
-            System.out.println("Матрицы разных размеров");
-            return null;
+            throw new CalcException(this+ "и "+matrix+" разных размеров");
         }
     }
 
@@ -98,7 +97,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var mul(Vector vector) {
+    public Var mul(Vector vector) throws CalcException {
         if(this.value[0].length == vector.getValue().length){
             double[] result = new double[this.value.length];
             for (int i = 0; i < this.value.length; i++) {
@@ -108,13 +107,12 @@ class Matrix extends Var {
             }
             return new Vector(result);
         }else{
-            System.out.println("Матрица и вектор разных размеров");
-            return null;
+            throw new CalcException(this+ "и "+vector+" разных размеров");
         }
     }
 
     @Override
-    public Var mul(Matrix matrix) {
+    public Var mul(Matrix matrix) throws CalcException {
         if(this.value[0].length == matrix.value.length){
             double[][] res = new double[this.value.length][matrix.value[0].length];
             for (int i = 0; i < this.value.length; i++) {
@@ -126,8 +124,7 @@ class Matrix extends Var {
             }
             return new Matrix(res);
         }else{
-            System.out.println("Матрицы разных размеров");
-            return null;
+            throw new CalcException(this+ "и "+matrix+" разных размеров");
         }
     }
 
@@ -142,12 +139,11 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var sub(Matrix matrix) {
+    public Var sub(Matrix matrix) throws CalcException {
         if(this.value.length == matrix.value.length && this.value[0].length == matrix.value[0].length){
             return this.add(new Matrix((Matrix) matrix.mul(new Scalar(-1))));
         }else{
-            System.out.println("Матрицы разных размеров");
-            return null;
+            throw new CalcException(this+ "и "+matrix+" разных размеров");
         }
     }
 

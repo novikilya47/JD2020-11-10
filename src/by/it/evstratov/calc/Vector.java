@@ -51,10 +51,9 @@ class Vector extends Var {
     }
 
     @Override
-    public Var div(Scalar scalar) {
+    public Var div(Scalar scalar) throws CalcException {
         if (scalar.getValue()==0){
-            System.out.println("Division by zero");
-            return null; //stub
+            throw new CalcException("Деление на 0");
         }else{
             double[] res = Arrays.copyOf(value, value.length);
             for (int i = 0; i < res.length; i++) {
@@ -84,7 +83,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var mul(Vector vector) {
+    public Var mul(Vector vector) throws CalcException {
         if(this.value.length == vector.value.length){
             double res = 0;
             for (int j = 0; j < this.value.length; j++) {
@@ -92,13 +91,12 @@ class Vector extends Var {
             }
             return new Scalar(res);
         }else{
-            System.out.println("Вектора разной длинны");
-            return null;
+            throw new CalcException(this+ "и "+vector+" разных длинны");
         }
     }
 
     @Override
-    public Var mul(Matrix matrix) {
+    public Var mul(Matrix matrix) throws CalcException {
         return matrix.mul(this);
     }
 
@@ -108,12 +106,11 @@ class Vector extends Var {
     }
 
     @Override
-    public Var sub(Vector vector) {
+    public Var sub(Vector vector) throws CalcException {
         if(this.value.length == vector.value.length){
             return this.add(new Vector((Vector) vector.mul(new Scalar(-1))));
         }else{
-            System.out.println("Вектора разной длинны");
-            return null;
+            throw new CalcException(this+ "и "+vector+" разных длинны");
         }
     }
 
