@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class  TaskA1 {
     public static void main(String[] args) {
         StringBuilder dynText = new StringBuilder(Poem.text);
-        Pattern pattern = Pattern.compile("[а-яА-яёЁ]{4,}");
+        Pattern pattern = Pattern.compile("[а-яА-ЯёЁ]{4,}");
         Matcher matcher= pattern.matcher(dynText);
         while (matcher.find()){
             int index=matcher.start();
