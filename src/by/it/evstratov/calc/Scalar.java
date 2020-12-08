@@ -33,11 +33,11 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var div(Scalar scalar) {
+    public Var div(Scalar scalar) throws CalcException{
         double otherValue = scalar.value;
         if (otherValue==0){
-            System.out.println("Division by zero");
-            return null; //stub
+            throw new CalcException("Деление на 0");
+
         }
         double result = this.value / otherValue;
         return new Scalar(result);
@@ -95,7 +95,7 @@ class Scalar extends Var {
         return var.mul(this);
     }
 
-    public Var divWidth(Var var){
+    public Var divWidth(Var var) throws CalcException {
         return var.div(this);
     }
 

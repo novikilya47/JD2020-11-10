@@ -27,21 +27,22 @@ public class TaskC2 {
     }
 
     private static Set<?> getCross(Set<? extends Number>... sets){
+
         Set<Number> result = new TreeSet<>(new Comparator<Number>() {
             @Override
             public int compare(Number n1, Number n2) {
-                BigDecimal b1 = new BigDecimal(n1.doubleValue());
-                BigDecimal b2 = new BigDecimal(n2.doubleValue());
-                return b1.compareTo(b2);
+                if(n1.longValue() == n2.longValue() && n1.doubleValue() == n2.doubleValue()){
+                    return 0;
+                }else if(n1.longValue() > n2.longValue() && n1.doubleValue() > n2.doubleValue()){
+                    return 1;
+                }else{
+                    return -1;
+                }
             }
         });
 
         for (Set<? extends Number> set : sets) {
-            Iterator<? extends Number> iterator = set.iterator();
-            while (iterator.hasNext()){
-                Number next = iterator.next();
-                result.add(next);
-            }
+            result.retainAll(set);
         }
 
         return result;

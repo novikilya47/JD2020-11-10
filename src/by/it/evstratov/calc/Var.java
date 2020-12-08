@@ -61,7 +61,7 @@ abstract class Var implements OperationAdd, OperationDiv, OperationMul, Operatio
     }
 
     @Override
-    public Var div(Scalar scalar) {
+    public Var div(Scalar scalar) throws CalcException {
         System.out.printf("Operation %s + %s not found\n", this, scalar);
         return null;
     }
@@ -120,7 +120,7 @@ abstract class Var implements OperationAdd, OperationDiv, OperationMul, Operatio
 
     public abstract Var mulWidth(Var right);
 
-    public abstract Var divWidth(Var right);
+    public abstract Var divWidth(Var right) throws CalcException;
 
     @Override
     public String toString() {
