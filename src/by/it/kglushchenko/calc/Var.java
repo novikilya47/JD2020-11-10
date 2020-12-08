@@ -8,24 +8,27 @@ import java.util.Set;
 
 abstract class Var implements Operation {
 
-    private static Map<String, Var> vars = new HashMap<>();
+    private static final Map<String, Var> variables = new HashMap<>(); //
+    // TreeMap - сортировка по ключам - String-> по алфавиту
+    // HashMap - сортировка по hash элементов
+    // LinkedHashMap - хранение в порядке заполнения
 
     // сохраняем пару ключ значение в карту
-    static Var saveVar(String name, Var var) {
-        vars.put(name, var);
-        return var;
+    static Var saveVar(String varName, Var varValue) {
+        variables.put(varName, varValue);
+        return varValue;
     }
 
     // Возвращаем все записи карты
-    public static void loadVar(){
-        if(!vars.isEmpty()){
+    public static void loadVar() {
+        if (!variables.isEmpty()) {
             //for (Map<String, Var> v: vars) {
-            Set<Map.Entry<String, Var>> setv = vars.entrySet();
+            Set<Map.Entry<String, Var>> setv = variables.entrySet();
             Iterator<Map.Entry<String, Var>> iterator = setv.iterator();
-            while(iterator.hasNext()){
+            while (iterator.hasNext()) {
                 //
                 Map.Entry<String, Var> me = iterator.next();
-                System.out.println(me.getKey()+"="+me.getValue());
+                System.out.println(me.getKey() + "=" + me.getValue());
             }
             //return
         }
@@ -38,34 +41,31 @@ abstract class Var implements Operation {
             return new Vector(strVar);
         } else if (strVar.matches(Patterns.MATRIX)) {
             return new Matrix(strVar);
-        } else if (vars.containsKey(strVar)) { // Если ввести A=9 в Map сохраняется пара ключ-значение
-            return vars.get(strVar);    // если ввести B=A А будет искаться, при условии что эта переменная была ранее создана
-        }
+        } else if (variables.containsKey(strVar)) { // Если ввести A=9 в Map сохраняется пара ключ-значение
+            return variables.get(strVar);    // если ввести B=A А будет искаться, при условии что эта переменная была ранее создана
+        }  // если переменная MAP содержит ключ strVar значит она существует, значит вернем ее значение
+
         return null; // exception
     }
 
     @Override
-    public Var add(Var other) {
-        System.out.printf("Operation %s + %s not found\n", this, other);
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new CalcException(String.format("Operation %s + %s not found\n", this, other));
     }
 
     @Override
-    public Var sub(Var other) {
-        System.out.printf("Operation %s - %s not found\n", this, other);
-        return null;
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException(String.format("Operation %s - %s not found\n", this, other));
     }
 
     @Override
-    public Var mul(Var other) {
-        System.out.printf("Operation %s * %s not found\n", this, other);
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException(String.format("Operation %s * %s not found\n", this, other));
     }
 
     @Override
-    public Var div(Var other) {
-        System.out.printf("Operation %s / %s not found\n", this, other);
-        return null;
+    public Var div(Var other) throws CalcException {
+        throw new CalcException(String.format("Operation %s / %s not found\n", this, other));
     }
 
     /**

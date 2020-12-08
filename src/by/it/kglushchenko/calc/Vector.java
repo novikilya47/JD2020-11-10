@@ -27,7 +27,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double otherValue = ((Scalar) other).getValue();
             double[] arr = Arrays.copyOf(this.value, this.value.length);
@@ -46,7 +46,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double otherValue = ((Scalar) other).getValue();
             double[] arr = Arrays.copyOf(this.value, this.value.length);
@@ -66,7 +66,7 @@ class Vector extends Var {
 
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double otherValue = ((Scalar) other).getValue();
             double[] arr = Arrays.copyOf(this.value, this.value.length);
@@ -77,23 +77,19 @@ class Vector extends Var {
         } else if (other instanceof Vector) {
             double[] arr = Arrays.copyOf(this.value, this.value.length);
             double res = 0;
-            //for (int i = 0; i < arr.length; i++) {
-            for(int i=0; i< this.value.length; i++){
-                //arr[i] *= ((Vector) other).value[i];
+            for (int i = 0; i < this.value.length; i++) {
                 res += this.value[i] * ((Vector) other).value[i];
             }
-            //return new Vector(arr);
             return new Scalar(res);
         }
         return super.mul(other);
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         if (other instanceof Scalar) {
             if (((Scalar) other).getValue() == 0) {
-                System.out.println("Division by zero");
-                return null;
+                throw new CalcException("Division by zero");
             }
             double[] arr = Arrays.copyOf(this.value, this.value.length);
             for (int i = 0; i < arr.length; i++) {

@@ -29,71 +29,48 @@ public class TaskB2 {
 
         //System.out.println(list1.indexOf(2));
 
-        process(list1);
-        process(list2);
+        System.out.println(process(list1));
+        System.out.println(process(list2));
 
-        int[] arr = {22,54,78};
-        try{
-            System.out.println(arr[4]);
-            int x=100/0;
-            //System.out.println(arr[4]);
-        }catch (ArithmeticException e){
-            System.out.println("Error " + e);
-        }
-//        try{
-//            System.out.println(arr[4]);
-//        }
-        catch (Exception e){
-            System.out.println("Error" + e);
-        }finally {
-            System.out.println("finally is working");
-        }
     }
 
     static String process(ArrayList<String> peoples) {
+        //Iterator<String> iterator = peoples.iterator();
         String result = ""; // имя счастливчика
         int second = 0;    // если элемент второй - его удаляем
         int index = 0;    // индекс элемента
         int size = peoples.size();
 
-        System.out.println("Size " + size);
 
-        for (; ; ) {
-            if (second == 1) {
-                peoples.remove(index);
-                size = peoples.size(); // обновляем размер списка
-                System.out.println("Size " + size); // отслеживаем размер списка
-                second = 0;
-                continue;
+//        for (; ; ) {
+//            if (second == 1) {
+//                peoples.remove(index);
+//                size = peoples.size(); // обновляем размер списка
+//                System.out.println("Size " + size); // отслеживаем размер списка
+//                second = 0;
+//                continue;
+//            }
+//
+        while (peoples.size() >1) {
+
+            Iterator<String> iterator = peoples.iterator();
+            while (iterator.hasNext()) {
+                iterator.next();
+                index++;
+                if (index % 2 == 0) {
+                    iterator.remove();
+                }
             }
-
-            second++;
-            System.out.println(peoples.get(index));
-
-            size = peoples.size(); // обновляем размер списка
-            System.out.println("Size " + size); // отслеживаем размер списка
-            System.out.println("Index "+ index);
-            //index++;
-            if (index == size-1 ){
-                index=0;
-                break;
-            }
-            index++;
         }
-        //peoples.remove();
-        return result;
+        return peoples.get(0);
     }
 
     static String process(LinkedList<String> peoples) {
+        //ListIterator<String> listIterator = peoples.listIterator(); // помещаем указатель в начало списка
         String result = " "; // имя счастливчика
         int second = 0;    // если элемент второй - его удаляем
         int index = 0;    // индекс элемента
-        // Displaying Elements before remove
-        System.out.println("Before Remove:");
-        for(String str: peoples){
-            System.out.println(str);
-        }
-        System.out.println();
+
 
 //        ListIterator<String> listIterator = peoples.listIterator(); // помещаем указатель в начало списка
         // peoples.descendingIterator() - обход с конца списка
@@ -106,13 +83,16 @@ public class TaskB2 {
 //         }
 //            System.out.println(listIterator.toString());
 
-//            second++;
-//        }
-
-        for(String str: peoples){
-            System.out.println(str);
+        while (peoples.size() >1) {
+            Iterator<String> iterator = peoples.iterator();
+            while (iterator.hasNext()) {
+                iterator.next();
+                index++;
+                if (index % 2 == 0) {
+                    iterator.remove();
+                }
+            }
         }
-        return result;
+        return peoples.get(0);
     }
-
 }

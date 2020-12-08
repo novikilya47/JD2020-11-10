@@ -5,16 +5,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
-    public Var calc(String expression){
+    public Var calc(String expression) throws CalcException {
         // 3 + 4
         // 7
         expression = expression.replaceAll("\\s+", ""); // заменяем группу [\n\t\f\r] пустыми строками
         String[] part = expression.split(Patterns.OPERATION, 2); //
-        // A=9
+
 
         if(part.length < 2){
             return Var.createVar(expression);
         }
+
+        // A=9
         Var right = Var.createVar(part[1]);
         if(expression.contains("=")){
             // в операнде 0 содержится имя переменной
