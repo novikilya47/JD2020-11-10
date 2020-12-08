@@ -5,17 +5,14 @@ import java.util.Scanner;
 
 public class TaskC {
 
-    static ArrayDeque<Double> arrayDeque = new ArrayDeque<>();
     static int errors = 0;
+    static Scanner scanner = new Scanner(System.in);
+    static ArrayDeque<Double> arrayDeque = new ArrayDeque<>();
 
-    static Scanner createScanner(){
-        return new Scanner(System.in);
-    }
-
-    static void readData(String line) throws InterruptedException{
+    static void readData() throws InterruptedException{
         double value = 0;
         try{
-            value = Double.parseDouble(line);
+            value = Double.parseDouble(scanner.nextLine());
             arrayDeque.add(value);
         }catch (NumberFormatException e){
             errors++;
@@ -33,10 +30,9 @@ public class TaskC {
 
     public static void main(String[] args) throws InterruptedException {
 
-        Scanner scanner = createScanner();
-
+        Scanner scanner = TaskC.scanner;
         while (true) {
-            readData(scanner.nextLine());
+            readData();
         }
 
     }
