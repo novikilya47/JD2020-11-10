@@ -47,7 +47,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var add(Vector vector) {
+    public Var add(Vector vector) throws CalcException {
         return super.add(vector);
     }
 
@@ -76,12 +76,12 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var div(Vector vector) {
+    public Var div(Vector vector) throws CalcException {
         return super.div(vector);
     }
 
     @Override
-    public Var div(Matrix matrix) {
+    public Var div(Matrix matrix) throws CalcException {
         return super.div(matrix);
     }
 
@@ -137,7 +137,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var sub(Vector vector) {
+    public Var sub(Vector vector) throws CalcException {
         return super.sub(vector);
     }
 
@@ -151,19 +151,19 @@ class Matrix extends Var {
         }
     }
 
-    public Var addWidth(Var var){
+    public Var addWidth(Var var) throws CalcException {
         return var.add(this);
     }
 
-    public Var mulWidth(Var var){
+    public Var mulWidth(Var var) throws CalcException {
         return var.mul(this);
     }
 
-    public Var divWidth(Var var){
+    public Var divWidth(Var var) throws CalcException {
         return var.div(this);
     }
 
-    public Var subWidth(Var var){
+    public Var subWidth(Var var) throws CalcException {
         return var.sub(this);
     }
 

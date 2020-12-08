@@ -28,18 +28,22 @@ public class TaskC2 {
 
     private static Set<?> getCross(Set<? extends Number>... sets){
 
+
         Set<Number> result = new TreeSet<>(new Comparator<Number>() {
             @Override
             public int compare(Number n1, Number n2) {
-                if(n1.longValue() == n2.longValue() && n1.doubleValue() == n2.doubleValue()){
+                if(n1.longValue() == n2.longValue() || n1.doubleValue() == n2.doubleValue()){
                     return 0;
-                }else if(n1.longValue() > n2.longValue() && n1.doubleValue() > n2.doubleValue()){
+                }else if(n1.longValue() > n2.longValue() || n1.doubleValue() > n2.doubleValue()){
                     return 1;
                 }else{
                     return -1;
                 }
             }
         });
+
+        result.addAll(sets[0]);
+
 
         for (Set<? extends Number> set : sets) {
             result.retainAll(set);

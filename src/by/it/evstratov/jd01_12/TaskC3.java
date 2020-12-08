@@ -3,10 +3,11 @@ package by.it.evstratov.jd01_12;
 import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class TaskC3 {
 
-    static void checkBrackets(String expression){
+    static boolean checkBrackets(String expression){
 
         ArrayDeque<Character> arrayDeque = new ArrayDeque<>();
         Map<Character, Integer> openBrackets = new HashMap<>();
@@ -32,18 +33,13 @@ public class TaskC3 {
                 }
             }
         }
-        if(arrayDeque.isEmpty()){
-            System.out.println(true);
-        }else{
-            System.out.println(false);
-        }
+        return arrayDeque.isEmpty();
 
     }
 
     public static void main(String[] args) {
 
-        String str = "{[{()}][()]{()))";
-        checkBrackets(str);
+        checkBrackets(new Scanner(System.in).nextLine());
 
     }
 

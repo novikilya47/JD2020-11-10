@@ -22,10 +22,10 @@ public class ConsoleRunner {
             Var result = null;
             try {
                 result = parser.calc(expression);
+                printer.print(result);
             } catch (CalcException e) {
                 e.printStackTrace();
             }
-            printer.print(result);
         }
     }
 
