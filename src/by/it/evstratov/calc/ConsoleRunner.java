@@ -23,7 +23,7 @@ public class ConsoleRunner {
                 Var result = parser.calc(expression);
                 printer.print(result);
             } catch (CalcException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
     }

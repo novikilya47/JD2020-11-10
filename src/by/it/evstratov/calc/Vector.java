@@ -37,12 +37,16 @@ class Vector extends Var {
     }
 
     @Override
-    public Var add(Vector vector) {
-        double[] arr = Arrays.copyOf(value, value.length);
-        for (int i = 0; i < arr.length; i++) {
-            arr[i]+=vector.value[i];
+    public Var add(Vector vector) throws CalcException {
+        if(this.value.length == vector.value.length){
+            double[] arr = Arrays.copyOf(value, value.length);
+            for (int i = 0; i < arr.length; i++) {
+                arr[i]+=vector.value[i];
+            }
+            return new Vector(arr);
+        }else{
+            throw new CalcException(this+ "и "+vector+" разных длинны");
         }
-        return new Vector(arr);
     }
 
     @Override

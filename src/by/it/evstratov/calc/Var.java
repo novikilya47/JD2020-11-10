@@ -64,7 +64,7 @@ abstract class Var implements OperationAdd, OperationDiv, OperationMul, Operatio
 
     @Override
     public Var div(Vector vector) throws CalcException{
-        throw new CalcException("Операция деления "+ this+" / "+vector+" невозможна");
+        throw new CalcException("Операция деления "+ vector+" / "+this+" невозможна");
     }
 
     @Override

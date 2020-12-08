@@ -35,10 +35,10 @@ class Scalar extends Var {
     @Override
     public Var div(Scalar scalar) throws CalcException{
         double otherValue = scalar.value;
-        if (this.value==0){
+        if (otherValue==0){
             throw new CalcException("Деление на 0");
         }
-        double result = otherValue / this.value;
+        double result = this.value / otherValue;
         return new Scalar(result);
     }
 
@@ -72,7 +72,7 @@ class Scalar extends Var {
     @Override
     public Var sub(Scalar scalar) {
         double otherValue = scalar.value;
-        double result = otherValue - this.value;
+        double result = this.value - otherValue;
         return new Scalar(result);
     }
 
