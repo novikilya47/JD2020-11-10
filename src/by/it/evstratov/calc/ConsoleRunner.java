@@ -19,7 +19,12 @@ public class ConsoleRunner {
             }else if(expression.equals("sortvar")){
                 Var.sortVar();
             }
-            Var result = parser.calc(expression);
+            Var result = null;
+            try {
+                result = parser.calc(expression);
+            } catch (CalcException e) {
+                e.printStackTrace();
+            }
             printer.print(result);
         }
     }

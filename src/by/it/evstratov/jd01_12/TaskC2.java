@@ -27,8 +27,8 @@ public class TaskC2 {
     }
 
     private static Set<?> getCross(Set<? extends Number>... sets){
-        Set<Number> result = new TreeSet<>();
-        Set<Number> allNumbers = new TreeSet<>(new Comparator<Number>() {
+
+        Set<Number> result = new TreeSet<>(new Comparator<Number>() {
             @Override
             public int compare(Number n1, Number n2) {
                 if(n1.longValue() == n2.longValue() && n1.doubleValue() == n2.doubleValue()){
@@ -42,13 +42,8 @@ public class TaskC2 {
         });
 
         for (Set<? extends Number> set : sets) {
-            Iterator<? extends Number> iterator = set.iterator();
-            while (iterator.hasNext()){
-                Number next = iterator.next();
-                allNumbers.add(next);
-            }
+            result.retainAll(set);
         }
-
 
         return result;
     }
