@@ -10,7 +10,7 @@ abstract class Var implements Operation {
         } else if (operand.matches(Patterns.MATRIX)) {
             return new Matrix(operand);
         } else {
-            return null;
+            return null; //TODO exeption
         }
     }
 
