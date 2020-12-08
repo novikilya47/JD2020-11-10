@@ -1,6 +1,7 @@
 package by.it.terentyev.jd01_11;
 
-import java.util.ArrayList;
+
+import java.util.Collections;
 import java.util.List;
 
 public class Runner {
@@ -13,9 +14,13 @@ public class Runner {
         list.add("Five");
         System.out.println(list);
         list.remove(2);
+        list.set(3,"Seven");
         System.out.println(list);
-        list.set(2, "Six");
+        list.add(3, "Six");
         System.out.println(list);
+        //list.addAll(2, Collections.singleton("Six","All", "Nine",));
+        System.out.println(list);
+
 
     }
 }

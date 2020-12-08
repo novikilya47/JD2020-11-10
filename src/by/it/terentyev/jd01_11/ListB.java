@@ -43,20 +43,21 @@ public class ListB<E> implements List <E> {
 
     @Override
     public E set(int index, E element) {
-        //11 22 44 55 null null null // index = 3 size = 4 length = 6
-        //E element=elements[index];
-        if (size <= elements.length) {
-            elements=Arrays.copyOf(elements,elements.length*3/2+1);
-        }
-        size++;
-       System.arraycopy(elements, index, elements,index+1, size-index);
-        elements[index]=element;
-        return element;
+            E reElement=elements[index];
+            elements[index]=element;
+        return reElement;
     }
 
     @Override
     public void add(int index, E element) {
-
+        if (size == elements.length) {
+            elements=Arrays.copyOf(elements,elements.length*3/2+1);
+        }
+        if (index<size) {
+            System.arraycopy(elements, index, elements, index + 1, size - index);
+            elements[index] = element;
+            size++;
+        }
     }
 
     @Override
