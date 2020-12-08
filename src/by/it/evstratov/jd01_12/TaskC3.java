@@ -26,20 +26,22 @@ public class TaskC3 {
         for (int i = 0; i < chars.length; i++) {
             if(openBrackets.containsKey(chars[i])){
                 arrayDeque.add(chars[i]);
-            }else if(closeBrackets.containsKey(chars[i])){
-                if(arrayDeque.isEmpty()){
-                }else if(openBrackets.get(arrayDeque.getLast()) == closeBrackets.get(chars[i])){
+            }else if(closeBrackets.containsKey(chars[i]) && !arrayDeque.isEmpty()){
+                if(openBrackets.get(arrayDeque.getLast()) == closeBrackets.get(chars[i])){
                     arrayDeque.removeLast();
                 }
+            }else{
+                return false;
             }
         }
+
         return arrayDeque.isEmpty();
 
     }
 
     public static void main(String[] args) {
 
-        checkBrackets(new Scanner(System.in).nextLine());
+        System.out.println(checkBrackets(new Scanner(System.in).nextLine()));
 
     }
 
