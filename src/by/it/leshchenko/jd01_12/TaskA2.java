@@ -18,7 +18,7 @@ public class TaskA2 {
         Set<Integer> union = getUnion(hashSet, treeSet);
         System.out.printf("union=%s\n", union);
         Set<Integer> cross = getCross(hashSet, treeSet);
-        System.out.printf("cross=%s\n", treeSet);
+        System.out.printf("cross=%s\n", cross);
     }
 
     private static Set<Integer> getCross(Set<Integer> set1, Set<Integer> set2) {
