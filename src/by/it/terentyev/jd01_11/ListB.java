@@ -43,9 +43,9 @@ public class ListB<E> implements List <E> {
 
     @Override
     public E set(int index, E element) {
-            E reElement=elements[index];
+            E removeElement=elements[index];
             elements[index]=element;
-        return reElement;
+        return removeElement;
     }
 
     @Override
@@ -53,15 +53,22 @@ public class ListB<E> implements List <E> {
         if (size == elements.length) {
             elements=Arrays.copyOf(elements,elements.length*3/2+1);
         }
-        if (index<size) {
+
             System.arraycopy(elements, index, elements, index + 1, size - index);
             elements[index] = element;
             size++;
-        }
+
     }
 
     @Override
-    public boolean addAll(Collection<? extends E> c) {
+    public boolean addAll(Collection<? extends E> collection) {
+        if (size+collection.size()>=elements.length)  {
+            elements=Arrays.copyOf(elements,elements.length * 3 / 2 + 1);
+        }
+        for (E e: collection) {
+            elements[size]=e;
+            size++;
+        }
         return false;
     }
 
