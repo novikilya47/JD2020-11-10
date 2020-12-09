@@ -11,16 +11,15 @@ public class ConsoleRunner {
             String expression = scanner.nextLine();
             if (expression.equals("end")) {
                 break;
-            } else {
-                Var result = null;
-                try {
-                    result = parser.calc(expression);
-                    printer.print(result);
-                } catch (CalcException e) {
-//                    e.printStackTrace();
-                    printer.print(e);
-                }
             }
+            try {
+                Var result = parser.calc(expression);
+                printer.print(result);
+            } catch (CalcException e) {
+//                e.printStackTrace();
+                printer.print(e);
+            }
+
         }
 
     }

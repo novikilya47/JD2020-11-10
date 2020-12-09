@@ -40,7 +40,7 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double mul = this.value * ((Scalar) other).value;
             return new Scalar(mul);
@@ -54,7 +54,7 @@ class Scalar extends Var {
         if (other instanceof Scalar) {
             double otherValue = ((Scalar) other).value;
             if (otherValue == 0) {
-                throw new CalcException("Деление на 0 невозможно");
+                throw new CalcException("Division by zero");
             }
             double div = this.value / ((Scalar) other).value;
             return new Scalar(div);
