@@ -9,7 +9,7 @@ public class TaskB1 {
 
         for (; ; ) {
             String word = scanner.next();
-            word= word.replaceAll("[,.;]","");
+            word= word.replaceAll("[,.;)(]","");
             if (word.equals("end")) {
                 break;
             }
