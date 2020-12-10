@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class Parser {
 
-    public Var calc(String expression) {
+    public Var calc(String expression) throws CalcException {
 
         expression = expression.replaceAll("\\s","");
         String[] part = expression.split(Patterns.OPERATION, 2);

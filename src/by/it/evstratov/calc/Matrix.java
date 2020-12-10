@@ -71,7 +71,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var div(Scalar scalar) {
+    public Var div(Scalar scalar) throws CalcException {
         return super.div(scalar);
     }
 

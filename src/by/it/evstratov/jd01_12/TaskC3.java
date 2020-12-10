@@ -6,27 +6,44 @@ import java.util.Map;
 
 public class TaskC3 {
 
-    static boolean checkBrackets(String expression){
+    static void checkBrackets(String expression){
 
-        ArrayDeque<Character> states = new ArrayDeque<Character>();
-        Map<Character, Character> brackets = new HashMap<>();
-        brackets.put(']', '[');
-        brackets.put('}', '{');
-        brackets.put(')', '(');
+        ArrayDeque<Character> arrayDeque = new ArrayDeque<>();
+        Map<Character, Integer> openBrackets = new HashMap<>();
+        Map<Character, Integer> closeBrackets = new HashMap<>();
+        
+        char[] chars = expression.toCharArray();
+        
+        openBrackets.put('{',0);
+        openBrackets.put('(',1);
+        openBrackets.put('[',2);
 
-        boolean result = true;
+        closeBrackets.put('}',0);
+        closeBrackets.put(')',1);
+        closeBrackets.put(']',2);
 
-        for (char c : expression.toCharArray()){
-
+        for (int i = 0; i < chars.length; i++) {
+            if(openBrackets.containsKey(chars[i])){
+                arrayDeque.add(chars[i]);
+            }else if(closeBrackets.containsKey(chars[i])){
+                if(arrayDeque.isEmpty()){
+                }else if(openBrackets.get(arrayDeque.getLast()) == closeBrackets.get(chars[i])){
+                    arrayDeque.removeLast();
+                }
+            }
         }
-        return result;
+        if(arrayDeque.isEmpty()){
+            System.out.println(true);
+        }else{
+            System.out.println(false);
+        }
 
     }
 
     public static void main(String[] args) {
 
-        String str = "{[{()}][()]{()}}";
-        System.out.println(checkBrackets(str));
+        String str = "{[{()}][()]{()))";
+        checkBrackets(str);
 
     }
 
