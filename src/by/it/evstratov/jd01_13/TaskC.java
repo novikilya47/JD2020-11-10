@@ -9,13 +9,16 @@ public class TaskC {
     static Scanner scanner;
     static ArrayList<Double> arrayList = new ArrayList<>();
 
-    static void readData(){
+    static void readData() throws NumberFormatException{
         double value;
         try{
-            value = Double.parseDouble(scanner.nextLine());
+            value = Double.parseDouble(scanner.next());
             arrayList.add(value);
         }catch (NumberFormatException e){
             errors++;
+            if(errors == 6){
+                throw new NumberFormatException();
+            }
             try {
                 Thread.sleep(100);
             } catch (InterruptedException interruptedException) {
@@ -25,9 +28,6 @@ public class TaskC {
                 System.out.print(arrayList.get(i) + " ");
             }
             System.out.println();
-            if(errors == 5){
-                throw e;
-            }
         }
     }
     public static void main(String[] args){
