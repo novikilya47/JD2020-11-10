@@ -1,6 +1,7 @@
 package by.it.staniko.jd01_07;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.StringJoiner;
 
 public class Vector extends Var {
@@ -10,13 +11,22 @@ public class Vector extends Var {
     public Vector(double[] value) {
         this.value = Arrays.copyOf(value, value.length);
     }
-/*    public Vector(String strvalue) {
-        this.value = Double[].parseDouble(strvalue);
-    }
-*/
+
     public Vector(Vector otherVector) {
         this.value = otherVector.value;
     }
+
+
+    public Vector(String strVector) {
+        String vector = strVector.replaceAll("[\\{\\}\\ ]", " ");
+        String[] vectorArray = vector.split(",");
+        double[] array = new double[vectorArray.length];
+        for (int i = 0; i < vectorArray.length; i++) {
+            array[i] = Double.parseDouble(vectorArray[i]);
+        }
+        this.value =array;
+    }
+
 
 
     @Override
