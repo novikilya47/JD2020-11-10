@@ -20,12 +20,14 @@ public class TaskC {
         try {
             outputStream = new OutputStreamWriter(new FileOutputStream(getPath(TaskC.class)+FILENAME_TXT_RESULT,true));
             if(file.isFile()){
-                System.out.println("file:"+file.getName());
-                outputStream.write("file:"+file.getName()+"\n");
+                String fileName = "file:"+file.getName();
+                System.out.println(fileName);
+                outputStream.write(fileName+"\n");
             }
             if(file.isDirectory()){
-                System.out.println("dir:"+file.getName());
-                outputStream.write("dir:"+file.getName()+"\n");
+                String dirName = "dir:"+file.getName();
+                System.out.println(dirName);
+                outputStream.write(dirName+"\n");
                 File[] files = file.listFiles();
                 for (int i = 0; i < files.length; i++) {
                     viewPath(files[i]);
