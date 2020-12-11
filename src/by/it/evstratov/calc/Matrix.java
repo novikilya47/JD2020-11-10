@@ -47,12 +47,12 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var add(Vector vector) {
+    public Var add(Vector vector) throws CalcException {
         return super.add(vector);
     }
 
     @Override
-    public Var add(Matrix matrix) {
+    public Var add(Matrix matrix) throws CalcException {
         if(this.value.length == matrix.value.length && this.value[0].length == matrix.value[0].length){
             double[][] res = new double[this.value.length][];
             for (int i = 0; i < res.length; i++) {
@@ -65,8 +65,7 @@ class Matrix extends Var {
             }
             return new Matrix(res);
         }else{
-            System.out.println("Матрицы разных размеров");
-            return null;
+            throw new CalcException(this+ "и "+matrix+" разных размеров");
         }
     }
 
@@ -76,12 +75,12 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var div(Vector vector) {
+    public Var div(Vector vector) throws CalcException {
         return super.div(vector);
     }
 
     @Override
-    public Var div(Matrix matrix) {
+    public Var div(Matrix matrix) throws CalcException {
         return super.div(matrix);
     }
 
@@ -98,7 +97,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var mul(Vector vector) {
+    public Var mul(Vector vector) throws CalcException {
         if(this.value[0].length == vector.getValue().length){
             double[] result = new double[this.value.length];
             for (int i = 0; i < this.value.length; i++) {
@@ -108,13 +107,12 @@ class Matrix extends Var {
             }
             return new Vector(result);
         }else{
-            System.out.println("Матрица и вектор разных размеров");
-            return null;
+            throw new CalcException(this+ "и "+vector+" разных размеров");
         }
     }
 
     @Override
-    public Var mul(Matrix matrix) {
+    public Var mul(Matrix matrix) throws CalcException {
         if(this.value[0].length == matrix.value.length){
             double[][] res = new double[this.value.length][matrix.value[0].length];
             for (int i = 0; i < this.value.length; i++) {
@@ -126,8 +124,7 @@ class Matrix extends Var {
             }
             return new Matrix(res);
         }else{
-            System.out.println("Матрицы разных размеров");
-            return null;
+            throw new CalcException(this+ "и "+matrix+" разных размеров");
         }
     }
 
@@ -137,33 +134,32 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var sub(Vector vector) {
+    public Var sub(Vector vector) throws CalcException {
         return super.sub(vector);
     }
 
     @Override
-    public Var sub(Matrix matrix) {
+    public Var sub(Matrix matrix) throws CalcException {
         if(this.value.length == matrix.value.length && this.value[0].length == matrix.value[0].length){
             return this.add(new Matrix((Matrix) matrix.mul(new Scalar(-1))));
         }else{
-            System.out.println("Матрицы разных размеров");
-            return null;
+            throw new CalcException(this+ "и "+matrix+" разных размеров");
         }
     }
 
-    public Var addWidth(Var var){
+    public Var addWidth(Var var) throws CalcException {
         return var.add(this);
     }
 
-    public Var mulWidth(Var var){
+    public Var mulWidth(Var var) throws CalcException {
         return var.mul(this);
     }
 
-    public Var divWidth(Var var){
+    public Var divWidth(Var var) throws CalcException {
         return var.div(this);
     }
 
-    public Var subWidth(Var var){
+    public Var subWidth(Var var) throws CalcException {
         return var.sub(this);
     }
 
