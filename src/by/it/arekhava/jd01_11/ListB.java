@@ -44,11 +44,33 @@ public class ListB<E> implements List<E> {
             elements[size++] = e;
             return true;
         }
-
-        @Override
-        public boolean remove(Object o) {
-            return false;
+    @Override
+    public void add(int index, E element) {
+        if (size == elements.length) {//3 4    90     6 9 32 0    ind=2 e=90
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
         }
+        System.arraycopy(elements,index,elements,index+1, size-index);
+        elements[index]=element;
+        size++;
+    }
+    @Override
+    public boolean addAll(int index, Collection<? extends E> c) {
+        // 4 5 6 7 9 0 E
+        //1 2 3 c
+        // ind=2
+        int countc=c.size();
+
+        if (size == elements.length){
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
+        }
+
+        if (size - index > 0)
+        System.arraycopy(elements, index,elements,index+countc, size-index);
+        System.arraycopy(c, 0,elements,index, countc);
+
+        size+=countc;
+        return countc != 0;
+    }
 
     @Override
     public boolean containsAll(Collection<?> c) {
@@ -56,14 +78,24 @@ public class ListB<E> implements List<E> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends E> c) {
-        return false;
-    }
+        public boolean remove(Object o) {
+            return false;
+        }
+
 
     @Override
-    public boolean addAll(int index, Collection<? extends E> c) {
-        return false;
+    public boolean addAll(Collection<? extends E> c) {
+        if (size+1 >= elements.length) {
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + c.size());
+        }
+        for (E e : c) {
+            elements[size] = e;
+            size++;
+        }
+        return true;
     }
+
+
 
     @Override
     public boolean removeAll(Collection<?> c) {
@@ -122,22 +154,26 @@ public class ListB<E> implements List<E> {
 
     @Override
     public E set(int index, E element) {
-        return null;
+        E remove=elements[index];
+        elements[index]=element;
+
+        return remove;
     }
 
-    @Override
-    public void add(int index, E element) {
 
-    }
+
 
     @Override
-        public String toString() {
-            StringJoiner joiner = new StringJoiner(", ", "[", "]");
-            for (int i = 0; i < size; i++) {
-                joiner.add(elements[i].toString());
-
+    public String toString() {
+        StringJoiner joiner=new StringJoiner(", ", "[","]");
+        for (int i = 0; i < size; i++) {
+            if (elements[i] == null) {
+                joiner.add(null);
             }
-            return joiner.toString();
+            else {
+                joiner.add(elements[i].toString());
+            }
         }
-
+        return joiner.toString();
+    }
     }
