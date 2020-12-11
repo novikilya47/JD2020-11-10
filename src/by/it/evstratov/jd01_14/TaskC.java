@@ -1,6 +1,6 @@
 package by.it.evstratov.jd01_14;
 
-import java.io.File;
+import java.io.*;
 
 public class TaskC {
 
@@ -14,19 +14,36 @@ public class TaskC {
         return src + path;
     }
 
+    private static void viewPath(File file) {
+
+        OutputStreamWriter outputStream;
+        try {
+            outputStream = new OutputStreamWriter(new FileOutputStream(getPath(TaskC.class)+FILENAME_TXT_RESULT,true));
+            if(file.isFile()){
+                System.out.println("file:"+file.getName());
+                outputStream.write("file:"+file.getName()+"\n");
+            }
+            if(file.isDirectory()){
+                System.out.println("dir:"+file.getName());
+                outputStream.write("dir:"+file.getName()+"\n");
+                File[] files = file.listFiles();
+                for (int i = 0; i < files.length; i++) {
+                    viewPath(files[i]);
+                }
+            }
+            outputStream.close();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
 
         String path = getPath(TaskC.class);
         String secondName = "evstratov";
         String nameMyPath = path.split(secondName)[0];
         File myPath = new File(nameMyPath+secondName+File.separator);
-        if(myPath.isDirectory()){
-            File[] files = myPath.listFiles();
-            for (File file : files) {
-                System.out.println(file.getName());
-            }
-
-        }
+        viewPath(myPath);
 
     }
 

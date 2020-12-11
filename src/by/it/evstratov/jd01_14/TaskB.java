@@ -46,6 +46,7 @@ public class TaskB {
 
             OutputStreamWriter outputStream = new OutputStreamWriter(new FileOutputStream(getPath(TaskB.class)+FILENAME_TXT_RESULT));
             outputStream.append(result);
+            outputStream.close();
 
         } catch (IOException e) {
             e.printStackTrace();
