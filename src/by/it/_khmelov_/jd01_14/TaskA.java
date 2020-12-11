@@ -7,9 +7,10 @@ public class TaskA {
 
     public static final String FILENAME_BIN = "dataTaskA.bin";
     public static final String FILENAME_TXT = "resultTaskA.txt";
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
     public static void main(String[] args) {
+
         String path = getPath(TaskA.class);
         String filename = path + FILENAME_BIN;
         writeInt(filename);
@@ -41,14 +42,16 @@ public class TaskA {
             sum += integer;
         }
         double avg = sum / list.size();
-        System.out.printf(Locale.ENGLISH,"\navg=%f\n", avg);
+        System.out.printf(Locale.ENGLISH, "\navg=%f\n", avg);
     }
 
     private static List<Integer> readIntegers(String filename) {
         List<Integer> list = new ArrayList<>();
         DataInputStream dataInputStream = null;
         try {
-            dataInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream(filename)));
+            dataInputStream = new DataInputStream(
+                    new BufferedInputStream(new FileInputStream(filename))
+            );
             while (dataInputStream.available() > 0) {
                 int value = dataInputStream.readInt();
                 list.add(value);
@@ -84,6 +87,7 @@ public class TaskA {
         }
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static String getPath(Class<?> clazz) {
         String src = System.getProperty("user.dir") + File.separator + "src" + File.separator;
         String path = clazz.getName()
