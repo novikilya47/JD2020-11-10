@@ -3,20 +3,18 @@ package by.it.soldatenko.jd01_14;
 import java.io.*;
 
 public class TaskA {
-    private static String dir(Class<?> cl){
-       String path= System.getProperty("user.dir")+ File.separator+"src" + File.separator;
-//        System.out.println(path);
-//        System.out.println(cl.getSimpleName());
-//        System.out.println(cl.getName());
-    String cldir = cl.getName().replace(cl.getSimpleName(), "").replace(".",File.separator);
-    return path+cldir;
+    private static String dir(Class<?> cl) {
+        String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
+        String cldir = cl.getName().replace(cl.getSimpleName(), "").replace(".", File.separator);
+        return path + cldir;
     }
+
     public static void main(String[] args) {
         DataOutputStream dos = null;
         try {
-            dos  =new DataOutputStream(
+            dos = new DataOutputStream(
                     new BufferedOutputStream(
-                            new FileOutputStream(dir(TaskA.class)+"dataTaskA.bin"))
+                            new FileOutputStream(dir(TaskA.class) + "dataTaskA.bin"))
             );
             for (int i = 0; i < 20; i++) {
                 dos.writeInt((int) (Math.random() * 25));
@@ -26,9 +24,8 @@ public class TaskA {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        finally {
-            if (dos!=null){
+        } finally {
+            if (dos != null) {
                 try {
                     dos.close();
                 } catch (IOException e) {
@@ -36,30 +33,27 @@ public class TaskA {
                 }
             }
         }
-        try(DataInputStream inp = new DataInputStream(
+        try (DataInputStream inp = new DataInputStream(
                 new BufferedInputStream(
-                        new FileInputStream(dir(TaskA.class)+"dataTaskA.bin")));
-       PrintWriter out2= new PrintWriter(new FileWriter(dir(TaskA.class)+"resultTaskA.txt"))
-        )
-        {
+                        new FileInputStream(dir(TaskA.class) + "dataTaskA.bin")));
+             PrintWriter out2 = new PrintWriter(new FileWriter(dir(TaskA.class) + "resultTaskA.txt"))
+        ) {
 
-        double sum = 0;
-        double count = 0;
-        while (inp.available()>0){
-            int i= inp.readInt();
-            System.out.print(i+" ");
-            out2.print(i+" ");
-            sum=sum+i;
-            count++;
-        }
-            System.out.println("\navg="+sum/count);
-        out2.print("\navg="+sum/count);
+            double sum = 0;
+            double count = 0;
+            while (inp.available() > 0) {
+                int i = inp.readInt();
+                System.out.print(i + " ");
+                out2.print(i + " ");
+                sum = sum + i;
+                count++;
+            }
+            System.out.println("\navg=" + sum / count);
+            out2.print("\navg=" + sum / count);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
-//        System.out.println(dir(TaskA.class));
 
     }
 }

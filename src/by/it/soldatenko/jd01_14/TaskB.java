@@ -9,16 +9,13 @@ import java.util.regex.Pattern;
 public class TaskB {
     private static String dir(Class<?> cl) {
         String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
-        System.out.println(path);
-        System.out.println(cl.getSimpleName());
-        System.out.println(cl.getName());
         String cldir = cl.getName().replace(cl.getSimpleName(), "").replace(".", File.separator);
         return path + cldir;
     }
 
     public static void main(String[] args) {
         try (FileReader inp = new FileReader(dir(TaskB.class) + "text.txt");
-            PrintWriter out2= new PrintWriter(new FileWriter(dir(TaskA.class)+"resultTaskB.txt"))
+            PrintWriter out2= new PrintWriter(new FileWriter(dir(TaskB.class)+"resultTaskB.txt"))
         ) {
             int c;
             StringBuilder sb = new StringBuilder();
@@ -26,7 +23,6 @@ public class TaskB {
             int countD = 0;
             while ((c =inp.read())!= -1) {
             sb.append((char)c);
-//                System.out.print((char) c );
             }
             Pattern patW = Pattern.compile("[а-яА-ЯёЁ]+");
             Matcher matchW = patW.matcher(sb);
