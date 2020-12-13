@@ -22,7 +22,10 @@ public class TaskA {
         String path = getPath(TaskA.class) + MATRIX_TXT;
         int[][] matrix = generateMatrix();
         writeMatrix(path, matrix);
+        printMatrixFromFile(path);
+    }
 
+    private static void printMatrixFromFile(String path) {
         try {
             Files.lines(Paths.get(path)).forEach(System.out::println);
         } catch (IOException e) {
