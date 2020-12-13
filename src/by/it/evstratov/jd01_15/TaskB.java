@@ -1,15 +1,17 @@
 package by.it.evstratov.jd01_15;
-//public class TaskB
-/**
- * This is a JavaDoc comment
- */
+
+
+/*
+      Method main
+*/
+
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-//public class TaskB
+
 
 public class TaskB {
 
@@ -38,7 +40,7 @@ public class TaskB {
 
     public static void main(String[] args) {
 
-        try(FileReader fr = new FileReader(getPathJava(TaskB.class))){
+        try(FileReader fr = new FileReader(getPathJava(TaskB.class)); PrintWriter pr = new PrintWriter(getPath(TaskB.class)+TASK_B)){
 
             /*
                Установка флагов для отлавливания комментов
@@ -58,37 +60,37 @@ public class TaskB {
                         isCommentOpen = true;
                     }else{
                         fileToStr.append(charToString);
+                        pr.write(charToString);
                     }
                 }else{
                     if(isLineComment){
                         if(charToString.equals("\n")) {
                             isLineComment = false;
                             isCommentOpen = false;
-                            fileToStr.delete(fileToStr.length()-1, fileToStr.length());
+                            fileToStr.append(charToString);
+                            pr.write(charToString);
                         }
                     }else if(isDocComment){
                         if(charToString.equals("/")) {
                             isDocComment = false;
                             isCommentOpen = false;
-                            fileToStr.delete(fileToStr.length()-1, fileToStr.length());
                         }
                     }else{
                         if(charToString.equals("/")){
                             isLineComment = true;
                         }else if(charToString.equals("*")){
                             isDocComment = true;
+
                         }else{
                             isCommentOpen = false;
                             fileToStr.append("/").append(charToString);
+                            pr.write('/'+ charToString);
                         }
                     }
                 }
 
             }
             System.out.println(fileToStr);
-            PrintWriter pr = new PrintWriter(getPath(TaskB.class)+TASK_B);
-            pr.write(String.valueOf(fileToStr));
-            pr.close();
         }catch (IOException e) {
             e.printStackTrace();
         }
