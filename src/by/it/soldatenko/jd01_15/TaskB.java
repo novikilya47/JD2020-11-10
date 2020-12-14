@@ -61,7 +61,6 @@ public class TaskB {
             e.printStackTrace();
         }
     }
-
     private static String dir() {
         String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
         String cldir = TaskB.class.getName().replace(TaskB.class.getSimpleName(), "").replace(".", File.separator);
