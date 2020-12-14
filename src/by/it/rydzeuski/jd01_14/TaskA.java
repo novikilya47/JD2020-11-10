@@ -1,27 +1,28 @@
-package by.it.soldatenko.jd01_14;
+package by.it.rydzeuski.jd01_14;
+
 
 import java.io.*;
 
 public class TaskA {
-    private static String dir(Class<?> cl) {
+    private static String dir(Class<?>cl) {
         String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
-        String cldir = cl.getName().replace(cl.getSimpleName(), "").replace(".", File.separator);
-        return path + cldir;
+        String clDir = cl.getName()
+                .replace(cl.getSimpleName(), "")
+                .replace(".", File.separator);
+        return  path+clDir;
+
+
     }
 
     public static void main(String[] args) {
         DataOutputStream dos = null;
         try {
-            dos = new DataOutputStream(
-                    new BufferedOutputStream(
-                            new FileOutputStream(dir(TaskA.class) + "dataTaskA.bin"))
-            );
+            dos = new DataOutputStream
+                    (new BufferedOutputStream
+                            (new FileOutputStream(dir(TaskA.class) + "dataTaskA.bin")));
             for (int i = 0; i < 20; i++) {
                 dos.writeInt((int) (Math.random() * 25));
-
             }
-
-
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -33,12 +34,11 @@ public class TaskA {
                 }
             }
         }
-        try (DataInputStream inp = new DataInputStream(
-                new BufferedInputStream(
-                        new FileInputStream(dir(TaskA.class) + "dataTaskA.bin")));
+        try (DataInputStream inp = new DataInputStream
+                (new BufferedInputStream
+                        (new FileInputStream(dir(TaskA.class) + "dataTaskA.bin")));
              PrintWriter out2 = new PrintWriter(new FileWriter(dir(TaskA.class) + "resultTaskA.txt"))
         ) {
-
             double sum = 0;
             double count = 0;
             while (inp.available() > 0) {
@@ -48,12 +48,10 @@ public class TaskA {
                 sum = sum + i;
                 count++;
             }
-            System.out.println("\navg=" + sum / count);
-            out2.print("\navg=" + sum / count);
+            System.out.print("\navg" + sum / count);
+            out2.print("\navg" + sum / count);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 }

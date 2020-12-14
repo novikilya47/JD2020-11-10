@@ -2,10 +2,9 @@ package by.it.rydzeuski.calc;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+ class Parser {
 
-public class Parser {
-
-    public Var calc(String expression) {
+     Var calc(String expression) throws CalcException  {
         expression = expression.trim().replaceAll("\\s+", "");
         String[] part = expression.split(Patterns.OPERATION);
         Var right = Var.createVar(part[1]);
