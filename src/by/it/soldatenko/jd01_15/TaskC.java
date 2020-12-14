@@ -16,13 +16,13 @@ public class TaskC {
             if (s.equals(("end"))) {
                 break;
             }
+            if (s.equals("cd..")) {
+                f = new File(f.getParent());
+            }
             if (!s.equals("cd..") && !s.equals("dir")) {
                 sb = sb.append(s);
                 sb = sb.replace(0, 3, "");
                 f = new File(f.getAbsolutePath() + "\\" + sb);
-            }
-            if (s.equals("cd..")) {
-                f = new File(f.getParent());
             }
             if (s.equals("dir")) {
                 File[] d = f.listFiles();
