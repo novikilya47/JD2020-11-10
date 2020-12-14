@@ -21,13 +21,17 @@ public class TaskB {
          */
         String javaPath = getPath(TaskB.class) + TaskB_JAVA;
         String txtPath = getPath(TaskB.class) + TaskB_TXT;
-        StringBuilder str = deleteComments(javaPath);
+        StringBuilder text = deleteComments(javaPath);
+        printTextInFile(txtPath, text);
+        System.out.println(text);
+    }
+
+    private static void printTextInFile(String txtPath, StringBuilder str) {
         try (PrintWriter printWriter = new PrintWriter(txtPath)) {
             printWriter.print(str);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     //читаем в переменную и удаляем комментарии
@@ -40,16 +44,19 @@ public class TaskB {
             while (fileReader.ready()) {
                 char currentChar = (char) fileReader.read();
                 text.append(currentChar);
+
                 if (currentChar == '/') {
                     char nextChar = (char) fileReader.read();
                     text.append(nextChar);
+
                     if (nextChar == '*') {
                         indexStart = text.length() - 2;
                     } else if (nextChar == '/') {
                         text.delete(text.length() - 2, text.length());
-                        while (fileReader.read() != '\n') {
 
+                        while ((nextChar = (char) fileReader.read()) != '\n') {
                         }
+                        text.append(nextChar);
                     }
                 }
                 if (currentChar == '*') {
