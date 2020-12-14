@@ -14,7 +14,7 @@ public class TaskB {
         printToFile(result, TaskA.getPath(TaskB.class) + FILENAME_OUT);
     }
 
-    private static void printToFile(String text, String filename) {
+    static void printToFile(String text, String filename) {
         try (FileWriter fileWriter = new FileWriter(filename)) {
             fileWriter.write(text);
         } catch (IOException e) {
