@@ -14,6 +14,7 @@ public class TaskA {
         toFile(fn,arr);
         toConsole(fn);
     }
+
     private static int[][] generate() {
         int[][] arr = new int[6][4];
         int count1 = 0;
@@ -33,11 +34,13 @@ public class TaskA {
         } while ((count1 + count2) < 2);
         return arr;
     }
+
     private static String dir() {
         String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
         String cldir = TaskA.class.getName().replace(TaskA.class.getSimpleName(), "").replace(".", File.separator);
         return path + cldir;
     }
+
     public static void toFile(String fn, int[][] arr) {
         try
                 (PrintWriter out = new PrintWriter(
@@ -54,6 +57,7 @@ public class TaskA {
         }
 
     }
+
     public static void toConsole(String fn) {
         try {
             Files.lines(Path.of(fn)).forEach(System.out::println);
