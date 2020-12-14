@@ -21,14 +21,14 @@ public class TaskC {
                 sb = sb.replace(0, 3, "");
                 f = new File(f.getAbsolutePath() + "\\" + sb);
             }
-            if (s.equals("cd..")) {
-                f = new File(f.getParent());
-            }
             if (s.equals("dir")) {
                 File[] d = f.listFiles();
                 for (File file : d) {
                     System.out.println(file.getName());
                 }
+            }
+            if (s.equals("cd..")) {
+                f = new File(f.getParent());
             }
             sb.delete(0, sb.capacity());
 
