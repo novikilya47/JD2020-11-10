@@ -3,10 +3,11 @@ package by.it.evstratov.jd01_12;
 import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class TaskC3 {
 
-    static void checkBrackets(String expression){
+    static boolean checkBrackets(String expression){
 
         ArrayDeque<Character> arrayDeque = new ArrayDeque<>();
         Map<Character, Integer> openBrackets = new HashMap<>();
@@ -25,25 +26,22 @@ public class TaskC3 {
         for (int i = 0; i < chars.length; i++) {
             if(openBrackets.containsKey(chars[i])){
                 arrayDeque.add(chars[i]);
-            }else if(closeBrackets.containsKey(chars[i])){
-                if(arrayDeque.isEmpty()){
-                }else if(openBrackets.get(arrayDeque.getLast()) == closeBrackets.get(chars[i])){
+            }else if(closeBrackets.containsKey(chars[i]) && !arrayDeque.isEmpty()){
+                if(openBrackets.get(arrayDeque.getLast()) == closeBrackets.get(chars[i])){
                     arrayDeque.removeLast();
                 }
+            }else{
+                return false;
             }
         }
-        if(arrayDeque.isEmpty()){
-            System.out.println(true);
-        }else{
-            System.out.println(false);
-        }
+
+        return arrayDeque.isEmpty();
 
     }
 
     public static void main(String[] args) {
 
-        String str = "{[{()}][()]{()))";
-        checkBrackets(str);
+        System.out.println(checkBrackets(new Scanner(System.in).nextLine()));
 
     }
 

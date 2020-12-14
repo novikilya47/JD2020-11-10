@@ -27,10 +27,10 @@ public class Parser {
             if(matcher.find()){
                 String operation = matcher.group();
                 switch (operation){
-                    case "+" : return left.addWidth(right);
-                    case "-" : return left.subWidth(right);
-                    case "*" : return left.mulWidth(right);
-                    case "/" : return left.divWidth(right);
+                    case "+" : return right.addWidth(left);
+                    case "-" : return right.subWidth(left);
+                    case "*" : return right.mulWidth(left);
+                    case "/" : return right.divWidth(left);
                 }
             }
         }
