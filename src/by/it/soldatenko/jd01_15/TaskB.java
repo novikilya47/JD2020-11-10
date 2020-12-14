@@ -16,11 +16,11 @@ public class TaskB {
         //однострочный пример 1
 
 
-//        System.out.println(dir(TaskB.class) + "TaskB.java");  // однострочный пример 2
+//  однострочный пример 2
 
 
-        /*
-        многострочный пример 2
+        /* многострочный пример 2
+
 
          */
         try (FileReader inp = new FileReader(dir() + "TaskB.java");

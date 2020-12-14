@@ -16,14 +16,14 @@ public class TaskC {
             if (s.equals(("end"))) {
                 break;
             }
-            if (s.equals("cd..")) {
-                f = new File(f.getParent());
-            }
             if (s.equals("dir")) {
                 File[] d = f.listFiles();
                 for (File file : d) {
                     System.out.println(file.getName());
                 }
+            }
+            if (s.equals("cd..")) {
+                f = new File(f.getParent());
             }
             if (!s.equals("cd..") && !s.equals("dir")) {
                 sb = sb.append(s);
