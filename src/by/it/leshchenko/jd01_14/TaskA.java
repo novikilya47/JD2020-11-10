@@ -72,7 +72,7 @@ public class TaskA {
         }
     }
 
-    private static String getPath(Class<?> clazz) {
+    static String getPath(Class<?> clazz) {
         String userDir = System.getProperty("user.dir");
         String classDir = clazz.getName()
                 .replace(clazz.getSimpleName(), "")
