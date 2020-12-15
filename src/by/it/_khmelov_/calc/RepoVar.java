@@ -13,18 +13,18 @@ public class RepoVar {
     private RepoVar() {
     }
 
-    private static String getPath(Class<?> clazz) {
+    private static String getFilename() {
         String src = System.getProperty("user.dir") + File.separator + "src" + File.separator;
-        String path = clazz.getName()
-                .replace(clazz.getSimpleName(), "")
+        String path = RepoVar.class.getName()
+                .replace(RepoVar.class.getSimpleName(), "")
                 .replace(".", File.separator);
-        return src + path;
+        return src + path + "vars.txt";
     }
 
     static void loadVariables() {
         Parser parser = new Parser();
         try {
-            Files.lines(Paths.get(filename)).forEach(expression -> {
+            Files.lines(Paths.get(getFilename())).forEach(expression -> {
                         try {
                             parser.calc(expression);
                         } catch (CalcException e) {
@@ -37,12 +37,11 @@ public class RepoVar {
         }
     }
 
-    private static final String filename = getPath(RepoVar.class) + "vars.txt";
 
-
+    @SuppressWarnings("SameParameterValue")
     static void saveVariables(Map<String, Var> vars) {
         try (
-                PrintWriter printWriter = new PrintWriter(filename)) {
+                PrintWriter printWriter = new PrintWriter(getFilename())) {
             for (Map.Entry<String, Var> entry : vars.entrySet()) {
                 printWriter.println(entry.getKey() + "=" + entry.getValue());
             }
