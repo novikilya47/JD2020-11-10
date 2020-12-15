@@ -19,7 +19,7 @@ class Market {
                 buyer.start();
                 Dispatcher.buyersInMarket++;
             }
-            Helper.sleep(100);
+            Helper.sleep(1000);
         }
         try {
             for (Buyer buyer : buyers) {

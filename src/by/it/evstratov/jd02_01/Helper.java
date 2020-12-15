@@ -10,13 +10,12 @@ class Helper {
         return generator.nextInt(end - start + 1) + start;
     }
     public static int getRandom(int max) {
-        return generator.nextInt(max);
+        return getRandom(0,max);
     }
 
     public static void sleep(int timeOut) {
-
         try {
-            Thread.sleep(timeOut);
+            Thread.sleep(timeOut/Dispatcher.K_SPEED);
         } catch (InterruptedException e) {
             throw  new RuntimeException(e);
         }
