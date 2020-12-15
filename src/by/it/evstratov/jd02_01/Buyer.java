@@ -1,6 +1,6 @@
 package by.it.evstratov.jd02_01;
 
-class Buyer extends Thread implements IBuyer{
+class Buyer extends Thread implements IBuyer, IUseBasket{
 
     public Buyer(int number){
         super("Buyer №"+number);
@@ -35,5 +35,15 @@ class Buyer extends Thread implements IBuyer{
     public void goOut() {
         System.out.println(this + " left to market");
         Dispatcher.buyersInMarket--;
+    }
+
+    @Override
+    public void takeBasket() {
+
+    }
+
+    @Override
+    public void putGoodsToBasket() {
+
     }
 }
