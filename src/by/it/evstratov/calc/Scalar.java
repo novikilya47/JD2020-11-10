@@ -18,7 +18,7 @@ class Scalar extends Var {
     @Override
     public Var add(Scalar scalar) {
         double otherValue = scalar.value;
-        double result = this.value + otherValue;
+        double result = otherValue + this.value;
         return new Scalar(result);
     }
 
@@ -37,26 +37,25 @@ class Scalar extends Var {
         double otherValue = scalar.value;
         if (otherValue==0){
             throw new CalcException("Деление на 0");
-
         }
         double result = this.value / otherValue;
         return new Scalar(result);
     }
 
     @Override
-    public Var div(Vector vector) {
+    public Var div(Vector vector) throws CalcException {
         return super.div(vector);
     }
 
     @Override
-    public Var div(Matrix matrix) {
+    public Var div(Matrix matrix) throws CalcException {
         return super.div(matrix);
     }
 
     @Override
     public Var mul(Scalar scalar) {
         double otherValue = scalar.value;
-        double result = this.value * otherValue;
+        double result = otherValue * this.value;
         return new Scalar(result);
     }
 
@@ -78,20 +77,20 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var sub(Vector vector) {
+    public Var sub(Vector vector) throws CalcException {
         return vector.sub(this).mul(new Scalar(-1));
     }
 
     @Override
-    public Var sub(Matrix matrix) {
+    public Var sub(Matrix matrix) throws CalcException {
         return matrix.sub(this).mul(new Scalar(-1));
     }
 
-    public Var addWidth(Var var){
+    public Var addWidth(Var var) throws CalcException {
         return var.add(this);
     }
 
-    public Var mulWidth(Var var){
+    public Var mulWidth(Var var) throws CalcException {
         return var.mul(this);
     }
 
@@ -99,7 +98,7 @@ class Scalar extends Var {
         return var.div(this);
     }
 
-    public Var subWidth(Var var){
+    public Var subWidth(Var var) throws CalcException {
         return var.sub(this);
     }
 
