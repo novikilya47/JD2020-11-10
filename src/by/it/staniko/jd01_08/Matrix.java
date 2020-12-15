@@ -1,9 +1,8 @@
-package by.it.staniko.jd01_07;
+package by.it.staniko.jd01_08;
 
-import java.util.Arrays;
-import java.util.StringJoiner;
-
-class Matrix extends Var {
+class Matrix extends by.it.staniko.jd01_08.Var {
+    public Matrix(String strMatrix) {
+    }
 
     private double[][] value;
 
@@ -27,7 +26,7 @@ class Matrix extends Var {
     }
 
 */
-
+/*
     @Override
     public String toString() {
             StringBuilder sb = new StringBuilder("{");
@@ -45,5 +44,5 @@ class Matrix extends Var {
 
             return sb.toString();
         }
-    }
-
+*/
+}

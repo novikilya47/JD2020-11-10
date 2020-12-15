@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.StringJoiner;
 
-public class Vector extends Var {
+class Vector extends Var {
 
     private final double[] value;
 
