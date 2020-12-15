@@ -11,7 +11,7 @@ public class Market {
 //        }
 //    }
 
-    public static void mainOne(String[] args) {
+    public static void main(String[] args) {
         Dispatcher.buyersInMarket=0;
         System.out.println("Market opened");
         List<Buyer> buyers = new ArrayList<>();
