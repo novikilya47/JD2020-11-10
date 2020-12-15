@@ -10,10 +10,16 @@ class Market {
         System.out.println("Marked opened");
 
         List<Buyer> buyers = new ArrayList<>();
-        for (int i = 1; i < 21; i++) {
-            Buyer buyer = new Buyer(i);
-            buyers.add(buyer);
-            buyer.start();
+        int n = 0;
+        for (int t = 1; t < 120; t++) {
+            int count = Helper.getRandom(2);
+            for (int i = 1; i <= count; i++) {
+                Buyer buyer = new Buyer(++n);
+                buyers.add(buyer);
+                buyer.start();
+                Dispatcher.buyersInMarket++;
+            }
+            Helper.sleep(100);
         }
         try {
             for (Buyer buyer : buyers) {
