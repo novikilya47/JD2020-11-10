@@ -17,7 +17,6 @@ class Market {
                 Buyer buyer = new Buyer(++n);
                 buyers.add(buyer);
                 buyer.start();
-                buyer.takeBasket();
                 Dispatcher.buyersInMarket++;
             }
             Helper.sleep(1000);

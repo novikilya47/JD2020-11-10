@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 class Basket {
 
-    private ArrayList<Good> goods = new ArrayList<>();
+    private ArrayList<Good> basket = new ArrayList<>();
 
     public void put(Good good){
-     this.goods.add(good);
+     this.basket.add(good);
     }
 
 }
