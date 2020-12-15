@@ -1,6 +1,9 @@
 package by.it.evstratov.jd02_01;
 
+
 class Buyer extends Thread implements IBuyer, IUseBasket{
+
+    private Basket basket;
 
     public Buyer(int number){
         super("Buyer №"+number);
@@ -39,7 +42,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket{
 
     @Override
     public void takeBasket() {
-
+        this.basket = new Basket();
     }
 
     @Override
