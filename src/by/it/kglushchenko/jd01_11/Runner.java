@@ -24,12 +24,12 @@ public class Runner {
         listb.remove(3);
         System.out.println(listb);
 
-        Set<String> listc = new SetC<>();
-        listc.add("eniki");
-        listc.add("beniki");
-        listc.add("yeli");
-        listc.add("vareniki");
-        listc.add(".");
-        //System.out.println(listc);
+        Set<String> setc = new SetC<>();
+        setc.add("eniki");
+        setc.add("beniki");
+        setc.add("yeli");
+        setc.add("vareniki");
+        setc.add(".");
+        System.out.println(setc);
     }
 }
