@@ -7,11 +7,26 @@ import java.io.PrintWriter;
 
 
 public class TaskC {
+    private static String dir(Class<?> cl) {
+        String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
+        String cldir = cl.getName().replace(cl.getSimpleName(), "").replace(".", File.separator);
+        return path + cldir;
+
+    }
+    private static String dirSoldatenko(Class<?> cl) {
+        String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
+        String cldir =cl.getPackageName().replace(cl.getSimpleName(), "").replace(".", File.separator);
+        File sol = new File(path + cldir);
+        return sol.getParent();
+
+    }
+
 
     public static void main(String[] args) {
-        try (PrintWriter ouT = new PrintWriter(new FileWriter("D:/Java/courses/JD2020-11-10-git/src/by/it/soldatenko/jd01_14/resultTaskC.txt")))
+//        System.out.println(dirSoldatenko(TaskC.class));
+        try (PrintWriter ouT = new PrintWriter(new FileWriter(dir(TaskC.class) + "resultTaskC.txt")))
         {
-            printAll("D:/Java/courses/JD2020-11-10-git/src/by/it/soldatenko", ouT);
+            printAll(dirSoldatenko(TaskC.class), ouT);
         } catch (IOException e) {
             e.printStackTrace();
         }
