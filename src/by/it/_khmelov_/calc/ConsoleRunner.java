@@ -8,9 +8,10 @@ public class ConsoleRunner {
         Printer printer = new Printer();
         Parser parser = new Parser();
         Scanner scanner = new Scanner(System.in);
-        for(;;){
-            String expression=scanner.nextLine();
-            if (expression.equals("end")){
+        RepoVar.loadVariables();
+        for (; ; ) {
+            String expression = scanner.nextLine();
+            if (expression.equals("end")) {
                 break;
             }
             try {

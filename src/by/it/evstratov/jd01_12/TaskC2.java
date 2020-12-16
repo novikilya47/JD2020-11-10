@@ -27,13 +27,14 @@ public class TaskC2 {
     }
 
     private static Set<?> getCross(Set<? extends Number>... sets){
-
+        Map<Number, Integer> numberIntegerMap = new HashMap<>();
+        Set<Number> resultNumbers = new HashSet<>();
         Set<Number> result = new TreeSet<>(new Comparator<Number>() {
             @Override
             public int compare(Number n1, Number n2) {
-                if(n1.longValue() == n2.longValue() && n1.doubleValue() == n2.doubleValue()){
+                if(n1.longValue() == n2.longValue() || n1.doubleValue() == n2.doubleValue()){
                     return 0;
-                }else if(n1.longValue() > n2.longValue() && n1.doubleValue() > n2.doubleValue()){
+                }else if(n1.longValue() > n2.longValue() || n1.doubleValue() > n2.doubleValue()){
                     return 1;
                 }else{
                     return -1;
@@ -41,11 +42,44 @@ public class TaskC2 {
             }
         });
 
+        result.addAll(sets[0]);
+
+
         for (Set<? extends Number> set : sets) {
-            result.retainAll(set);
+            int count = 0;
+            Iterator<? extends Number> iterator1 = set.iterator();
+            while (iterator1.hasNext()){
+                Number next1 = iterator1.next();
+
+                Iterator<Number> iterator2 = result.iterator();
+                while (iterator2.hasNext()){
+                    Number next2 = iterator2.next();
+
+                    BigDecimal b1 = new BigDecimal(next1.doubleValue());
+                    BigDecimal b2 = new BigDecimal(next2.doubleValue());
+
+                    BigDecimal b1Long = new BigDecimal(next1.longValue());
+                    BigDecimal b2Long = new BigDecimal(next2.longValue());
+
+                    if(b1.compareTo(b2) == 0 || b1Long.compareTo(b2Long) == 0){
+                        if(!numberIntegerMap.containsKey(next1.doubleValue())){
+                            numberIntegerMap.put(next1.doubleValue(), count);
+                        }else{
+                            numberIntegerMap.put(next1.doubleValue(), numberIntegerMap.get(next1.doubleValue())+1);
+                        }
+                    }
+                }
+
+            }
+
+        }
+        for(Map.Entry<Number, Integer> item : numberIntegerMap.entrySet()){
+            if(item.getValue() == sets.length-1){
+                resultNumbers.add(item.getKey());
+            }
         }
 
-        return result;
+        return resultNumbers;
     }
 
 

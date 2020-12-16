@@ -11,12 +11,14 @@ public class Bean {
         return (a+b)/2.0;
     }
 
-    @Param(a=1,b=2)
+    @SuppressWarnings("ManualMinMaxCalculator")
+    //@Param(a=1,b=2)
     static double min(int a, int b){
         return a<b? a: b;
     }
 
     @SuppressWarnings("ManualMinMaxCalculator")
+    @Param(a=1,b=2)
     double max(int a, int b){
         return a>b? a: b;
     }
