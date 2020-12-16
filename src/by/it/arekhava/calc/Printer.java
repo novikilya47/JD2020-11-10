@@ -1,4 +1,6 @@
-package by.it._khmelov_.calc;
+package by.it.arekhava.calc;
+
+import by.it.arekhava.calc.Var;
 
 import java.util.Objects;
 
@@ -8,8 +10,12 @@ public class Printer {
             System.out.println(result);
         }
     }
+    public void print(CalcException e) {
+
+            System.out.println(e.getMessage());
+
+    }
 
     public void printErr(CalcException e) {
-            System.out.println(e.getMessage());
     }
 }
