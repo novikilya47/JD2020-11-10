@@ -24,8 +24,8 @@ class Good {
   }
 
   public static Good takeRandomGood(){
-   Good good = null;
 
+   Good good = null;
    List<String> nameGoods = new ArrayList<>(goods.keySet());
    String randomGood = nameGoods.get(Helper.getRandom(0, nameGoods.size() -1));
 
@@ -42,11 +42,8 @@ class Good {
 
   }
 
- public String getName() {
-  return name;
- }
-
- public int getPrice() {
-  return price;
+ @Override
+ public String toString() {
+  return name + " по цене " + price;
  }
 }
