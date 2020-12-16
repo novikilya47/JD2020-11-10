@@ -28,16 +28,16 @@ public class Parser {
                 String operation = matcher.group();
                 switch (operation){
                     case "+" :
-                        RepoVar.saveToLog(right + " + " + left +" = "+right.addWidth(left) +"\n");
+                        RepoVar.saveToLog(right + " + " + left +" = "+right.addWidth(left));
                         return right.addWidth(left);
                     case "-" :
-                        RepoVar.saveToLog(right + " - " + left+" = "+right.subWidth(left) +"\n");
+                        RepoVar.saveToLog(right + " - " + left+" = "+right.subWidth(left));
                         return right.subWidth(left);
                     case "*" :
-                        RepoVar.saveToLog(right + " * " + left+" = "+right.mulWidth(left) +"\n");
+                        RepoVar.saveToLog(right + " * " + left+" = "+right.mulWidth(left));
                         return right.mulWidth(left);
                     case "/" :
-                        RepoVar.saveToLog(right + " / " + left+" = "+right.divWidth(left) +"\n");
+                        RepoVar.saveToLog(right + " / " + left+" = "+right.divWidth(left));
                         return right.divWidth(left);
                 }
             }
