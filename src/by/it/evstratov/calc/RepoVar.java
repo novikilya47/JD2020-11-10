@@ -1,9 +1,8 @@
 package by.it.evstratov.calc;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import by.it.evstratov.jd01_14.TaskC;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
@@ -47,6 +46,18 @@ public class RepoVar {
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    static void saveErrors(String message) {
+        OutputStreamWriter outputStream;
+        try {
+            outputStream = new OutputStreamWriter(new FileOutputStream(getFilename()+"log.txt",true));
+
+            outputStream.write(message+"\n");
+            outputStream.close();
+        }catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
