@@ -60,4 +60,16 @@ public class RepoVar {
             e.printStackTrace();
         }
     }
+
+    static void saveCalculating(String expression) {
+        OutputStreamWriter outputStream;
+        try {
+            outputStream = new OutputStreamWriter(new FileOutputStream(getFilename()+"log.txt",true));
+
+            outputStream.write(expression);
+            outputStream.close();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
