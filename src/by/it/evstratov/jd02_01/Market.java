@@ -15,9 +15,13 @@ class Market {
             int count = Helper.getRandom(2);
             for (int i = 1; i <= count; i++) {
                 Buyer buyer = new Buyer(++n);
+                if(Dispatcher.allBuyersInMarket % 4 == 0){
+                    buyer.setPensioneer(true);
+                }
                 buyers.add(buyer);
                 buyer.start();
                 Dispatcher.buyersInMarket++;
+                Dispatcher.allBuyersInMarket++;
             }
             Helper.sleep(1000);
         }

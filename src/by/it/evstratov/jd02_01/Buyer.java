@@ -4,6 +4,7 @@ package by.it.evstratov.jd02_01;
 class Buyer extends Thread implements IBuyer, IUseBasket{
 
     private Basket basket;
+    private boolean isPensioneer;
 
     public Buyer(int number){
         super("Buyer №"+number);
@@ -30,9 +31,12 @@ class Buyer extends Thread implements IBuyer, IUseBasket{
     @Override
     public void chooseGoods() {
         System.out.println(this + " started choose goods");
-        int timeOut = Helper.getRandom(500,2000);
+        double timeOut = Helper.getRandom(500,2000);
+        if(isPensioneer){
+            timeOut *= 1.5;
+        }
         putGoodsToBasket();
-        Helper.sleep(timeOut/Dispatcher.K_SPEED);
+        Helper.sleep((int)timeOut/Dispatcher.K_SPEED);
         System.out.println(this + " finish choose goods");
     }
 
@@ -51,11 +55,22 @@ class Buyer extends Thread implements IBuyer, IUseBasket{
     @Override
     public void putGoodsToBasket() {
         for (int i = 1; i <= Helper.getRandom(1,4); i++) {
-            int timeOut = Helper.getRandom(500,2000);
-            Helper.sleep(timeOut/Dispatcher.K_SPEED);
+            double timeOut = Helper.getRandom(500,2000);
+            if(isPensioneer){
+                timeOut *= 1.5;
+            }
+            Helper.sleep((int)timeOut/Dispatcher.K_SPEED);
             Good good = Good.takeRandomGood();
             System.out.println(this + " put in basket "+good.toString());
             this.basket.put(good);
         }
+    }
+
+    public void setPensioneer(boolean pensioneer) {
+        isPensioneer = pensioneer;
+    }
+
+    public boolean isPensioneer() {
+        return isPensioneer;
     }
 }
