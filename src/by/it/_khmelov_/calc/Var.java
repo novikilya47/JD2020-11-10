@@ -9,6 +9,7 @@ abstract class Var implements Operation {
 
     public static Var save(String varName, Var varValue) {
         variables.put(varName, varValue);
+        RepoVar.saveVariables(variables);
         return varValue;
     }
 
@@ -23,11 +24,11 @@ abstract class Var implements Operation {
         } else if (variables.containsKey(strVar)) {
             return variables.get(strVar);
         }
-        throw new CalcException("Var "+strVar+" not found"); // exception
+        throw new CalcException("Var " + strVar + " not found"); // exception
     }
 
     @Override
-    public Var add(Var other) throws CalcException{
+    public Var add(Var other) throws CalcException {
         throw new CalcException(String.format("Operation %s + %s not found\n", this, other));
     }
 
@@ -42,7 +43,7 @@ abstract class Var implements Operation {
     }
 
     @Override
-    public Var div(Var other) throws CalcException{
+    public Var div(Var other) throws CalcException {
         throw new CalcException(String.format("Operation %s / %s not found\n", this, other));
     }
 
