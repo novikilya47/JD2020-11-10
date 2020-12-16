@@ -49,11 +49,10 @@ public class RepoVar {
         }
     }
 
-    static void saveErrors(String message) {
+    static void saveToLog(String message) {
         OutputStreamWriter outputStream;
         try {
             outputStream = new OutputStreamWriter(new FileOutputStream(getFilename()+"log.txt",true));
-
             outputStream.write(message+"\n");
             outputStream.close();
         }catch (IOException e) {
@@ -61,15 +60,5 @@ public class RepoVar {
         }
     }
 
-    static void saveCalculating(String expression) {
-        OutputStreamWriter outputStream;
-        try {
-            outputStream = new OutputStreamWriter(new FileOutputStream(getFilename()+"log.txt",true));
 
-            outputStream.write(expression);
-            outputStream.close();
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
