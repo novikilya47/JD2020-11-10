@@ -22,9 +22,11 @@ class Market {
                 buyer.start();
                 Dispatcher.buyersInMarket++;
                 Dispatcher.allBuyersInMarket++;
+                System.out.println(Dispatcher.allBuyersInMarket);
             }
             Helper.sleep(1000);
         }
+        System.out.println(Dispatcher.allBuyersInMarket);
         try {
             for (Buyer buyer : buyers) {
                 buyer.join();
