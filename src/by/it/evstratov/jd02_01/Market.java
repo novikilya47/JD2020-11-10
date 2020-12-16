@@ -11,8 +11,10 @@ class Market {
 
         List<Buyer> buyers = new ArrayList<>();
         int n = 0;
-        for (int t = 1; t < 120; t++) {
-            int count = Helper.getRandom(2);
+        int expectedNumberBuyers = 0;
+        for (int t = 0; t < 120; t++) {
+            expectedNumberBuyers = Math.abs((t-(t/30)*30) - 30 * ((t/30) % 2)) + 10;
+            int count = Helper.getRandom((expectedNumberBuyers - Dispatcher.buyersInMarket));
             for (int i = 1; i <= count; i++) {
                 Buyer buyer = new Buyer(++n);
                 if(Dispatcher.allBuyersInMarket % 4 == 0){
@@ -22,7 +24,6 @@ class Market {
                 buyer.start();
                 Dispatcher.buyersInMarket++;
                 Dispatcher.allBuyersInMarket++;
-                System.out.println(Dispatcher.allBuyersInMarket);
             }
             Helper.sleep(1000);
         }
