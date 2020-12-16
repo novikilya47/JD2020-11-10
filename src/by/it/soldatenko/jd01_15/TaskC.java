@@ -1,7 +1,6 @@
 package by.it.soldatenko.jd01_15;
 
 import java.io.File;
-import java.util.Date;
 import java.util.Scanner;
 
 public class TaskC {
@@ -50,7 +49,7 @@ public class TaskC {
                 f = new File(f.getParent());
             }
             if (!s.equals("cd..") && !s.equals("dir")) {
-                sb = sb.append(s);
+                sb.append(s);
                 sb = sb.replace(0, 3, "");
                 f = new File(f.getAbsolutePath() + "\\" + sb);
             }

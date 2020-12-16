@@ -13,7 +13,7 @@ public class TaskC {
         return path + cldir;
 
     }
-    private static String dirSoldatenko(Class<?> cl) {
+    private static String dirSol(Class<?> cl) {
         String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
         String cldir =cl.getPackageName().replace(cl.getSimpleName(), "").replace(".", File.separator);
         File sol = new File(path + cldir);
@@ -23,10 +23,9 @@ public class TaskC {
 
 
     public static void main(String[] args) {
-//        System.out.println(dirSoldatenko(TaskC.class));
         try (PrintWriter ouT = new PrintWriter(new FileWriter(dir(TaskC.class) + "resultTaskC.txt")))
         {
-            printAll(dirSoldatenko(TaskC.class), ouT);
+            printAll(dirSol(TaskC.class), ouT);
         } catch (IOException e) {
             e.printStackTrace();
         }
