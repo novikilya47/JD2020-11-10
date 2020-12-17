@@ -44,7 +44,7 @@ class Buyer extends Thread implements IBuyer {
 
     @Override
     public void goToQueue() {
-        System.out.println(this + " add to Queue");
+        System.out.println(this + " entered to Queue");
         synchronized (this) {
             QueueBuyers.add(this);
             this.setRunnable(false);
