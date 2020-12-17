@@ -17,9 +17,12 @@ public class Cashier implements Runnable{
                 int t = Helper.getRandom(2000,5000);
                 Helper.sleep(t);
                 System.out.println(this + "started service for " + buyer);
+                int sumCheck = 0;
                 for (int i = 0; i < buyer.getBasket().getGoods().size(); i++) {
                     System.out.printf("   %s\n",buyer.getBasket().getGoods().get(i).toString());
+                    sumCheck+=buyer.getBasket().getGoods().get(i).getPrice();
                 }
+                System.out.printf("   Сумма чека для %s = %d\n",buyer, sumCheck);
                 System.out.println(this + "finished service for " + buyer);
 
                 //noinspection SynchronizationOnLocalVariableOrMethodParameter
