@@ -5,9 +5,17 @@ import java.util.List;
 public class Cashier implements Runnable{
 
     private final int number;
+    private static int openCashiers = 0;
 
     public Cashier(int number) {
         this.number = number;
+        addCashier();
+    }
+
+    private static void addCashier(){
+        synchronized (Cashier.class){
+            openCashiers++;
+        }
     }
 
     @Override
@@ -35,9 +43,7 @@ public class Cashier implements Runnable{
                     buyer.notify();
                 }
             }else{
-                for (int i = 0; i < QueueCashiers.getDeque().size(); i++) {
-                        //System.out.println(QueueCashiers.getDeque().get(i) + "ждет покупателей ------------");
-                }
+
             }
         }
         System.out.println(this + "closed");
@@ -46,5 +52,11 @@ public class Cashier implements Runnable{
     @Override
     public String toString() {
         return "Cashier №" + number + " ";
+    }
+
+    public static int getOpenCashiers() {
+        synchronized (Cashier.class){
+            return openCashiers;
+        }
     }
 }

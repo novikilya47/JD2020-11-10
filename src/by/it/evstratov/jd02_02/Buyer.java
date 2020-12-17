@@ -74,6 +74,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         synchronized (this){
             QueueBuyers.add(this);
             int buyersInQueue = QueueBuyers.getSize();
+            int openCashiers = Cashier.getOpenCashiers();
 
             while (!this.isRunnable) {
                 try {
