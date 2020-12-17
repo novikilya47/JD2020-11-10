@@ -23,7 +23,7 @@ class Market {
         int expectedNumberBuyers = 0;
         for (;Dispatcher.marketIsOpened();) {
             t++;
-            expectedNumberBuyers = Math.abs((t-(t/30)*30) - 30 * ((t/30) % 2)) + 10;
+            expectedNumberBuyers = (t-(t/30)*30) - 30 * ((t/30) % 2) + 10;
             int count = Helper.getRandom((Math.abs(expectedNumberBuyers - Dispatcher.buyersInMarket)));
             for (int i = 1; i <= count && Dispatcher.marketIsOpened(); i++) {
                 Buyer buyer = new Buyer(++n);
