@@ -1,5 +1,7 @@
 package by.it.evstratov.jd02_02;
 
+import java.util.List;
+
 public class Cashier implements Runnable{
 
     private final int number;
@@ -11,6 +13,7 @@ public class Cashier implements Runnable{
     @Override
     public void run() {
         System.out.println(this + "opened");
+
         while (!Dispatcher.marketIsClosed()){
             Buyer buyer = QueueBuyers.extract();
             if(buyer != null){
@@ -18,9 +21,10 @@ public class Cashier implements Runnable{
                 Helper.sleep(t);
                 System.out.println(this + "started service for " + buyer);
                 int sumCheck = 0;
-                for (int i = 0; i < buyer.getBasket().getGoods().size(); i++) {
-                    System.out.printf("   %s\n",buyer.getBasket().getGoods().get(i).toString());
-                    sumCheck+=buyer.getBasket().getGoods().get(i).getPrice();
+                List<Good> allGoodsInBasket = buyer.getBasket().getGoods();
+                for (int i = 0; i < allGoodsInBasket.size(); i++) {
+                    System.out.printf("   %s\n",allGoodsInBasket.get(i).toString());
+                    sumCheck += allGoodsInBasket.get(i).getPrice();
                 }
                 System.out.printf("   Сумма чека для %s = %d\n",buyer, sumCheck);
                 System.out.println(this + "finished service for " + buyer);
