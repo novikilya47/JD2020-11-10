@@ -1,4 +1,4 @@
-package by.it.evstratov.jd02_01;
+package by.it.evstratov.jd02_02;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,15 @@ class Market {
 
         System.out.println("Marked opened");
 
-        List<Buyer> buyers = new ArrayList<>();
+        List<Thread> threads = new ArrayList<>();
+
+        for (int i = 1; i < 2; i++) {
+            Cashier cashier = new Cashier(i);
+            Thread thread = new Thread(cashier);
+            threads.add(thread);
+            thread.start();
+        }
+
         int n = 0;
         int expectedNumberBuyers = 0;
         for (int t = 0; t < 120; t++) {
@@ -17,19 +25,17 @@ class Market {
             int count = Helper.getRandom((expectedNumberBuyers - Dispatcher.buyersInMarket));
             for (int i = 1; i <= count; i++) {
                 Buyer buyer = new Buyer(++n);
-                if(Dispatcher.allBuyersInMarket % 4 == 0){
+                if(Dispatcher.buyersCompleted % 4 == 0){
                     buyer.setPensioneer(true);
                 }
-                buyers.add(buyer);
+                threads.add(buyer);
                 buyer.start();
-                Dispatcher.buyersInMarket++;
-                Dispatcher.allBuyersInMarket++;
             }
             Helper.sleep(1000);
         }
         try {
-            for (Buyer buyer : buyers) {
-                buyer.join();
+            for (Thread thread : threads) {
+                thread.join();
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
