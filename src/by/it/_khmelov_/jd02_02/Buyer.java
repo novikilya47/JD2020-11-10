@@ -62,4 +62,8 @@ class Buyer extends Thread implements IBuyer {
     public void goOut() {
         System.out.println(this + " left the Market");
     }
+
+    public Object getMonitor() {
+        return this;
+    }
 }

@@ -18,8 +18,8 @@ public class Cashier implements Runnable {
                 int t = Helper.getRandom(2000, 5000);
                 Helper.sleep(t);
                 System.out.println(this + "finished service for " + buyer);
-                //noinspection SynchronizationOnLocalVariableOrMethodParameter
-                synchronized (buyer) {
+                //вообще монитор это buyer - я сделал метод просто, чтобы убрать warning
+                synchronized (buyer.getMonitor()) {
                     buyer.setRunnable(true);
                     buyer.notify();
                 }
