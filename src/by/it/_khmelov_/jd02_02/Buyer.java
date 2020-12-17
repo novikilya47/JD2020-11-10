@@ -60,6 +60,6 @@ class Buyer extends Thread implements IBuyer {
 
     @Override
     public void goOut() {
-        System.out.println(this + " leaves the Market");
+        System.out.println(this + " left the Market");
     }
 }

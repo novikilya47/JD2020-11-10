@@ -33,6 +33,6 @@ public class Cashier implements Runnable {
 
     @Override
     public String toString() {
-        return "Cashier №" + number + " ";
+        return "\tCashier №" + number + " ";
     }
 }
