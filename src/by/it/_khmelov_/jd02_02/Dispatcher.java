@@ -1,7 +1,7 @@
 package by.it._khmelov_.jd02_02;
 
 class Dispatcher {
-    final static int K_SPEED = 10000;
+    final static int K_SPEED = 100;
     final static int PLAN = 100;
     private volatile static int buyersInMarket = 0;
     private volatile static int buyersCompleted = 0;
