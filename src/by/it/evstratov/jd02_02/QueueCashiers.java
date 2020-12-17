@@ -1,22 +1,20 @@
 package by.it.evstratov.jd02_02;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.ArrayList;
 
 public class QueueCashiers {
 
-    private static final Deque<Cashier> deque = new ArrayDeque<>();
+    private static final ArrayList<Thread> deque = new ArrayList<>();
 
-    static synchronized void add(Cashier cashier){
-        deque.addLast(cashier);
-    }
-
-    static synchronized Cashier extract(){
-        return deque.pollFirst();
+    static synchronized void add(Thread cashier){
+        deque.add(cashier);
     }
 
     static synchronized int getSize(){
         return deque.size();
     }
 
+    public static ArrayList<Thread> getDeque() {
+        return deque;
+    }
 }

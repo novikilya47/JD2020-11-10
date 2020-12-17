@@ -10,12 +10,11 @@ class Market {
         System.out.println("Marked opened");
 
         List<Thread> buyers = new ArrayList<>();
-        List<Thread> cashiers = new ArrayList<>();
 
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 1; i++) {
             Cashier cashier = new Cashier(i);
             Thread thread = new Thread(cashier);
-            cashiers.add(thread);
+            QueueCashiers.add(thread);
             thread.start();
         }
 
@@ -41,7 +40,7 @@ class Market {
             for (Thread thread : buyers) {
                 thread.join();
             }
-            for (Thread thread : cashiers) {
+            for (Thread thread : QueueCashiers.getDeque()) {
                 thread.join();
             }
         } catch (InterruptedException e) {

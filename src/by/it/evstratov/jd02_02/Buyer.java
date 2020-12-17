@@ -73,7 +73,8 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         this.setRunnable(false);
         synchronized (this){
             QueueBuyers.add(this);
-            //System.out.println("------------------Человек в очереди" + QueueBuyers.getSize());
+            int buyersInQueue = QueueBuyers.getSize();
+
             while (!this.isRunnable) {
                 try {
                     this.wait();

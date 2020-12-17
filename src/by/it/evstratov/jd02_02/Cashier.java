@@ -35,7 +35,9 @@ public class Cashier implements Runnable{
                     buyer.notify();
                 }
             }else{
-
+                for (int i = 0; i < QueueCashiers.getDeque().size(); i++) {
+                        //System.out.println(QueueCashiers.getDeque().get(i) + "ждет покупателей ------------");
+                }
             }
         }
         System.out.println(this + "closed");
