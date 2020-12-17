@@ -3,7 +3,7 @@ package by.it.evstratov.jd02_02;
 public class Dispatcher {
 
     static final int K_SPEED = 100;
-    static final int PLAN = 30;
+    static final int PLAN = 100;
     volatile static int buyersInMarket = 0;
     volatile static int buyersCompleted = 0;
 

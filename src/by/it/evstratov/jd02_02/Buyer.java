@@ -77,8 +77,11 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
             int openCashiers = Cashier.getOpenCashiers();
             int needToOpenCashiers =(int) Math.ceil((double) buyersInQueue / 5.0);
             if(openCashiers < needToOpenCashiers){
-                for (int i = 0; i < needToOpenCashiers - openCashiers; i++) {
-                    //System.out.println("Нужно открыть кассу");
+                for (int i = 1; i <= needToOpenCashiers - openCashiers; i++) {
+                    Cashier cashier = new Cashier(i);
+                    Thread thread = new Thread(cashier);
+                    QueueCashiers.add(thread);
+                    thread.start();
                 }
             }
             while (!this.isRunnable) {

@@ -11,16 +11,8 @@ class Market {
 
         List<Thread> buyers = new ArrayList<>();
 
-        for (int i = 1; i <= 1; i++) {
-            Cashier cashier = new Cashier(i);
-            Thread thread = new Thread(cashier);
-            QueueCashiers.add(thread);
-            thread.start();
-        }
-
         int n = 0;
         int t =0;
-        int countCashiers = 0;
         int expectedNumberBuyers;
         while (Dispatcher.marketIsOpened()) {
             t++;
