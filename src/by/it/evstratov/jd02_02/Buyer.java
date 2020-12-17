@@ -64,7 +64,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
             }
             Helper.sleep((int)timeOut/Dispatcher.K_SPEED);
             Good good = Good.takeRandomGood();
-            System.out.println(this + " put in basket "+good.toString());
+            //System.out.println(this + " put in basket "+good.toString());
             this.basket.put(good);
         }
     }
