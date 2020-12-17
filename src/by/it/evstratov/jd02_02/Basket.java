@@ -4,10 +4,13 @@ import java.util.ArrayList;
 
 class Basket {
 
-    private ArrayList<Good> basket = new ArrayList<>();
+    private ArrayList<Good> goods = new ArrayList<>();
 
     public void put(Good good){
-     this.basket.add(good);
+     this.goods.add(good);
     }
 
+    public ArrayList<Good> getGoods() {
+        return goods;
+    }
 }

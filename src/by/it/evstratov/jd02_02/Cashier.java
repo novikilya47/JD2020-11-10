@@ -14,10 +14,13 @@ public class Cashier implements Runnable{
         while (!Dispatcher.marketIsClosed()){
             Buyer buyer = QueueBuyers.extract();
             if(buyer != null){
-                System.out.println(this + "started service for" + buyer);
                 int t = Helper.getRandom(2000,5000);
                 Helper.sleep(t);
-                System.out.println(this + "finished service for" + buyer);
+                System.out.println(this + "started service for " + buyer);
+                for (int i = 0; i < buyer.getBasket().getGoods().size(); i++) {
+                    System.out.printf("   %s\n",buyer.getBasket().getGoods().get(i).toString());
+                }
+                System.out.println(this + "finished service for " + buyer);
 
                 //noinspection SynchronizationOnLocalVariableOrMethodParameter
                 synchronized (buyer){
