@@ -5,7 +5,7 @@ import java.util.List;
 public class Cashier implements Runnable{
 
     private final int number;
-    private static int openCashiers = 0;
+    private volatile static int openCashiers = 0;
 
     public Cashier(int number) {
         this.number = number;

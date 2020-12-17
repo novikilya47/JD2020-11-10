@@ -6,6 +6,7 @@ public class QueueCashiers {
 
     private static final ArrayList<Thread> deque = new ArrayList<>();
 
+
     static synchronized void add(Thread cashier){
         deque.add(cashier);
     }
