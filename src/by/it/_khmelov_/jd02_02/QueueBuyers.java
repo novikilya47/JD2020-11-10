@@ -3,7 +3,7 @@ package by.it._khmelov_.jd02_02;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class QueueBuyers {
+class QueueBuyers {
 
     private static final Deque<Buyer> deque = new ArrayDeque<>();
 
