@@ -9,17 +9,19 @@ class Market {
 
         System.out.println("Marked opened");
 
-        List<Thread> threads = new ArrayList<>();
+        List<Thread> buyers = new ArrayList<>();
+        List<Thread> cashiers = new ArrayList<>();
 
-        for (int i = 1; i <= 2; i++) {
+        for (int i = 1; i <= 5; i++) {
             Cashier cashier = new Cashier(i);
             Thread thread = new Thread(cashier);
-            threads.add(thread);
+            cashiers.add(thread);
             thread.start();
         }
 
         int n = 0;
         int t =0;
+        int countCashiers = 0;
         int expectedNumberBuyers;
         while (Dispatcher.marketIsOpened()) {
             t++;
@@ -30,13 +32,16 @@ class Market {
                 if(Dispatcher.buyersCompleted % 4 == 0){
                     buyer.setPensioneer(true);
                 }
-                threads.add(buyer);
+                buyers.add(buyer);
                 buyer.start();
             }
             Helper.sleep(1000);
         }
         try {
-            for (Thread thread : threads) {
+            for (Thread thread : buyers) {
+                thread.join();
+            }
+            for (Thread thread : cashiers) {
                 thread.join();
             }
         } catch (InterruptedException e) {

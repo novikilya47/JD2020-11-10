@@ -35,8 +35,7 @@ public class Cashier implements Runnable{
                     buyer.notify();
                 }
             }else{
-                Helper.sleep(1);
-                //PCP
+
             }
         }
         System.out.println(this + "closed");

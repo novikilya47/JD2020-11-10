@@ -15,4 +15,8 @@ public class QueueBuyers {
         return deque.pollFirst();
     }
 
+    static synchronized int getSize(){
+       return deque.size();
+    }
+
 }
