@@ -7,6 +7,8 @@ public class ConsoleRunner {
         Printer printer = new Printer();
         Parser parser = new Parser();
         Scanner scanner = new Scanner(System.in);
+
+        RepoVar.loadVariables();
         do{
             String expression = scanner.nextLine();
             if(expression.equals("end")){

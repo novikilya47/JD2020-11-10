@@ -5,39 +5,40 @@ import java.util.*;
 
 public class SetC<T> implements Set<T> {
     @SuppressWarnings("unchecked")
-    private T[] elements = (T[]) new Object[]{};
+    private T[] elements = (T[]) new Object[0];
     private int size = 0;
 
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("[");
-        String delimiter = "";
+        StringJoiner joiner = new StringJoiner(", ", "{", "}");
         for (int i = 0; i < size; i++) {
-            sb.append(delimiter).append(elements[i]);
-            delimiter = ", ";
+            joiner.add(elements[i] == null ? "NULL" : elements[i].toString());
         }
-        sb.append("]");
-        return sb.toString();
+        return joiner.toString();
     }
 
     @Override
-    public boolean add(T t) {
-        if (size == elements.length) {
-            elements = Arrays.copyOf(elements, size * 3 / 2 + 1);
-        }
-        if (!contains(t)) {
-            elements[size++] = t;
-            //System.out.println(size);
+    public boolean add(Object o) {
+
+        if (!contains(o)) {
+            if (size == elements.length) {
+                elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
+            }
+            elements[size++] = (T) o;
             return true;
         }
-        return false;
+        return true;
+
     }
 
     @Override
     public boolean contains(Object o) {
-        for (int i = 0; i < elements.length; i++) {
-            if (elements[i] == (T) o) {
+        for (int i = 0; i < size; i++) {
+            if (o == null && elements[i] == null) {
+                return true;
+
+            } else if (elements[i] != null && elements[i].equals(o)) {
                 return true;
             }
         }
@@ -53,13 +54,8 @@ public class SetC<T> implements Set<T> {
      */
     @Override
     public int size() {
-//        int size = set1.size();
-//        for (E e : set2) {
-//            if (!set1.contains(e)) {
-//                size++;
-//            }
-//        }
-        return elements.length;
+
+        return size;
     }
 
     /**
@@ -69,30 +65,61 @@ public class SetC<T> implements Set<T> {
      */
     @Override
     public boolean isEmpty() {
-        if(elements.length==0)
-        return true;
-        else
-            return false;
+        if (size == 0) {
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c) {
-        String[] col = ((c.toString()).replaceAll("[{}\\[\\],]", "")).split(" ");
-        if (size != 0) {
-            for (int i = 0; i < col.length; i++) {
-                if (!contains(col[i])) {
-                    add((T) col[i]);
+    public boolean remove(Object o) {
+        for (int i = 0; i < size; i++) {
+            if (elements[i] == o || elements.equals(o)) {
+                System.arraycopy(elements, i + 1, elements, i, size - i - 1);
+                size--;
+                elements[size] = null;   //for GC
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    @Override
+    public boolean addAll(Collection c) {
+        for (Object o : c) {
+            add(o);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean removeAll(Collection c) {
+        int count = 0;
+        for (Object o : c) {
+            if (contains(o)) {
+                remove(o);
+                count++;
+            }
+        }
+        return count <= c.size();
+    }
+
+    @Override
+    public boolean containsAll(Collection c) {
+        if (!isEmpty()) {
+            for (Object o : c) {
+                if (!contains(o)) {
+                    return false;
                 }
             }
-            return true;
-        } else {
-            return false;
         }
+        return true;
     }
 
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator iterator() {
         return null;
     }
 
@@ -107,27 +134,14 @@ public class SetC<T> implements Set<T> {
     }
 
     @Override
-    public boolean remove(Object o) {
-        return false;
-    }
+    public boolean retainAll(Collection c) {
 
-    @Override
-    public boolean containsAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> c) {
         return false;
     }
 
     @Override
     public void clear() {
-
+        Arrays.fill(elements, null);
+        size = 0;
     }
 }

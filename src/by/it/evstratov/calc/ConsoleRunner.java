@@ -9,6 +9,7 @@ public class ConsoleRunner {
         Printer printer = new Printer();
         Parser parser = new Parser();
         Scanner scanner = new Scanner(System.in);
+        RepoVar.loadVariables();
 
         for (;;) {
             String expression = scanner.nextLine();

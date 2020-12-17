@@ -11,6 +11,7 @@ abstract class Var implements OperationAdd, OperationDiv, OperationMul, Operatio
 
     static Var saveVar(String name, Var var){
         vars.put(name, var);
+        RepoVar.saveVariables(vars);
         return var;
     }
 

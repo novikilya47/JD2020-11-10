@@ -14,8 +14,9 @@ abstract class Var implements Operation {
     // LinkedHashMap - хранение в порядке заполнения
 
     // сохраняем пару ключ значение в карту
-    static Var saveVar(String varName, Var varValue) {
+    public static Var saveVar(String varName, Var varValue) {
         variables.put(varName, varValue);
+        RepoVar.saveVariables(variables);
         return varValue;
     }
 
