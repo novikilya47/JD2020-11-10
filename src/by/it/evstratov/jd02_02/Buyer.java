@@ -47,7 +47,6 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void goOut() {
         System.out.println(this + " left to market");
-        Dispatcher.completeBuyer();
     }
 
     @Override
@@ -71,10 +70,10 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     }
 
     public void goToQueue(){
-        QueueBuyers.add(this);
         System.out.println(this + " add to Queue");
         this.setRunnable(false);
         synchronized (this){
+            QueueBuyers.add(this);
             while (!this.isRunnable) {
                 try {
                     this.wait();

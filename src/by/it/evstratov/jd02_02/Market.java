@@ -20,8 +20,8 @@ class Market {
 
         int n = 0;
         int t =0;
-        int expectedNumberBuyers = 0;
-        for (;Dispatcher.marketIsOpened();) {
+        int expectedNumberBuyers;
+        while (Dispatcher.marketIsOpened()) {
             t++;
             expectedNumberBuyers = (t-(t/30)*30) - 30 * ((t/30) % 2) + 10;
             int count = Helper.getRandom((Math.abs(expectedNumberBuyers - Dispatcher.buyersInMarket)));
