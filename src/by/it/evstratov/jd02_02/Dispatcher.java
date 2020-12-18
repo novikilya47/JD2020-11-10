@@ -45,13 +45,11 @@ public class Dispatcher {
         if(openCashiers < needToOpenCashiers){
             for (int i = 0; i < needToOpenCashiers - openCashiers; i++) {
                 if(openCashiers < max){
-                    Cashier cashier = new Cashier(getNumberForCashier());
-                    Thread thread = new Thread(cashier);
+                    int num = getNumberForCashier();
+                    Cashier cashier = new Cashier(num);
+                    Thread thread = new Thread(cashier, String.valueOf(num));
                     QueueCashiers.add(thread);
                     thread.start();
-                }else{
-                    //System.out.println("********************************Нет больше кассиров!****************************");
-                    break;
                 }
             }
         }

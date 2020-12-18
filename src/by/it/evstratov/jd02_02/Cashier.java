@@ -6,6 +6,7 @@ public class Cashier implements Runnable{
 
     private final int number;
     private volatile static int openCashiers = 0;
+    private static final Object lock = new Object();
 
     public Cashier(int number) {
         this.number = number;
@@ -30,9 +31,9 @@ public class Cashier implements Runnable{
                 System.out.println(this + "started service for " + buyer);
                 int sumCheck = 0;
                 List<Good> allGoodsInBasket = buyer.getBasket().getGoods();
-                for (int i = 0; i < allGoodsInBasket.size(); i++) {
-                    System.out.printf("   %s\n",allGoodsInBasket.get(i).toString());
-                    sumCheck += allGoodsInBasket.get(i).getPrice();
+                for (Good good : allGoodsInBasket) {
+                    System.out.printf("   %s\n", good.toString());
+                    sumCheck += good.getPrice();
                 }
                 System.out.printf("   Сумма чека для %s = %d\n",buyer, sumCheck);
                 System.out.println(this + "finished service for " + buyer);
@@ -43,7 +44,11 @@ public class Cashier implements Runnable{
                     buyer.notify();
                 }
             }else{
-                //System.out.println(QueueCashiers.getSize());
+                synchronized (lock){
+                    openCashiers--;
+                    System.out.println(this + "закрывается. Осталось открытых касс - "+openCashiers);
+                    break;
+                }
             }
         }
         System.out.println(this + "closed");
