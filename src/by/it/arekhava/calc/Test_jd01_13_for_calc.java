@@ -1,4 +1,4 @@
-package by.it._khmelov_.calc;
+package by.it.arekhava.calc;
 
 
 import by.it.HomeWork;

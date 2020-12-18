@@ -1,4 +1,4 @@
-package by.it._khmelov_.calc;
+package by.it.arekhava.calc;
 
 public class CalcException extends Exception{
     public CalcException() {
@@ -6,11 +6,11 @@ public class CalcException extends Exception{
     }
 
     public CalcException(String message) {
-        super("ERROR: "+message);
+        super("ERROR"+message);
     }
 
     public CalcException(String message, Throwable cause) {
-        super("ERROR: "+message, cause);
+        super("ERROR"+message, cause);
     }
 
     public CalcException(Throwable cause) {
