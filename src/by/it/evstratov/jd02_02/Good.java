@@ -43,7 +43,7 @@ class Good {
   }
  @Override
  public String toString() {
-  return name + " по цене " + price;
+  return name + ":" + price;
  }
 
  public int getPrice() {
