@@ -25,16 +25,20 @@ public class Dispatcher {
     }
 
     static synchronized void openNeedCashiers(){
+        int max = 5;
         int openCashiers = Cashier.getOpenCashiers();
         int buyersInQueue = QueueBuyers.getSize();
         int needToOpenCashiers =(int) Math.ceil((double) buyersInQueue / 5.0);
         if(openCashiers < needToOpenCashiers){
             for (int i = 0; i < needToOpenCashiers - openCashiers; i++) {
-                if(openCashiers < 5){
-                    Cashier cashier = new Cashier(QueueCashiers.getSize());
+                if(openCashiers < max){
+                    Cashier cashier = new Cashier(QueueCashiers.getSize()+1);
                     Thread thread = new Thread(cashier);
                     QueueCashiers.add(thread);
                     thread.start();
+                }else{
+                    //System.out.println("********************************Нет больше кассиров!****************************");
+                    break;
                 }
             }
         }
