@@ -64,4 +64,11 @@ public class Dispatcher {
         }
         return 0;
     }
+    static synchronized void clearNumberForCashier(int num){
+        for (Map.Entry<Integer, Boolean> entry : numbers.entrySet()){
+            if(entry.getKey() == num){
+                entry.setValue(true);
+            }
+        }
+    }
 }

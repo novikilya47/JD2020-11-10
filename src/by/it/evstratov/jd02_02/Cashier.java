@@ -46,6 +46,7 @@ public class Cashier implements Runnable{
             }else{
                 synchronized (lock){
                     openCashiers--;
+                    Dispatcher.clearNumberForCashier(number);
                     System.out.println(this + "закрывается. Осталось открытых касс - "+openCashiers);
                     break;
                 }
