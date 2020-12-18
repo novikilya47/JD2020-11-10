@@ -45,17 +45,13 @@ public class Cashier implements Runnable{
             }else{
                 synchronized (Dispatcher.lock){
                     if(openCashiers == 1){
-                        for (int i = 0; i < QueueCashiers.getAllCashiers().size(); i++) {
-                            if(QueueCashiers.getAllCashiers().get(i).getName().equals(number+"")){
-                                System.out.println(this + "в ожидании покупателей (единственная открытая касса)");
-                                try {
-                                    if(Dispatcher.marketIsOpened()){
-                                        Dispatcher.lock.wait();
-                                    }
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
+                        System.out.println(this + "в ожидании покупателей (единственная открытая касса)");
+                        try {
+                            if(Dispatcher.marketIsOpened()){
+                                Dispatcher.lock.wait();
                             }
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
                         }
                     }else{
                         openCashiers--;
