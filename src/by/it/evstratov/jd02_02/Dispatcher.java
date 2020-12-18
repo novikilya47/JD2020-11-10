@@ -85,10 +85,21 @@ public class Dispatcher {
         return total;
     }
 
-    public static synchronized void printInfo(Cashier cashier, Buyer buyer){
+    public static void printInfo(Cashier cashier, Buyer buyer){
         synchronized (Dispatcher.lockForTotal){
-            String spaceLeft = ".".repeat(40).repeat(cashier.getNumber()-1) + " ";
-            String spaceRight = ".".repeat(40).repeat(5-cashier.getNumber()-1) + " ";
+            StringBuilder space = new StringBuilder();
+            for (int i = 0; i < 40; i++) {
+                space.append(".");
+            }
+            StringBuilder spaceLeft = new StringBuilder();
+            StringBuilder spaceRight = new StringBuilder();
+            for (int i = 0; i < cashier.getNumber()-1; i++) {
+                spaceLeft.append(space);
+            }
+            for (int i = 0; i < 5-cashier.getNumber()-1; i++) {
+                spaceRight.append(space);
+            }
+
             StringBuilder result = new StringBuilder();
             result.append(spaceLeft).append(cashier).append("started service for ").append(buyer).append("\n");
             int sumCheck = 0;
