@@ -7,6 +7,7 @@ public class TaskA {
         String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
         String cldir = cl.getName().replace(cl.getSimpleName(), "").replace(".", File.separator);
         return path + cldir;
+
     }
 
     public static void main(String[] args) {
@@ -16,6 +17,7 @@ public class TaskA {
                     new BufferedOutputStream(
                             new FileOutputStream(dir(TaskA.class) + "dataTaskA.bin"))
             );
+//            System.out.println(dir(TaskA.class));
             for (int i = 0; i < 20; i++) {
                 dos.writeInt((int) (Math.random() * 25));
 
