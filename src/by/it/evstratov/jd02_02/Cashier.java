@@ -6,7 +6,6 @@ public class Cashier implements Runnable{
 
     private final int number;
     private volatile static int openCashiers = 0;
-    private static final Object lock = new Object();
 
     public Cashier(int number) {
         this.number = number;
@@ -44,17 +43,15 @@ public class Cashier implements Runnable{
                     buyer.notify();
                 }
             }else{
-                synchronized (lock){
+                synchronized (Dispatcher.lock){
                     if(openCashiers == 1){
                         for (int i = 0; i < QueueCashiers.getAllCashiers().size(); i++) {
                             if(QueueCashiers.getAllCashiers().get(i).getName().equals(number+"")){
-                                System.out.println("Единственная открытая касса " + QueueCashiers.getAllCashiers().get(i).getName());
-                                synchronized (this){
-                                    try {
-                                        wait();
-                                    } catch (InterruptedException e) {
-                                        throw new RuntimeException(e);
-                                    }
+                                System.out.println(this + "в ожидании покупателей (единственная открытая касса)");
+                                try {
+                                    Dispatcher.lock.wait();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
                                 }
                             }
                         }

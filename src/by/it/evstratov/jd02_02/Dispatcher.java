@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class Dispatcher {
 
+    static final Object lock = new Object();
     static final int K_SPEED = 100;
     static final int PLAN = 100;
     volatile static int buyersInMarket = 0;
@@ -18,6 +19,10 @@ public class Dispatcher {
         numbers.put(3,true);
         numbers.put(4,true);
         numbers.put(5,true);
+    }
+
+    static synchronized void runWaitingCashier(){
+
     }
 
     static synchronized void addBuyer(){
