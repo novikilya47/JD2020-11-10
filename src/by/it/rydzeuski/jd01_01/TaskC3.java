@@ -1,4 +1,5 @@
 package by.it.rydzeuski.jd01_01;
+
 /*
 Ускорение свободного падения на Земле и Марсе таково:
 Марс   3.86
@@ -30,6 +31,3 @@ package by.it.rydzeuski.jd01_01;
 29.51
 
 */
-class TaskC3 {
-
-}
