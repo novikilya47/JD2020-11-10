@@ -49,6 +49,13 @@ public class Cashier implements Runnable{
                         for (int i = 0; i < QueueCashiers.getAllCashiers().size(); i++) {
                             if(QueueCashiers.getAllCashiers().get(i).getName().equals(number+"")){
                                 System.out.println("Единственная открытая касса " + QueueCashiers.getAllCashiers().get(i).getName());
+                                synchronized (this){
+                                    try {
+                                        wait();
+                                    } catch (InterruptedException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }
                             }
                         }
                     }else{
