@@ -8,7 +8,7 @@ public class Parser {
     public Var calc(String expression) throws CalcException {
         // 3 + 4
         // 7
-        expression = expression.replaceAll("\\s+", ""); // заменяем группу [\n\t\f\r] пустыми строками
+        expression = expression.replaceAll("\\s+", ""); // заменяем группу пробелов одним
         String[] part = expression.split(Patterns.OPERATION, 2); //
 
 

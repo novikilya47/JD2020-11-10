@@ -7,7 +7,7 @@ public class ListA<E> implements List<E> {
     @SuppressWarnings("unchecked")
     private E[] elements= (E[]) new Object[0];
     
-    private int size=0;
+    private int size=0; // сколько элементов в массиве
             
     @Override
     public boolean add(E e) {

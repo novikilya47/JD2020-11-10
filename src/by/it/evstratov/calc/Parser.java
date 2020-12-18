@@ -27,10 +27,18 @@ public class Parser {
             if(matcher.find()){
                 String operation = matcher.group();
                 switch (operation){
-                    case "+" : return right.addWidth(left);
-                    case "-" : return right.subWidth(left);
-                    case "*" : return right.mulWidth(left);
-                    case "/" : return right.divWidth(left);
+                    case "+" :
+                        RepoVar.saveToLog(right + " + " + left +" = "+right.addWidth(left));
+                        return right.addWidth(left);
+                    case "-" :
+                        RepoVar.saveToLog(right + " - " + left+" = "+right.subWidth(left));
+                        return right.subWidth(left);
+                    case "*" :
+                        RepoVar.saveToLog(right + " * " + left+" = "+right.mulWidth(left));
+                        return right.mulWidth(left);
+                    case "/" :
+                        RepoVar.saveToLog(right + " / " + left+" = "+right.divWidth(left));
+                        return right.divWidth(left);
                 }
             }
         }
