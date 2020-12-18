@@ -27,7 +27,6 @@ class Market {
             }
             Helper.sleep(1000);
         }
-        System.out.println(Dispatcher.allBuyersInMarket);
         try {
             for (Buyer buyer : buyers) {
                 buyer.join();

@@ -8,6 +8,7 @@ abstract class Var implements Operation {
 
     static Var saveVar(String name, Var var) {
         vars.put(name, var);
+        RepoVar.saveToFile(vars);
         return var;
     }
 
@@ -23,7 +24,7 @@ abstract class Var implements Operation {
             return vars.get(strVar);
 
         } else {
-            throw  new CalcException("Невозможно создать"+strVar);
+            throw  new CalcException("Var"+strVar+"not found");
         }
 
 
