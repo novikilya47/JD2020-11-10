@@ -32,7 +32,7 @@ class Market {
             for (Thread thread : buyers) {
                 thread.join();
             }
-            for (Thread thread : QueueCashiers.getDeque()) {
+            for (Thread thread : QueueCashiers.getAllCashiers()) {
                 thread.join();
             }
         } catch (InterruptedException e) {

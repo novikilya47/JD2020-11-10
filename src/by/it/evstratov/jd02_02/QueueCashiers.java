@@ -4,18 +4,18 @@ import java.util.ArrayList;
 
 public class QueueCashiers {
 
-    private static final ArrayList<Thread> deque = new ArrayList<>();
+    private static final ArrayList<Thread> allCashiers = new ArrayList<>();
 
 
     static synchronized void add(Thread cashier){
-        deque.add(cashier);
+        allCashiers.add(cashier);
     }
 
     static synchronized int getSize(){
-        return deque.size();
+        return allCashiers.size();
     }
 
-    public static ArrayList<Thread> getDeque() {
-        return deque;
+    public static ArrayList<Thread> getAllCashiers() {
+        return allCashiers;
     }
 }
