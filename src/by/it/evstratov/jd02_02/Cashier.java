@@ -43,7 +43,7 @@ public class Cashier implements Runnable{
                     buyer.notify();
                 }
             }else{
-
+                //System.out.println(QueueCashiers.getSize());
             }
         }
         System.out.println(this + "closed");
