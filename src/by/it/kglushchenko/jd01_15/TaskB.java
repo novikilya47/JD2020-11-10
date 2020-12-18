@@ -1,55 +1,82 @@
 package by.it.kglushchenko.jd01_15;
 
 import java.io.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class TaskB {
 
     // имя файла для вывода
     public static final String FILENAME_TXT = "TaskB.txt";
+    public static final String FILENAME_JAVA = "TaskB.java";
 
     /**
-     *
      * @param args
      */
     public static void main(String[] args) {
-        int words = 0, punctmarks = 0;
+        int beginrem = 0, endrem = 0;
 
+        String infile = getPath(TaskB.class) + FILENAME_JAVA;
+        String output = getPath(TaskB.class) + FILENAME_TXT;
+        /*
+        в программе используем метод delete класса StringBuilder
+        он позволяет вырезать интересующую нас строку со стартовой заданной позиции сомвола по покечную заданную позицию
+         */
+        StringBuilder stringBuilder = new StringBuilder();
 
+        try (FileReader fileReader = new FileReader(infile)) {
 
-        String path = getPath(TaskB.class);
-        try (BufferedReader fileRead = new BufferedReader(new FileReader(path + "TaskB.java"))) {
-            //
-            Pattern pattern = Pattern.compile("([а-яА-яёЁ]+)|([^а-яА-яёЁ\\s]+)");      //  ([а-яА-яёЁ]+)|(-,.:\\s]+)"); // "([а-яА-яёЁ]+)|([^а-яА-яёЁ\\s]+)"
+            while (fileReader.ready()) {
+                char currentChar = (char) fileReader.read(); // читаем из файла по одному символу
+                stringBuilder.append(currentChar); // добавляем посимвольно в StringBuilder
 
-            while (fileRead.ready()) {
-                String line = fileRead.readLine();
-                Matcher matcher = pattern.matcher(line);
-                while (matcher.find()) {
-                    if (matcher.group(1) != null) {
-                        words++;
+                if (currentChar == '/') {                       // если встретили / начинаем проверку
+                    char nextChar = (char) fileReader.read();
+                    stringBuilder.append(nextChar);
+
+                    if (nextChar == '*') {              // если вторй символ после / будет * стартуем многострочный комментарий
+                        beginrem = stringBuilder.length() - 2;   // позиция откуда начнем вырезать подстроку - текщаа позиция - 2 символа / *
+                    } else if (nextChar == '/') {
+                        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
+
+                        while ((nextChar = (char) fileReader.read()) != '\n') {
+                            // дальше просто перебираем символы до знака конца строки никуда не записывая
+                        }
+                        stringBuilder.append(nextChar); // записываем в наш ресурс перенос строки
                     }
-                    if (matcher.group(2) != null) {
-                        punctmarks++;
+                }
+                if (currentChar == '*') {
+                    char nextChar = (char) fileReader.read();
+                    stringBuilder.append(nextChar);
+                    if (nextChar == '/') {
+                        endrem = stringBuilder.length();
+                    }
+                    if (beginrem > 0 && endrem > 0 && beginrem < endrem) {
+                        // если индекс начала и конца отличны от 0 и позиция начала комента в подстроке
+                        stringBuilder.delete(beginrem, endrem);
+                        beginrem = 0;
+                        endrem = 0;
                     }
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("words=" + words + " punctuation marks=" + punctmarks);
-
-        try (BufferedWriter fileWrite = new BufferedWriter(new FileWriter(path + FILENAME_TXT))) {
-            fileWrite.write("words=" + words + " punctuation marks=" + punctmarks);
+            // работа с файлами требует обертки try catch
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-    }
-    // main
+        /*
+        работа с файлами требует обертки try catch
+        */
+        try (PrintWriter printWriter = new PrintWriter(output)) {
+            printWriter.print(stringBuilder);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
-    /* Получаем путь к файлу источнику */
+        System.out.println(stringBuilder);
+    }
+
+    /*
+    метод в котором высчитывается путь до файла назначения
+     */
     private static String getPath(Class<?> clazz) {
         String src = System.getProperty("user.dir") + File.separator + "src" + File.separator;
         String path = clazz.getName()
@@ -57,4 +84,5 @@ public class TaskB {
                 .replace(".", File.separator);
         return src + path;
     }
+
 }
