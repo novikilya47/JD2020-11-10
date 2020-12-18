@@ -1,15 +1,18 @@
 package by.it.evstratov.jd02_02;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Dispatcher {
 
     static final Object lock = new Object();
+    static final Object lockForTotal = new Object();
     static final int K_SPEED = 100;
     static final int PLAN = 100;
     volatile static int buyersInMarket = 0;
     volatile static int buyersCompleted = 0;
+    volatile static int total = 0;
 
     private static final Map<Integer, Boolean> numbers = new HashMap<>();
 
@@ -23,6 +26,10 @@ public class Dispatcher {
 
     static synchronized void addBuyer(){
         buyersInMarket++;
+    }
+
+    static synchronized void addTotal(int sum){
+        total += sum;
     }
 
     static synchronized void completeBuyer(){
@@ -65,11 +72,35 @@ public class Dispatcher {
         }
         return 0;
     }
+
     static synchronized void clearNumberForCashier(int num){
         for (Map.Entry<Integer, Boolean> entry : numbers.entrySet()){
             if(entry.getKey() == num){
                 entry.setValue(true);
             }
+        }
+    }
+
+    public synchronized static int getTotal() {
+        return total;
+    }
+
+    public static synchronized void printInfo(Cashier cashier, Buyer buyer){
+        synchronized (Dispatcher.lockForTotal){
+            String spaceLeft = ".".repeat(40).repeat(cashier.getNumber()-1) + " ";
+            String spaceRight = ".".repeat(40).repeat(5-cashier.getNumber()-1) + " ";
+            StringBuilder result = new StringBuilder();
+            result.append(spaceLeft).append(cashier).append("started service for ").append(buyer).append("\n");
+            int sumCheck = 0;
+            List<Good> allGoodsInBasket = buyer.getBasket().getGoods();
+            for (Good good : allGoodsInBasket) {
+                result.append(spaceLeft).append(good.toString()).append("\n");
+                sumCheck += good.getPrice();
+            }
+            Dispatcher.addTotal(sumCheck);
+            result.append(spaceLeft).append("Сумма чека для ").append(cashier).append(" = ").append(sumCheck).append("\n");
+            result.append(spaceLeft).append(cashier).append("finished service for ").append(buyer).append(spaceRight).append(Dispatcher.getTotal()).append(" ").append(QueueBuyers.getSize()).append("\n");
+            System.out.println(result);
         }
     }
 }

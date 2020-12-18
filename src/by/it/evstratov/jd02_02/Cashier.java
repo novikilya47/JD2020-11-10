@@ -27,16 +27,7 @@ public class Cashier implements Runnable{
             if(buyer != null){
                 int t = Helper.getRandom(2000,5000);
                 Helper.sleep(t);
-                System.out.println(this + "started service for " + buyer);
-                int sumCheck = 0;
-                List<Good> allGoodsInBasket = buyer.getBasket().getGoods();
-                for (Good good : allGoodsInBasket) {
-                    System.out.printf("%s\n", good.toString());
-                    sumCheck += good.getPrice();
-                }
-                System.out.printf("Сумма чека для %s = %d\n",buyer, sumCheck);
-                System.out.println(this + "finished service for " + buyer);
-
+                Dispatcher.printInfo(this,buyer);
                 //noinspection SynchronizationOnLocalVariableOrMethodParameter
                 synchronized (buyer){
                     buyer.setRunnable(true);
@@ -74,5 +65,9 @@ public class Cashier implements Runnable{
         synchronized (Cashier.class){
             return openCashiers;
         }
+    }
+
+    public int getNumber() {
+        return number;
     }
 }

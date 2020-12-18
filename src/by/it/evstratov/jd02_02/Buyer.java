@@ -105,4 +105,6 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     public Basket getBasket() {
         return basket;
     }
+
+
 }
