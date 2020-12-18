@@ -21,10 +21,6 @@ public class Dispatcher {
         numbers.put(5,true);
     }
 
-    static synchronized void runWaitingCashier(){
-
-    }
-
     static synchronized void addBuyer(){
         buyersInMarket++;
     }

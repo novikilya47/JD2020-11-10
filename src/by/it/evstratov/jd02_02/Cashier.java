@@ -49,7 +49,9 @@ public class Cashier implements Runnable{
                             if(QueueCashiers.getAllCashiers().get(i).getName().equals(number+"")){
                                 System.out.println(this + "в ожидании покупателей (единственная открытая касса)");
                                 try {
-                                    Dispatcher.lock.wait();
+                                    if(Dispatcher.marketIsOpened()){
+                                        Dispatcher.lock.wait();
+                                    }
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }

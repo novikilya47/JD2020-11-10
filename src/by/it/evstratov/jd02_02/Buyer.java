@@ -73,6 +73,9 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         this.setRunnable(false);
         synchronized (this){
             QueueBuyers.add(this);
+            synchronized (Dispatcher.lock){
+                Dispatcher.lock.notify();
+            }
             Dispatcher.openNeedCashiers();
             while (!this.isRunnable) {
                 try {
