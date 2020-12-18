@@ -7,7 +7,7 @@ public class ConsoleRunner {
         Scanner scanner = new Scanner(System.in);
         Parser pars = new Parser();
         Printer printer = new Printer();
-
+        RepoVar.loadVariables();
         String expression;
         while (true) {
             expression = scanner.nextLine();
@@ -18,11 +18,12 @@ public class ConsoleRunner {
 
             } else if (expression.equals("sortvar")) {
                 Var.sortVar();
-                
+
             } else {
                 try {
                     Var result = pars.calc(expression);
                     printer.print(result);
+
                 } catch (CalcException e) {
                     //e.printStackTrace();
                     printer.printErr(e);

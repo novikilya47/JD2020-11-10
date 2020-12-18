@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
-    Var calc(String expression) throws CalcException{
+    Var calc(String expression) throws CalcException {
         expression = expression.trim().replaceAll("\\s+", "");
         String[] line = expression.split(Patterns.OPERATION);
 
@@ -15,8 +15,8 @@ public class Parser {
         //a=5
 
         Var right = Var.createVar(line[1]);
-        if(expression.contains("=")){
-            return  Var.save(line[0],right);
+        if (expression.contains("=")) {
+            return Var.save(line[0], right);
         }
         Var left = Var.createVar(line[0]);
 
@@ -29,12 +29,16 @@ public class Parser {
 
                 switch (operation) {
                     case "+":
+                        RepoVar.saveConsoleOut(left + "+" + right + "=" + left.add(right));
                         return left.add(right);
                     case "-":
+                        RepoVar.saveConsoleOut(left + "-" + right + "=" + left.sub(right));
                         return left.sub(right);
                     case "*":
+                        RepoVar.saveConsoleOut(left + "*" + right + "=" + left.mul(right));
                         return left.mul(right);
                     case "/":
+                        RepoVar.saveConsoleOut(left + "/" + right + "=" + left.div(right));
                         return left.div(right);
                 }
             }
