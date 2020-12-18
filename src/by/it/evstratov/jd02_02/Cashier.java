@@ -45,10 +45,18 @@ public class Cashier implements Runnable{
                 }
             }else{
                 synchronized (lock){
-                    openCashiers--;
-                    Dispatcher.clearNumberForCashier(number);
-                    System.out.println(this + "закрывается. Осталось открытых касс - "+openCashiers);
-                    break;
+                    if(openCashiers == 1){
+                        for (int i = 0; i < QueueCashiers.getAllCashiers().size(); i++) {
+                            if(QueueCashiers.getAllCashiers().get(i).getName().equals(number+"")){
+                                System.out.println("Единственная открытая касса " + QueueCashiers.getAllCashiers().get(i).getName());
+                            }
+                        }
+                    }else{
+                        openCashiers--;
+                        Dispatcher.clearNumberForCashier(number);
+                        System.out.println(this + "закрывается. Осталось открытых касс - "+openCashiers);
+                        break;
+                    }
                 }
             }
         }
