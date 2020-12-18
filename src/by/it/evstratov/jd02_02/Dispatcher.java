@@ -85,7 +85,7 @@ public class Dispatcher {
         return total;
     }
 
-    public static void printInfo(Cashier cashier, Buyer buyer){
+    public static void printCheck(Cashier cashier, Buyer buyer){
         synchronized (Dispatcher.lockForTotal){
             StringBuilder space = new StringBuilder();
             for (int i = 0; i < 40; i++) {
@@ -99,6 +99,7 @@ public class Dispatcher {
             for (int i = 0; i < 5-cashier.getNumber()-1; i++) {
                 spaceRight.append(space);
             }
+            spaceRight.append(" ");
 
             StringBuilder result = new StringBuilder();
             result.append(spaceLeft).append(cashier).append("started service for ").append(buyer).append("\n");

@@ -27,7 +27,7 @@ public class Cashier implements Runnable{
             if(buyer != null){
                 int t = Helper.getRandom(2000,5000);
                 Helper.sleep(t);
-                Dispatcher.printInfo(this,buyer);
+                Dispatcher.printCheck(this,buyer);
                 //noinspection SynchronizationOnLocalVariableOrMethodParameter
                 synchronized (buyer){
                     buyer.setRunnable(true);
