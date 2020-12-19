@@ -1,4 +1,4 @@
-package by.it.kglushchenko.jd02_02;
+package by.it.kglushchenko.jd02_03;
 
 public interface IBuyer {
     // покупатели становятся все в одну очетедь

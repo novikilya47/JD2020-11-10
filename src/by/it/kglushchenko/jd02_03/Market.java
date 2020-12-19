@@ -1,8 +1,11 @@
-package by.it.kglushchenko.jd02_02;
+package by.it.kglushchenko.jd02_03;
 
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Market {
 
@@ -14,15 +17,19 @@ public class Market {
 
         // Создали список покупателей и кассиров
         // чтобы и кассиры и покупатели были в одном List меняем Buyers на Thread
-        List<Thread> threads = new ArrayList<>();     // ArrayList не потокобезопасный но доступ к неиу только из потока main
+//        List<Thread> threads = new ArrayList<>();     // ArrayList не потокобезопасный но доступ к неиу только из потока main
 
+        ExecutorService threadCashier = Executors.newFixedThreadPool(5); // max одновренно кассиров
+        //threadPool.
         // запускаем кассиров
         for (int i = 1; i <= 2 ; i++) {
             Cashier cashier = new Cashier(i);
-            Thread thread = new Thread(cashier);
-            threads.add(thread); // добавляем кассира
-            thread.start();
+            threadCashier.execute(cashier);
+//            Thread thread = new Thread(cashier);
+//            threads.add(thread); // добавляем кассира
+//            thread.start();
         }
+        //threadCashier.shutdown(); // нет больше кассиров
         int n = 0;
         // время от 1 секунды до 120
         for (int t = 1; t <= 120; t++) {            // мат ожидание дает в среднем заход 120 человек
@@ -55,6 +62,16 @@ public class Market {
             Thread.yield();
         }
         // ко всем потокам прицепились, когда все закончились, закрываемся
+        threadCashier.shutdown(); // нет больше кассиров
+        for(;;){
+            try {
+                if(threadCashier.awaitTermination(10, TimeUnit.DAYS)){
+                    break;
+                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
         System.out.println("Market closed");
     }
 }

@@ -1,6 +1,4 @@
-package by.it.kglushchenko.jd02_02;
-
-
+package by.it.kglushchenko.jd02_03;
 
 
 class Buyer extends Thread implements IBuyer, IUseBasket {

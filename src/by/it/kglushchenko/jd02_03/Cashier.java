@@ -1,4 +1,4 @@
-package by.it.kglushchenko.jd02_02;
+package by.it.kglushchenko.jd02_03;
 
 public class Cashier implements Runnable {
 
