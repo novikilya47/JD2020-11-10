@@ -4,7 +4,7 @@ class Cashier implements Runnable {
 
     private final int number;
 
-    private QueueBuyers queueBuyers;
+    private final QueueBuyers queueBuyers;
 
     public Cashier(int number, QueueBuyers queueBuyers) {
         this.number = number;
@@ -16,6 +16,7 @@ class Cashier implements Runnable {
         System.out.println(this + "opened");
         while (!Dispatcher.marketIsClosed()) {
             Buyer buyer = queueBuyers.extract();
+            //noinspection DuplicatedCode
             if (buyer != null) {
                 System.out.println(this + "started service for " + buyer);
                 int t = Helper.getRandom(2000, 5000);

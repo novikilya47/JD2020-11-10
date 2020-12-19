@@ -5,7 +5,7 @@ class Buyer extends Thread implements IBuyer {
 
     private boolean isRunnable;
 
-    private QueueBuyers queueBuyers;
+    private final QueueBuyers queueBuyers;
 
     public void setRunnable(boolean runnable) {
         this.isRunnable = runnable;
