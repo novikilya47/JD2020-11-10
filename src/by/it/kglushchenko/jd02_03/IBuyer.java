@@ -11,4 +11,7 @@ public interface IBuyer {
 
     void goOut();         // отправился на выход (мгновенно)
 
+    boolean buyerIsPensioneer(); // полупатель пенсионер?
+
+    void setPensioneer(boolean state); // установить статус пенсионности
 }

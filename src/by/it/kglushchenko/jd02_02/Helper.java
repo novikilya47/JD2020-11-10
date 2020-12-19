@@ -1,6 +1,5 @@
 package by.it.kglushchenko.jd02_02;
 
-//import by.it.kglushchenko.jd02_01.Dispatcher;
 
 import java.util.Random;
 

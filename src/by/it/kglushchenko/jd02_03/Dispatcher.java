@@ -8,6 +8,11 @@ public class Dispatcher {
     volatile static int buyersCompleted = 0; // сколько человек в магазине
     // суммарное количество покупетелей посетивших магазин = в магазине + кто вышел
 
+    public static void reset() {
+        buyersCompleted = 0;
+        buyersInMarket = 0;
+    }
+
     static void addBuyer() {
         synchronized (Dispatcher.class) {
             buyersInMarket++;
