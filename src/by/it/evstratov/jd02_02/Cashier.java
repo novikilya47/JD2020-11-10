@@ -6,6 +6,7 @@ public class Cashier implements Runnable{
 
     private final int number;
     private volatile static int openCashiers = 0;
+    static final Object lock = new Object();
 
     public Cashier(int number) {
         this.number = number;
@@ -39,7 +40,7 @@ public class Cashier implements Runnable{
                         System.out.println(this + "в ожидании покупателей (единственная открытая касса)");
                         try {
                             if(Dispatcher.marketIsOpened()){
-                                Dispatcher.lock.wait();
+                                Cashier.lock.wait();
                             }
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
@@ -72,7 +73,7 @@ public class Cashier implements Runnable{
     }
 
     public static void printCheck(Cashier cashier, Buyer buyer){
-        synchronized (cashier){
+        synchronized (Cashier.lock){
             StringBuilder space = new StringBuilder();
             for (int i = 0; i < 40; i++) {
                 space.append(".");
