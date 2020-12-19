@@ -1,17 +1,11 @@
 package by.it.kglushchenko.jd02_03;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
 public class Market {
 
 
     public static void main(String[] args) {
-        Dispatcher.buyersInMarket = 0;              // DANGER
+ /*       Dispatcher.buyersInMarket = 0;              // DANGER
         // Открыли магазин
         System.out.println("Market opened");
 
@@ -71,7 +65,7 @@ public class Market {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }
+        }*/
         System.out.println("Market closed");
     }
 }

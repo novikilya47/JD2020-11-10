@@ -1,45 +1,29 @@
 package by.it.kglushchenko.jd02_01;
 
-class Buyer extends Thread implements IBuyer , IUseBasket{
+class Buyer extends Thread implements IBuyer, IUseBasket {
 
-    private static final boolean pensioneer = false;
+    private Basket basket;
 
-    // Передаем в конструктор Имя посетителя
-    public Buyer(int visitor_number) {
-        super("Buyer " + visitor_number);
+    private boolean IsPensioneer = false;
+
+    public Buyer(int number) {
+        super("Buyer №" + number);
     }
 
-    // Чтобы Buyer стал потоком ему нужно переопроеделить метод run()
-    /**
-     * If this thread was constructed using a separate
-     * {@code Runnable} run object, then that
-     * {@code Runnable} object's {@code run} method is called;
-     * otherwise, this method does nothing and returns.
-     * <p>
-     * Subclasses of {@code Thread} should override this method.
-     *
-     * @see #start()
-     * @see #stop()
-     * @see #Thread(ThreadGroup, Runnable, String)
-     */
+
     @Override
     public void run() {
-        //super.run();
-        //System.out.println(this + " do smth");
         enterToMarket();
         chooseGoods();
+        takeBasket();
+        putGoodsToBasket();
         goOut();
+        //noinspection NonAtomicOperationOnVolatileField
         Dispatcher.buyersInMarket--;
     }
 
-    /**
-     * Returns a string representation of this thread, including the
-     * thread's name, priority, and thread group.
-     *
-     * @return a string representation of this thread.
-     */
     @Override
-    public String toString() {      // Здесь будем возвращать name
+    public String toString() {
         return this.getName();
     }
 
@@ -50,24 +34,49 @@ class Buyer extends Thread implements IBuyer , IUseBasket{
 
     @Override
     public void chooseGoods() {
-        System.out.println(this + " started to choose goods");
-        int timeout = Helper.getRandom(500,2000);
-        Helper.sleep(timeout);
-        System.out.println(this + " finished to choose goods");
+        System.out.println(this + " started choose goods");
+        Helper.sleepRandom(500, 2000);
+        System.out.println(this + " finished choose goods");
     }
 
     @Override
     public void goOut() {
-        System.out.println(this + " left Market");
+        System.out.println(this + " leaves the Market");
+    }
+
+    @Override
+    public boolean buyerIsPensioneer() {
+        return this.IsPensioneer;
+    }
+
+    @Override
+    public void setPensioneerState(boolean state) {
+        this.IsPensioneer = state;
     }
 
     @Override
     public void takeBasket() {
-        // взял корзину
+        System.out.println(this + " takes a basket");
+        basket = new Basket();
     }
 
     @Override
     public void putGoodsToBasket() {
-        //
+        int thisBuyerGoodsCount = Helper.getRandom(1, 4); // покупатель выбирает от 1 до 4 товаров
+        for (int i = 0; i < thisBuyerGoodsCount; i++) {
+            int itemIndex = Helper.getRandom(0, Market.goods.size() - 1);
+            Good item = Market.goods.get(itemIndex);
+
+            int k=1;
+            if (buyerIsPensioneer()){
+                k = Helper.getRandom(1,2); // коэффициент пенсионера, в среднем 1,5
+            }
+            Helper.sleepRandom(500*k, 2000*k); // берет товар
+
+            basket.add(item, 1);
+
+            System.out.println(this + " has put " + item.getName() + " into the basket");
+        }
+        System.out.println(this + " has finished putting goods into the basket");
     }
 }
