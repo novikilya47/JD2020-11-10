@@ -26,4 +26,15 @@ class Helper {
             throw new RuntimeException(e);
         }
     }
+
+    public static void sleepRandom(int start, int end) {
+        int timeout = getRandom(start, end);
+        sleep(timeout);
+    }
+
+    public static void sleepRandom(int max) {
+        int timeout = getRandom(0, max);
+        sleep(timeout);
+    }
+
 }

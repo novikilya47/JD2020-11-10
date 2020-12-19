@@ -35,7 +35,11 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void chooseGoods() {
         System.out.println(this + " started choose goods");
-        Helper.sleepRandom(500, 2000);
+        int k=1;
+        if (buyerIsPensioneer()){
+            k = Helper.getRandom(1,2); // коэффициент пенсионера, в среднем 1,5
+        }
+        Helper.sleepRandom(500*k, 2000*k); // выбирает товар
         System.out.println(this + " finished choose goods");
     }
 

@@ -1,12 +1,12 @@
 package by.it.kglushchenko.jd02_02;
 
-import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.LinkedList;
 
 public class QueueBuyers {
 
     // нужно обеспечить безопасное добавление несклькиз покупателей
-    private static final Deque<Buyer> deque = new ArrayDeque<>(); //ok? ок!
+    private static final Deque<Buyer> deque = new LinkedList<>();           //ArrayDeque<>(); //
     // если использовать пенсионеров - нужно использовать LinkedList
 
     // из какого-то потока добавляют покупателя
