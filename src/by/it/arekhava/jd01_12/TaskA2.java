@@ -30,7 +30,8 @@ public class TaskA2 {
 
     private static Set<Integer> getCross(Set<Integer> set1, Set<Integer> set2) {
         HashSet<Integer> result = new HashSet<>(set1);
-        result.removeIf(integer -> !set2.contains(integer));
+        //result.removeIf(integer -> {return !set2.contains(integer)});
+
         result.retainAll(set2);
         return result;
     }
