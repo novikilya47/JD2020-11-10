@@ -4,8 +4,8 @@ package by.it.soldatenko.jd02_02;
 class Buyer extends Thread implements IBuyer, IUseBasket {
     private boolean isRunnable;
 
-    public void setRunnable(boolean iWait) {
-        this.isRunnable = iWait;
+    public void setRunnable(boolean runnable) {
+        this.isRunnable = runnable;
     }
 
     public Buyer(int number) {
@@ -41,7 +41,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void enterToMarket() {
-        Market.quantityIn++;
+
         System.out.println(this + "entered to Market");
     }
 
@@ -63,10 +63,10 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void goToQueue() {
-        QueueBuyers.add(this);
-        System.out.println(this+ " added to Queue");
-        this.setRunnable(false);
+        System.out.println(this + " added to Queue");
         synchronized (this) {
+            QueueBuyers.add(this);
+            this.setRunnable(false);
             while (!this.isRunnable)
                 try {
                     this.wait();
@@ -74,7 +74,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
                     e.printStackTrace();
                 }
         }
-        System.out.println(this+ " left the Queue");
+        System.out.println(this + " left the Queue");
     }
 
     @Override
@@ -89,9 +89,9 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     }
 
+
     @Override
     public void goOut() {
         System.out.println(this + " leaved the Market");
-        Market.quantityOut++;
     }
 }

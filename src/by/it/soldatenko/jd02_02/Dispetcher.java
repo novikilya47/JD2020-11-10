@@ -6,6 +6,11 @@ class Dispetcher {
     private volatile static int buyersInMarket = 0;
     private volatile static int buyersComplete = 0;
 
+    public static void reset() {
+        buyersComplete = 0;
+        buyersInMarket = 0;
+    }
+
     static void addBuyer() {
         synchronized (Dispetcher.class) {
             buyersInMarket++;
