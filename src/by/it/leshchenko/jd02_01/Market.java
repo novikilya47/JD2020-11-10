@@ -10,7 +10,7 @@ public class Market {
         List<Buyer> buyers = new ArrayList<>();
         int number = 0;
         for (int t = 0; t < ControlCentre.MARKET_OPENTIME; t++) {
-            for (int i = 0; i < Helper.randomBuyers(2); i++) {
+            for (int i = 0; i < Helper.random(2 + 1); i++) {
                 final Buyer buyer = new Buyer(++number);
                 buyer.start();
                 buyers.add(buyer);

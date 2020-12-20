@@ -5,17 +5,17 @@ import java.util.Random;
 class Helper {
     final static Random random = new Random();
 
-    public static int randomBuyers(int max) {
-        return random.nextInt(max + 1);
+    static int random(int max) {
+        return random.nextInt(max);
     }
 
-    static int randomTime(int min, int max) {
+    static int random(int min, int max) {
         return random.nextInt((max - min + 1) + min);
     }
 
     public static void sleep(int timeout) {
         try {
-            Thread.sleep(timeout/ControlCentre.MARKET_SPEED);
+            Thread.sleep(timeout / ControlCentre.MARKET_SPEED);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
