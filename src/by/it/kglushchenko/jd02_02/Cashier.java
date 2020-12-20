@@ -22,7 +22,7 @@ public class Cashier implements Runnable {
                 System.out.println(this + "finished service for " + buyer);
                 //noinspection SynchronizationOnLocalVariableOrMethodParameter
                 synchronized (buyer) {
-                    buyer.setProcessedByCachier(true);
+                    buyer.setProcessedByCashier(true);
                     buyer.notify();
                 }
             } else {

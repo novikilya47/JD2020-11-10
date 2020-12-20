@@ -2,14 +2,15 @@ package by.it.kglushchenko.jd02_02;
 
 class Buyer extends Thread implements IBuyer, IUseBasket {
 
-    private boolean processedByCachier;
+    private boolean processedByCashier;   // логика isRunnable
 
     private Basket basket;
 
     private final boolean pensioner;
 
-    public void setProcessedByCachier(boolean processedByCachier){
-        this.processedByCachier = processedByCachier;
+    public void setProcessedByCashier(boolean processedByCashier) {
+        // готов ли посетитель быть обработанным кассиром
+        this.processedByCashier = processedByCashier;
     }
 
     // Передаем в конструктор Имя посетителя
@@ -50,23 +51,23 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void chooseGoods() {
         System.out.println(this + " started choose goods");
-        sleepRandom(500, 2000); // выбирает товар
+        sleepRandom(500, 2000);                               // выбирает товар, скорость пенсионеров учтена
         System.out.println(this + " finished choose goods");
     }
 
     @Override
     public void goToQueue() {
-        System.out.println(this+ " goes to queue");
+        System.out.println(this + " goes to queue");
         // метод wait нельзя вызвать пока мы не обладаем каким либо монитором
         // не все покупатели хотят стазу заснуть
         // нужно ли им иметь один общий монитор? не нужно
         // монитор нужен для того чтобы прислать notify
         // и у каждого покупателя он может быть свой собственный
-        synchronized (this){
+        synchronized (this) {
             // покупатель не должен занимать ресурсы процессора
             // можно перейти в состояние wait и ждать notify
             // в этой точке покупатель говорит что он перестает быть активным
-            this.setProcessedByCachier(false);
+            this.setProcessedByCashier(false);
 
             // в очередь покупатель добавляет сам себя
             QueueBuyers.add(this);
@@ -75,7 +76,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
             // wait длится пока наш this не runnable
             // Дожидаемся, когда мы станем true
             // То есть, мы дожидаемся, когда нас ослужит кассир
-            while (!this.processedByCachier) {
+            while (!this.processedByCashier) {
                 try {
 
                     // Просыпаемся, если:
@@ -113,7 +114,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
             */
 
         }
-        System.out.println(this+ " left to queue");
+        System.out.println(this + " left to queue");
     }
 
     @Override
@@ -151,7 +152,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     private void sleepRandom(int min, int max) {
         int k = getK();
-        Helper.sleepRandom(min*k, max*k); // берет товар
+        Helper.sleepRandom(min * k, max * k); // берет товар
     }
 
     private int getK() {

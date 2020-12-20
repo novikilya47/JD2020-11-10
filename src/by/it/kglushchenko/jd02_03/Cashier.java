@@ -26,7 +26,7 @@ public class Cashier implements Runnable {
                 System.out.println(this + "finished service for " + buyer);
                 //вообще монитор это buyer - я сделал метод просто, чтобы убрать warning
                 synchronized (buyer.getMonitor()) {
-                    buyer.setRunnable(true);
+                    buyer.setProcessedByCashier(true);
                     buyer.notify();
                 }
             } else {
