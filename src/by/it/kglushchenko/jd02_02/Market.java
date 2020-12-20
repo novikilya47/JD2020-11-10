@@ -71,9 +71,18 @@ public class Market {
         while (Dispatcher.marketIsOpened()) {
             int count = Helper.getRandom(2);
             for (int i = 1; i <= count && Dispatcher.marketIsOpened(); i++) {
-                Buyer buyer = new Buyer(++n);
+                boolean pensioner = Helper.getRandom(1, 4) == 4;
+                Buyer buyer = new Buyer(++n, pensioner);
                 threads.add(buyer);
                 buyer.start();
+
+                // todo Убрать. Это для примера
+                // ....
+                /*
+                // Это делает вот что
+                //      buyer.interrupt = true
+                buyer.interrupt();
+                */
             }
             Helper.sleep(1000);
         }

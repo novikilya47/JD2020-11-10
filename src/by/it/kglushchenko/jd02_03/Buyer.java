@@ -5,23 +5,27 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     private boolean isRunnable;
 
+    private final QueueBuyers queueBuyers;
+
     private boolean isPensioneer;
 
     private Basket basket;
 
-    public void setRunneble(boolean runnable){
+    public void setRunnable(boolean runnable) {
         this.isRunnable = runnable;
     }
 
     private static final boolean pensioneer = false;
 
-    // Передаем в конструктор Имя посетителя
-    public Buyer(int visitor_number) {
+    // Передаем в конструктор Имя посетителя и очередь
+    public Buyer(int visitor_number, QueueBuyers queueBuyers) {
         super("Buyer " + visitor_number);
+        this.queueBuyers = queueBuyers; // добавляем покупателя в очередь
         Dispatcher.addBuyer();
     }
 
     // Чтобы Buyer стал потоком ему нужно переопроеделить метод run()
+
     /**
      * If this thread was constructed using a separate
      * {@code Runnable} run object, then that
@@ -35,13 +39,12 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
      */
     @Override
     public void run() {
-        //super.run();
-        //System.out.println(this + " do smth");
+
         enterToMarket();
         chooseGoods();
         goToQueue();
         goOut();
-        Dispatcher.completeBuyer();
+        Dispatcher.completeBuyers();
     }
 
     /**
@@ -63,39 +66,43 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void chooseGoods() {
         System.out.println(this + " started choose goods");
-        int k=1;
-        if (buyerIsPensioneer()){
-            k = Helper.getRandom(1,2); // коэффициент пенсионера, в среднем 1,5
+        int k = 1;
+        if (buyerIsPensioneer()) {
+            k = Helper.getRandom(1, 2); // коэффициент пенсионера, в среднем 1,5
         }
-        Helper.sleepRandom(500*k, 2000*k); // выбирает товар
+        Helper.sleepRandom(500 * k, 2000 * k); // выбирает товар
         System.out.println(this + " finished choose goods");
     }
 
     @Override
     public void goToQueue() {
-        System.out.println(this+ " goes to queue");
+        System.out.println(this + " goes to queue");
         // метод wait нельзя вызвать пока мы не обладаем каким либо монитором
         // не все покупатели хотят стазу заснуть
         // нужно ли им иметь один общий монитор? не нужно
         // монитор нужен для того чтобы прислать notify
         // и у каждого покупателя он может быть свой собственный
-        synchronized (this){
+        synchronized (this) {
             // в очередь покупатель добавляет сам себя
-            QueueBuyers.add(this);
+            queueBuyers.add(this);
             // покупатель не должен занимать ресурсы процессора
             // можно перейти в состояние wait и ждать notify
             // в этой точке покупатель говорит что он перестает быть активным
-            this.setRunneble(false);
+            this.setRunnable(false);
             // даем команду не покупателю а монитору
             // wait длится пока наш this не runnable
             while (!this.isRunnable)
-            try {
-                this.wait();        // пока кто-нибудь 1) не изменит isRunnable на true, 2) не пришлет notify
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+                try {
+                    this.wait();        // пока кто-нибудь 1) не изменит isRunnable на true, 2) не пришлет notify
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
         }
-        System.out.println(this+ " left to queue");
+        System.out.println(this + " left to queue");
+    }
+
+    public Object getMonitor() {
+        return this;
     }
 
     @Override
@@ -128,11 +135,11 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
             Good item = Market.goods.get(itemIndex);
 
 
-            int k=1;
-            if (buyerIsPensioneer()){
-                k = Helper.getRandom(1,2); // коэффициент пенсионера, в среднем 1,5
+            int k = 1;
+            if (buyerIsPensioneer()) {
+                k = Helper.getRandom(1, 2); // коэффициент пенсионера, в среднем 1,5
             }
-            Helper.sleepRandom(500*k, 2000*k); // берет товар
+            Helper.sleepRandom(500 * k, 2000 * k); // берет товар
 
             basket.add(item, 1);
 

@@ -2,36 +2,24 @@ package by.it.kglushchenko.jd02_02;
 
 class Buyer extends Thread implements IBuyer, IUseBasket {
 
-    private boolean isRunnable;
-
-    private boolean isPensioneer;
+    private boolean processedByCachier;
 
     private Basket basket;
 
-    public void setRunneble(boolean runnable){
-        this.isRunnable = runnable;
+    private final boolean pensioner;
+
+    public void setProcessedByCachier(boolean processedByCachier){
+        this.processedByCachier = processedByCachier;
     }
 
-    private static final boolean pensioneer = false;
-
     // Передаем в конструктор Имя посетителя
-    public Buyer(int visitor_number) {
-        super("Buyer " + visitor_number);
+    public Buyer(int visitorNumber, boolean pensioner) {
+        super("Buyer " + visitorNumber);
+        this.pensioner = pensioner;
         Dispatcher.addBuyer();
     }
 
     // Чтобы Buyer стал потоком ему нужно переопроеделить метод run()
-    /**
-     * If this thread was constructed using a separate
-     * {@code Runnable} run object, then that
-     * {@code Runnable} object's {@code run} method is called;
-     * otherwise, this method does nothing and returns.
-     * <p>
-     * Subclasses of {@code Thread} should override this method.
-     *
-     * @see #start()
-     * @see #stop()
-     */
     @Override
     public void run() {
         //super.run();
@@ -62,11 +50,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void chooseGoods() {
         System.out.println(this + " started choose goods");
-        int k=1;
-        if (buyerIsPensioneer()){
-            k = Helper.getRandom(1,2); // коэффициент пенсионера, в среднем 1,5
-        }
-        Helper.sleepRandom(500*k, 2000*k); // выбирает товар
+        sleepRandom(500, 2000); // выбирает товар
         System.out.println(this + " finished choose goods");
     }
 
@@ -79,20 +63,55 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         // монитор нужен для того чтобы прислать notify
         // и у каждого покупателя он может быть свой собственный
         synchronized (this){
-            // в очередь покупатель добавляет сам себя
-            QueueBuyers.add(this);
             // покупатель не должен занимать ресурсы процессора
             // можно перейти в состояние wait и ждать notify
             // в этой точке покупатель говорит что он перестает быть активным
-            this.setRunneble(false);
+            this.setProcessedByCachier(false);
+
+            // в очередь покупатель добавляет сам себя
+            QueueBuyers.add(this);
+
             // даем команду не покупателю а монитору
             // wait длится пока наш this не runnable
-            while (!this.isRunnable)
-            try {
-                this.wait();        // пока кто-нибудь 1) не изменит isRunnable на true, 2) не пришлет notify
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            // Дожидаемся, когда мы станем true
+            // То есть, мы дожидаемся, когда нас ослужит кассир
+            while (!this.processedByCachier) {
+                try {
+
+                    // Просыпаемся, если:
+                    //     Кто-то сделала на нас же buyer.notify()
+                    //     Можем проснуться просто так
+
+                    this.wait();        // пока кто-нибудь 1) не изменит isRunnable на true, 2) не пришлет notify
+                } catch (InterruptedException e) {
+                    System.out.println(this + " is interrupted");
+                    break;
+                }
             }
+
+            // Как работает реакция на buyer.interrupt() извне
+            // ...
+            /*
+            try (*//*Закрывающиеся штуки*//*) {
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    // Завершить
+                    return;
+                }
+
+                for (int i = 0; i < 100; i++) {
+                    if (interrupted()) {
+                        // Завершить
+                        return;
+                    }
+                }
+            } finally {
+                // Тоже что-то закрываем
+            }
+            */
+
         }
         System.out.println(this+ " left to queue");
     }
@@ -100,16 +119,6 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void goOut() {
         System.out.println(this + " left Market");
-    }
-
-    @Override
-    public boolean buyerIsPensioneer() {
-        return this.isPensioneer;
-    }
-
-    @Override
-    public void setPensioneer(boolean state) {
-        this.isPensioneer = state;
     }
 
     @Override
@@ -126,16 +135,30 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
             int itemIndex = Helper.getRandom(0, Market.goods.size() - 1);
             Good item = Market.goods.get(itemIndex);
 
-            int k=1;
-            if (buyerIsPensioneer()){
-                k = Helper.getRandom(1,2); // коэффициент пенсионера, в среднем 1,5
-            }
-            Helper.sleepRandom(500*k, 2000*k); // берет товар
+            sleepRandom(500, 2000);
 
             basket.add(item, 1);
 
             System.out.println(this + " has put " + item.getName() + " into the basket");
         }
         System.out.println(this + " has finished putting goods into the basket");
+    }
+
+    @Override
+    public boolean isPensioner() {
+        return pensioner;
+    }
+
+    private void sleepRandom(int min, int max) {
+        int k = getK();
+        Helper.sleepRandom(min*k, max*k); // берет товар
+    }
+
+    private int getK() {
+        int k = 1;
+        if (pensioner) {
+            k = Helper.getRandom(1, 2); // коэффициент пенсионера, в среднем 1,5
+        }
+        return k;
     }
 }

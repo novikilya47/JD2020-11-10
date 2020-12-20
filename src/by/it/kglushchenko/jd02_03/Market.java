@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Market {
 
@@ -34,31 +37,41 @@ public class Market {
 
     public static void main(String[] args) {
         Dispatcher.reset();
+        QueueBuyers queueBuyers = new QueueBuyers(30); // в очереди максимум покупателей, остальные на входе
         // Открыли магазин
         System.out.println("Market opened");
 
+        /* OLD SCHOOL
         // Создали список покупателей и кассиров
         // чтобы и кассиры и покупатели были в одном List меняем Buyers на Thread
-        List<Thread> threads = new ArrayList<>();     // ArrayList не потокобезопасный но доступ к неиу только из потока main
-
-        // запускаем кассиров
+        //List<Thread> threads = new ArrayList<>();     // ArrayList не потокобезопасный но доступ к неиу только из потока main
+                 // запускаем кассиров
         for (int i = 1; i <= 2; i++) {
             Cashier cashier = new Cashier(i);
             Thread thread = new Thread(cashier);
             threads.add(thread); // добавляем кассира
             thread.start();
         }
+         */
+
+        ExecutorService threadPool = Executors.newFixedThreadPool(5);
+        for (int i = 1; i <= 2; i++) {
+            Cashier cashier = new Cashier(i, queueBuyers);
+            threadPool.execute(cashier);
+        }
+
         int n = 0;
 
         while (Dispatcher.marketIsOpened()) {
             int count = Helper.getRandom(2);
             for (int i = 1; i <= count && Dispatcher.marketIsOpened(); i++) {
-                Buyer buyer = new Buyer(++n);
-                threads.add(buyer);
-                buyer.start();
+                Buyer buyer = new Buyer(++n, queueBuyers);
+                //threads.add(buyer);                           // OLD
+                buyer.start(); //threadPool.execute(buyer);
             }
             Helper.sleep(1000);
         }
+        /* OLD SCHOOL
         // чтобы магазин закрылся после последнего покупателя
         try {
             for (Thread thread : threads) {
@@ -68,11 +81,25 @@ public class Market {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-
         // ко всем потокам прицепились, когда все закончились, закрываемся
+        */
+
+        threadPool.shutdown(); //no more threads
+        while (true) {
+            try {
+                if (threadPool.awaitTermination(10, TimeUnit.DAYS)) {
+                    break;
+                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         System.out.println("Market closed");
     }
 }
+
+//  OLD SCHOOL
  //   public static void main(String[] args) {
  /*       Dispatcher.buyersInMarket = 0;              // DANGER
         // Открыли магазин
