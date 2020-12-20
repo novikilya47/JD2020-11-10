@@ -1,8 +1,12 @@
 package by.it.soldatenko.jd02_02;
 
 
+import java.util.HashMap;
+
 class Buyer extends Thread implements IBuyer, IUseBasket {
+
     private boolean isRunnable;
+    private static HashMap<String, Integer> set = new HashMap<>();
 
     public void setRunnable(boolean runnable) {
         this.isRunnable = runnable;
@@ -52,12 +56,13 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
             speed = 1.5;
         }
         System.out.println(this + " started to choose goods");
-        int goodsAmount = Helper.getRandom(1, 4);
-        for (int i = 1; i <= goodsAmount; i++) {
-            Helper.sleep((int) speed * Helper.getRandom(500, 2000));
-
-            putGoodsToBasket();
-        }
+//        int goodsAmount = Helper.getRandom(1, 4);
+//        for (int i = 1; i <= goodsAmount; i++) {
+//            Helper.sleep((int) speed * Helper.getRandom(500, 2000));
+//
+//            putGoodsToBasket();
+//
+//        }
         System.out.println(this + " finishded to choose goods");
     }
 
@@ -85,7 +90,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void putGoodsToBasket() {
-        System.out.println(this + " puted " + Good.getGood() + " to the Basket");
+//        System.out.println(this + " puted " + Good.getGood()[0] + " to the Basket");
 
     }
 
