@@ -17,7 +17,7 @@ public class Market {
         }
         threadCashier.shutdown();
         int n = 0;
-        for (; Dispetcher.marketIsOpened(); ) {
+        while (Dispetcher.marketIsOpened()) {
             int count = Helper.getRandom(2);
             for (int i = 1; i <= count && Dispetcher.marketIsOpened(); i++) {
                 Buyer buyer = new Buyer(++n,queueBuyers);

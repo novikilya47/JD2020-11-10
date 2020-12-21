@@ -19,11 +19,7 @@ class Good {
                 good [1]= Integer. toString((Integer) entry.getValue());
             }}
         return good;
-//        for (Entry entry : assortment.entrySet())
-//            if (entry.getValue().equals(r)) {
-//                good = (String) entry.getKey();
-//            }
-//        return good;
+
     }
 
 }

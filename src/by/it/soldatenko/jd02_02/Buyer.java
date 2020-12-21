@@ -6,7 +6,6 @@ import java.util.HashMap;
 class Buyer extends Thread implements IBuyer, IUseBasket {
 
     private boolean isRunnable;
-    private static HashMap<String, Integer> set = new HashMap<>();
 
     public void setRunnable(boolean runnable) {
         this.isRunnable = runnable;
@@ -90,7 +89,6 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void putGoodsToBasket() {
-//        System.out.println(this + " puted " + Good.getGood()[0] + " to the Basket");
 
     }
 
