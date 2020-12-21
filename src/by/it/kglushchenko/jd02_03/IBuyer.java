@@ -1,4 +1,4 @@
-package by.it.kglushchenko.jd02_02;
+package by.it.kglushchenko.jd02_03;
 
 public interface IBuyer {
     // покупатели становятся все в одну очетедь
@@ -11,5 +11,6 @@ public interface IBuyer {
 
     void goOut();         // отправился на выход (мгновенно)
 
-    boolean isPensioner(); // полупатель пенсионер?
+    boolean IsPensioneer(); // полупатель пенсионер?
+
 }

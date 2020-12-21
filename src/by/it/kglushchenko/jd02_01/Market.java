@@ -1,53 +1,74 @@
 package by.it.kglushchenko.jd02_01;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Market {
 
-//    public static void main(String[] args) {
-//        for (int i = 0; i < 1000; i++) {
-//            mainOne(args);
-//        }
-//    }
+    public static List<Good> goods; // создаем List товаров чтобы можно было сортировать товары по именам
+
+    public static Map<Good, BigDecimal> priceList; // объединяем товар с ценой
+
+    private static void addGood(String name, BigDecimal price) {
+        Good good = new Good(name);
+        goods.add(good);
+        priceList.put(good, price);
+    }
+
+    private static void addGoodsAndPrices() {
+        goods = new ArrayList<>();
+        priceList = new HashMap<>();
+
+        addGood("Хлеб", BigDecimal.valueOf(10.50));
+        addGood("Молоко", BigDecimal.valueOf(2.33));
+        addGood("Печенье", BigDecimal.valueOf(2.33));
+        addGood("Сок", BigDecimal.valueOf(2.33));
+        addGood("Варенье", BigDecimal.valueOf(2.33));
+        addGood("Конфеты", BigDecimal.valueOf(2.33));
+        addGood("Кофе", BigDecimal.valueOf(2.33));
+        addGood("Чай", BigDecimal.valueOf(2.33));
+    }
 
     public static void main(String[] args) {
-        Dispatcher.buyersInMarket = 0;              // DANGER
-        // Открыли магазин
-        System.out.println("Market opened");
+        Dispatcher.buyersInMarket = 0;          // в магазине никого
 
-        // Создали список покупателей
-        List<Buyer> buyers = new ArrayList<>();     // ArrayList не потокобезопасный но доступ к неиу только из потока main
+        addGoodsAndPrices();
+
+        System.out.println("Market opened");
+        List<Buyer> buyers = new ArrayList<>();
 
         int n = 0;
-        // время от 1 секунды до 120
-        for (int t = 1; t <= 120; t++) {            // мат ожидание дает в среднем заход 120 человек
-            // количество покупателей
-            int count = Helper.getRandom(2);   // каждую секунду заходит 0 или 1 или 2 человека +
-            for (int i = 1; i <= count; i++) {      //                                               |
-                Buyer buyer = new Buyer(++n);       //                                               |
-                buyers.add(buyer);                  // добавляем нового посетителя в коллекцию       |
-                buyer.start();                      // cтартуем поток посетителя                     |
-                //noinspection NonAtomicOperationOnVolatileField
-                Dispatcher.buyersInMarket++;        //                                               |
-            }                                       //                                               |
-            Helper.sleep(1000);              //                                         <-----|
-        }
+        for (int t = 1; t <= 120; t++) {
+            int count = Helper.getRandom(2);
+            for (int i = 1; i <= count; i++) {
+                boolean pensioner = false;
+                //
+                if (Helper.getRandom(1, 4) == 4){
+                    pensioner = true;
+                }
 
-        // чтобы магазин закрылся после последнего покупателя
+
+
+                Buyer buyer = new Buyer(++n);
+                buyers.add(buyer);                      // добавили покупателя
+                buyer.setPensioneerState(pensioner);    // задали пенсионный статус
+                buyer.start();                          // запустили его поток
+                //noinspection NonAtomicOperationOnVolatileField
+                Dispatcher.buyersInMarket++;
+            }
+            Helper.sleep(1000);
+        }
         try {
             for (Buyer buyer : buyers) {
-                buyer.join();                   // join-им Thread main-а ко всем потокам созданным покупателям
+                buyer.join();               // Thread  main ждет отработки всех потоков покупателей
             }
         } catch (InterruptedException e) {
-            //e.printStackTrace();
             throw new RuntimeException(e);
         }
-
-        while (Dispatcher.buyersInMarket > 0) {     // пока в магазине кто-то есть ожидаем не теряя ни секунды
-            Thread.yield();
-        }
-
         System.out.println("Market closed");
     }
+
 }

@@ -1,4 +1,4 @@
-package by.it.kglushchenko.jd02_01;
+package by.it.kglushchenko.jd02_03;
 
 import java.util.Random;
 
@@ -14,21 +14,25 @@ class Helper {
         return getRandom(0, max);
     }
 
+    // Из какого метода этот sleep вызывается, из его потока и его стек используется Buyer, Kassir ....
+    // пауза будет относится к их потоку
     public static void sleep(int timeout) {
         try {
-            Thread.sleep(timeout/Dispatcher.K_SPEED);
+            Thread.sleep(timeout/ Dispatcher.K_SPEED);   // разгоняем скорость эмуляции
         } catch (InterruptedException e) {
+            //e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
 
     public static void sleepRandom(int start, int end) {
         int timeout = getRandom(start, end);
-        Helper.sleep(timeout);
+        sleep(timeout);
     }
 
     public static void sleepRandom(int max) {
         int timeout = getRandom(0, max);
-        Helper.sleep(timeout);
+        sleep(timeout);
     }
+
 }

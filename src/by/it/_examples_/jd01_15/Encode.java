@@ -5,7 +5,8 @@ import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.SortedMap;
 
-public class Encode {
+public class
+Encode {
     @SuppressWarnings("CharsetObjectCanBeUsed")
     //проверка какие доступны кодировки
     public static void main(String[] args) {
