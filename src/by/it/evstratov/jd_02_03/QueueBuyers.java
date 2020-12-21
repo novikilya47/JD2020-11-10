@@ -40,7 +40,9 @@ public class QueueBuyers {
     }
 
     public int getSize(){
-        return deque.size() + dequePensioners.size();
+        int sizeDeque = deque.size() + dequePensioners.size();
+        Dispatcher.needToOpenNewCashiers(sizeDeque);
+        return sizeDeque;
     }
 
 }

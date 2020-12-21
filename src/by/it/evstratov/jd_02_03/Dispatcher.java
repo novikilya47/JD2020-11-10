@@ -56,33 +56,24 @@ public class Dispatcher {
         return buyersCompleted.get() == PLAN;
     }
 
-    static synchronized void openNeedCashiers(){
-
-    }
-
-    static int getNumberForCashier(){
-        for (Map.Entry<Integer, Boolean> entry : numbers.entrySet()){
-            if(entry.getValue()){
-                entry.setValue(false);
-                return entry.getKey();
-            }
-        }
-        return 0;
-    }
-
-    static void clearNumberForCashier(int num){
-        for (Map.Entry<Integer, Boolean> entry : numbers.entrySet()){
-            if(entry.getKey() == num){
-                entry.setValue(true);
-            }
-        }
-    }
-
     public static int getTotal() {
         return total.get();
     }
 
     public static BlockingDeque<Basket> getBasket() {
         return dequeBasket;
+    }
+
+    public static void needToOpenNewCashiers(int sizeDeque){
+        int openCashiers = Cashier.getOpenCashiers();
+        int buyersInQueue = sizeDeque;
+        int needToOpenCashiers =(int) Math.ceil((double) buyersInQueue / 5.0);
+        if(openCashiers < needToOpenCashiers){
+            for (int i = 0; i < needToOpenCashiers - openCashiers; i++) {
+                if(openCashiers < QueueCashiers.getAllCashiers().size()){
+
+                }
+            }
+        }
     }
 }

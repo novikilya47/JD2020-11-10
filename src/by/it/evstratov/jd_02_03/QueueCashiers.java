@@ -1,20 +1,17 @@
 package by.it.evstratov.jd_02_03;
 
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class QueueCashiers {
 
-    private static final ArrayList<Thread> allCashiers = new ArrayList<>();
+    private static final CopyOnWriteArrayList<Cashier> allCashiers = new CopyOnWriteArrayList<>();
 
-    static synchronized void add(Thread cashier){
+    static void add(Cashier cashier){
         allCashiers.add(cashier);
     }
 
-    static synchronized int getSize(){
-        return allCashiers.size();
-    }
-
-    public static ArrayList<Thread> getAllCashiers() {
+    public static CopyOnWriteArrayList<Cashier> getAllCashiers() {
         return allCashiers;
     }
+
 }
