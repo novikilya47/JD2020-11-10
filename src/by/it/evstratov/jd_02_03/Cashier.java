@@ -1,22 +1,19 @@
-package by.it.evstratov.jd02_02;
+package by.it.evstratov.jd_02_03;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Cashier implements Runnable{
 
     private final int number;
-    private volatile static int openCashiers = 0;
+    private static final AtomicInteger openCashiers = new AtomicInteger(0);
     static final Object lock = new Object();
+    private final QueueBuyers queueBuyers;
 
-    public Cashier(int number) {
+    public Cashier(int number, QueueBuyers queueBuyers) {
         this.number = number;
-        addCashier();
-    }
-
-    private static void addCashier(){
-        synchronized (Cashier.class){
-            openCashiers++;
-        }
+        this.queueBuyers = queueBuyers;
+        openCashiers.getAndIncrement();
     }
 
     @Override
@@ -24,33 +21,29 @@ public class Cashier implements Runnable{
         System.out.println(this + "opened");
 
         while (!Dispatcher.marketIsClosed()){
-            Buyer buyer = QueueBuyers.extract();
+            Buyer buyer = queueBuyers.extract();
             if(buyer != null){
                 int t = Helper.getRandom(2000,5000);
                 Helper.sleep(t);
-                printCheck(this,buyer);
                 //noinspection SynchronizationOnLocalVariableOrMethodParameter
                 synchronized (buyer){
+                    printCheck(this,buyer);
                     buyer.setRunnable(true);
                     buyer.notify();
                 }
             }else{
-                synchronized (this){
-                    if(openCashiers == 1){
-                        System.out.println(this + "в ожидании покупателей (единственная открытая касса)");
-                        try {
-                            if(Dispatcher.marketIsOpened()){
-                                Cashier.lock.wait();
-                            }
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
+                try {
+                    synchronized (this){
+                        System.out.println(this + "закрывается - нет очереди");
+                        QueueCashiers.getWaitCashiers().putLast(this);
+                        QueueCashiers.getOpenCashiers().remove(this);
+                        openCashiers.getAndDecrement();
+                        while (true){
+                            wait();
                         }
-                    }else{
-                        openCashiers--;
-                        Dispatcher.clearNumberForCashier(number);
-                        System.out.println(this + "закрывается. Осталось открытых касс - "+openCashiers);
-                        break;
                     }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         }
@@ -63,16 +56,14 @@ public class Cashier implements Runnable{
     }
 
     public static int getOpenCashiers() {
-        synchronized (Cashier.class){
-            return openCashiers;
-        }
+        return openCashiers.get();
     }
 
     public int getNumber() {
         return number;
     }
 
-    public static void printCheck(Cashier cashier, Buyer buyer){
+    public void printCheck(Cashier cashier, Buyer buyer){
         synchronized (Cashier.lock){
             StringBuilder space = new StringBuilder();
             for (int i = 0; i < 40; i++) {
@@ -98,7 +89,7 @@ public class Cashier implements Runnable{
             }
             Dispatcher.addTotal(sumCheck);
             result.append(spaceLeft).append("Сумма чека для ").append(cashier).append(" = ").append(sumCheck).append("\n");
-            result.append(spaceLeft).append(cashier).append("finished service for ").append(buyer).append(spaceRight).append(Dispatcher.getTotal()).append(" ").append(QueueBuyers.getSize()).append("\n");
+            result.append(spaceLeft).append(cashier).append("finished service for ").append(buyer).append(spaceRight).append(Dispatcher.getTotal()).append(" ").append(queueBuyers.getSize()).append("\n");
             System.out.println(result);
         }
     }
