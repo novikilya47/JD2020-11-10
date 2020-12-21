@@ -70,13 +70,28 @@ public class Dispatcher {
                 Cashier cashier = QueueCashiers.getWaitCashiers().poll();
                 System.out.println(cashier + "начала работать");
                 QueueCashiers.getOpenCashiers().remove(cashier);
-                synchronized (cashier){
-                    cashier.notify();
+                if (cashier != null) {
+                    synchronized (cashier){
+                        cashier.notify();
+                    }
                 }
             }
         }
         if(needToCloseCashiers > 0){
-            System.out.println("Надо закрыть кассы " + needToCloseCashiers);
+            for (int i = 0; i < needToCloseCashiers; i++) {
+                Cashier cashier = QueueCashiers.getOpenCashiers().poll();
+                System.out.println(cashier + " завершает работать - нет очереди");
+                QueueCashiers.getWaitCashiers().remove(cashier);
+                if (cashier != null) {
+                    synchronized (cashier){
+                        try {
+                            cashier.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
         }
     }
 }
