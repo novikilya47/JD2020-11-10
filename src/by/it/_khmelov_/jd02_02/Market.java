@@ -12,6 +12,8 @@ public class Market {
 //    }
 
     public static void main(String[] args) {
+        Dispatcher.reset();
+
         System.out.println("Market opened");
         List<Thread> threads = new ArrayList<>();
 

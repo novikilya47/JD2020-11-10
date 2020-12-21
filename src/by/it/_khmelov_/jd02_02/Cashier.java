@@ -1,6 +1,6 @@
 package by.it._khmelov_.jd02_02;
 
-public class Cashier implements Runnable {
+class Cashier implements Runnable {
 
     private final int number;
 
@@ -18,8 +18,8 @@ public class Cashier implements Runnable {
                 int t = Helper.getRandom(2000, 5000);
                 Helper.sleep(t);
                 System.out.println(this + "finished service for " + buyer);
-                //noinspection SynchronizationOnLocalVariableOrMethodParameter
-                synchronized (buyer) {
+                //вообще монитор это buyer - я сделал метод просто, чтобы убрать warning
+                synchronized (buyer.getMonitor()) {
                     buyer.setRunnable(true);
                     buyer.notify();
                 }
@@ -33,6 +33,6 @@ public class Cashier implements Runnable {
 
     @Override
     public String toString() {
-        return "Cashier №" + number + " ";
+        return "\tCashier №" + number + " ";
     }
 }

@@ -44,10 +44,10 @@ class Buyer extends Thread implements IBuyer {
 
     @Override
     public void goToQueue() {
-        QueueBuyers.add(this);
-        System.out.println(this + " add to Queue");
-        this.setRunnable(false);
+        System.out.println(this + " goes to Queue");
         synchronized (this) {
+            QueueBuyers.add(this);
+            this.setRunnable(false);
             while (!this.isRunnable)
                 try {
                     this.wait();
@@ -58,8 +58,13 @@ class Buyer extends Thread implements IBuyer {
         System.out.println(this + " left the Queue");
     }
 
+    public Object getMonitor() {
+        return this;
+    }
+
     @Override
     public void goOut() {
-        System.out.println(this + " leaves the Market");
+        System.out.println(this + " left the Market");
     }
+
 }
