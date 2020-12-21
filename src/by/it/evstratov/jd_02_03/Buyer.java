@@ -6,7 +6,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     private Basket basket;
     private boolean isPensioneer;
     private boolean isRunnable = true;
-    private QueueBuyers queueBuyers;
+    private final QueueBuyers queueBuyers;
 
     public Buyer(int number, QueueBuyers queueBuyers){
         super("Buyer №"+number);
@@ -75,10 +75,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         this.setRunnable(false);
         synchronized (this){
             queueBuyers.add(this);
-            synchronized (Cashier.lock){
-                Cashier.lock.notify();
-            }
-            Dispatcher.openNeedCashiers();
+            //Dispatcher.openNeedCashiers();
             while (!this.isRunnable) {
                 try {
                     this.wait();
