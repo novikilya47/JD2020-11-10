@@ -6,7 +6,7 @@ import java.util.concurrent.Semaphore;
 class Buyer extends Thread implements IBuyer, IUseBasket {
     private final QueueBuyers queueBuyers;
     private boolean isRunnable;
-    private static final Semaphore semaphore = new Semaphore(20);
+    private static final Semaphore semaphore = new Semaphore(1);
 
     public void setRunnable(boolean runnable) {
         this.isRunnable = runnable;
@@ -22,13 +22,13 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void run() {
         enterToMarket();
+
+        takeBasket();
         try {
             semaphore.acquire();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        takeBasket();
         chooseGoods();
         semaphore.release();
         goToQueue();
