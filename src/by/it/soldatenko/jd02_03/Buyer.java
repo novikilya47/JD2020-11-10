@@ -6,7 +6,7 @@ import java.util.concurrent.Semaphore;
 class Buyer extends Thread implements IBuyer, IUseBasket {
     private final QueueBuyers queueBuyers;
     private boolean isRunnable;
-    private static final Semaphore semaphore = new Semaphore(1);
+    private static final Semaphore semaphore = new Semaphore(20);
 
     public void setRunnable(boolean runnable) {
         this.isRunnable = runnable;
