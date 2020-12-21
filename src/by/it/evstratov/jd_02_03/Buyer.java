@@ -37,13 +37,20 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void chooseGoods() {
         System.out.println(this + " started choose goods");
-        double timeOut = Helper.getRandom(500,2000);
-        if(isPensioneer){
-            timeOut *= 1.5;
+        try {
+            Dispatcher.buyersChooseGoods.acquire();
+            double timeOut = Helper.getRandom(500,2000);
+            if(isPensioneer){
+                timeOut *= 1.5;
+            }
+            putGoodsToBasket();
+            Helper.sleep((int)timeOut/ Dispatcher.K_SPEED);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }finally {
+            Dispatcher.buyersChooseGoods.release();
+            System.out.println(this + " finish choose goods");
         }
-        putGoodsToBasket();
-        Helper.sleep((int)timeOut/ Dispatcher.K_SPEED);
-        System.out.println(this + " finish choose goods");
     }
 
     @Override
