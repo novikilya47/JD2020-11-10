@@ -34,7 +34,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void chooseGoods() {
         System.out.println(this + " Started choose goods");
-        for (int i = 1; i < Helper.getRandom(1, 4); i++) {
+        for (int i = 0; i < Helper.getRandom(1, 4); i++) {
             putGoodsToBasket();
             double timeout = Helper.getRandom(500, 2000);
             if (this.isPensioner()) {
