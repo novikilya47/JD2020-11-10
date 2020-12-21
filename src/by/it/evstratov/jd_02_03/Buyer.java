@@ -1,4 +1,4 @@
-package by.it.evstratov.jd02_02;
+package by.it.evstratov.jd_02_03;
 
 
 class Buyer extends Thread implements IBuyer, IUseBasket {
@@ -6,9 +6,11 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     private Basket basket;
     private boolean isPensioneer;
     private boolean isRunnable = true;
+    private final QueueBuyers queueBuyers;
 
-    public Buyer(int number){
+    public Buyer(int number, QueueBuyers queueBuyers){
         super("Buyer №"+number);
+        this.queueBuyers = queueBuyers;
         Dispatcher.addBuyer();
     }
 
@@ -35,24 +37,41 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void chooseGoods() {
         System.out.println(this + " started choose goods");
-        double timeOut = Helper.getRandom(500,2000);
-        if(isPensioneer){
-            timeOut *= 1.5;
+        try {
+            Dispatcher.buyersChooseGoods.acquire();
+            double timeOut = Helper.getRandom(500,2000);
+            if(isPensioneer){
+                timeOut *= 1.5;
+            }
+            putGoodsToBasket();
+            Helper.sleep((int)timeOut/ Dispatcher.K_SPEED);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }finally {
+            Dispatcher.buyersChooseGoods.release();
+            System.out.println(this + " finish choose goods");
         }
-        putGoodsToBasket();
-        Helper.sleep((int)timeOut/ Dispatcher.K_SPEED);
-        System.out.println(this + " finish choose goods");
     }
 
     @Override
     public void goOut() {
-        System.out.println(this + " left to market");
+        try {
+            basket.getGoods().clear();
+            Dispatcher.getBasket().putLast(basket);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(this + " вернул корзину на место и left to market");
     }
 
     @Override
     public void takeBasket() {
-        System.out.println(this + " take a basket");
-        this.basket = new Basket();
+        try {
+            basket = Dispatcher.getBasket().take();
+            System.out.println(this + " взял корзину");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -72,11 +91,9 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         System.out.println(this + " add to Queue");
         this.setRunnable(false);
         synchronized (this){
-            QueueBuyers.add(this);
-            synchronized (Cashier.lock){
-                Cashier.lock.notify();
-            }
-            Dispatcher.openNeedCashiers();
+            queueBuyers.add(this);
+            //Вызвать метод в очереди, который сообщает диспетчеру о своей длинне
+            Dispatcher.needToOpenNewCashiers(queueBuyers.getSize());
             while (!this.isRunnable) {
                 try {
                     this.wait();
