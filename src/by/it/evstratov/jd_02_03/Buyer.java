@@ -23,6 +23,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     public void run() {
         enterToMarket();
         takeBasket();
+        chooseGoods();
         goToQueue();
         goOut();
         Dispatcher.completeBuyer();
