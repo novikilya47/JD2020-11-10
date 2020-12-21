@@ -1,7 +1,7 @@
 package by.it.evstratov.jd_02_03;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Dispatcher {
@@ -12,7 +12,7 @@ public class Dispatcher {
     static final AtomicInteger buyersCompleted = new AtomicInteger(0);
     static final AtomicInteger total = new AtomicInteger(0);
 
-    private static final Map<Integer, Boolean> numbers = new HashMap<>();
+    private static final Map<Integer, Boolean> numbers = new ConcurrentHashMap<>();
 
     static {
         numbers.put(1,true);
@@ -47,7 +47,7 @@ public class Dispatcher {
 
     }
 
-    static synchronized int getNumberForCashier(){
+    static int getNumberForCashier(){
         for (Map.Entry<Integer, Boolean> entry : numbers.entrySet()){
             if(entry.getValue()){
                 entry.setValue(false);
@@ -57,7 +57,7 @@ public class Dispatcher {
         return 0;
     }
 
-    static synchronized void clearNumberForCashier(int num){
+    static void clearNumberForCashier(int num){
         for (Map.Entry<Integer, Boolean> entry : numbers.entrySet()){
             if(entry.getKey() == num){
                 entry.setValue(true);

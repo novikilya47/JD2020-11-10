@@ -1,24 +1,19 @@
 package by.it.evstratov.jd_02_03;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Cashier implements Runnable{
 
     private final int number;
-    private volatile static int openCashiers = 0;
+    private static final AtomicInteger openCashiers = new AtomicInteger(0);
     static final Object lock = new Object();
-    private QueueBuyers queueBuyers;
+    private final QueueBuyers queueBuyers;
 
     public Cashier(int number, QueueBuyers queueBuyers) {
         this.number = number;
         this.queueBuyers = queueBuyers;
-        addCashier();
-    }
-
-    private static void addCashier(){
-        synchronized (Cashier.class){
-            openCashiers++;
-        }
+        openCashiers.getAndIncrement();
     }
 
     @Override
@@ -49,9 +44,7 @@ public class Cashier implements Runnable{
     }
 
     public static int getOpenCashiers() {
-        synchronized (Cashier.class){
-            return openCashiers;
-        }
+        return openCashiers.get();
     }
 
     public int getNumber() {
