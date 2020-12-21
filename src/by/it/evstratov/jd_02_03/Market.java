@@ -14,7 +14,7 @@ class Market {
         ExecutorService threadPool = Executors.newFixedThreadPool(5 + Dispatcher.PLAN);
         for (int i = 1; i <= 5; i++) {
             Cashier cashier = new Cashier(i, queueBuyers);
-            QueueCashiers.add(cashier);
+            QueueCashiers.getOpenCashiers().add(cashier);
             threadPool.execute(cashier);
         }
         int n = 0;

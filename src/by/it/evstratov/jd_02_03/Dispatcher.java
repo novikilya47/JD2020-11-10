@@ -1,10 +1,7 @@
 package by.it.evstratov.jd_02_03;
 
 import java.util.Map;
-import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.Semaphore;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Dispatcher {
@@ -64,16 +61,22 @@ public class Dispatcher {
         return dequeBasket;
     }
 
-    public static void needToOpenNewCashiers(int sizeDeque){
+    public static synchronized void needToOpenNewCashiers(int sizeDeque){
         int openCashiers = Cashier.getOpenCashiers();
-        int buyersInQueue = sizeDeque;
-        int needToOpenCashiers =(int) Math.ceil((double) buyersInQueue / 5.0);
-        if(openCashiers < needToOpenCashiers){
+        int needToOpenCashiers =(int) Math.ceil((double) sizeDeque / 5.0);
+        int needToCloseCashiers = openCashiers - needToOpenCashiers;
+        if(openCashiers < needToOpenCashiers && !QueueCashiers.getWaitCashiers().isEmpty()){
             for (int i = 0; i < needToOpenCashiers - openCashiers; i++) {
-                if(openCashiers < QueueCashiers.getAllCashiers().size()){
-
+                Cashier cashier = QueueCashiers.getWaitCashiers().poll();
+                System.out.println(cashier + "начала работать");
+                QueueCashiers.getOpenCashiers().remove(cashier);
+                synchronized (cashier){
+                    cashier.notify();
                 }
             }
+        }
+        if(needToCloseCashiers > 0){
+            System.out.println("Надо закрыть кассы " + needToCloseCashiers);
         }
     }
 }

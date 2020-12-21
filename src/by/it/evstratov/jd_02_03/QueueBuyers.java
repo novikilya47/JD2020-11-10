@@ -41,7 +41,6 @@ public class QueueBuyers {
 
     public int getSize(){
         int sizeDeque = deque.size() + dequePensioners.size();
-        Dispatcher.needToOpenNewCashiers(sizeDeque);
         return sizeDeque;
     }
 
