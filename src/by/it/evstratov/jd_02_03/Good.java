@@ -1,6 +1,7 @@
 package by.it.evstratov.jd_02_03;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 class Good {
 
@@ -12,7 +13,7 @@ class Good {
   this.price = price;
  }
 
- private static Map<String, Integer> goods = new HashMap<>();
+ private static final Map<String, Integer> goods = new ConcurrentHashMap<>();
 
   static{
    goods.put("Сосиски", 1000);
@@ -29,12 +30,9 @@ class Good {
    List<String> nameGoods = new ArrayList<>(goods.keySet());
    String randomGood = nameGoods.get(Helper.getRandom(0, nameGoods.size() -1));
 
-   Iterator<Map.Entry<String, Integer>> entries = goods.entrySet().iterator();
-
-   while (entries.hasNext()) {
-    Map.Entry<String, Integer> entry = entries.next();
-    if(entry.getKey().equals(randomGood)){
-      good = new Good(entry.getKey(), entry.getValue());
+   for (Map.Entry<String, Integer> entry : goods.entrySet()) {
+    if (entry.getKey().equals(randomGood)) {
+     good = new Good(entry.getKey(), entry.getValue());
     }
    }
 
