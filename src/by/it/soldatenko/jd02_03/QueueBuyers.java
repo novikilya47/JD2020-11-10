@@ -1,19 +1,33 @@
 package by.it.soldatenko.jd02_03;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.TimeUnit;
 
 public class QueueBuyers {
 
+    private final BlockingDeque<Buyer> deque ;
+
+    public QueueBuyers(int maxLenght) {
+        deque= new LinkedBlockingDeque<>(maxLenght);
+    }
 //    private static final Deque<Buyer> deque= new LinkedList<>(); //для пенсионеров
-private static final Deque<Buyer> deque = new ArrayDeque<>();
 
-    static synchronized void add(Buyer buyer){
-        deque.addLast(buyer);
+     void add(Buyer buyer){
+        try {
+            deque.putLast(buyer);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
-    static synchronized Buyer extract(){
-        return deque.pollFirst();
+     Buyer extract(){
+         try {
+             return deque.pollFirst(100, TimeUnit.MICROSECONDS);
+         } catch (InterruptedException e) {
+             e.printStackTrace();
+         }
+         throw new RuntimeException("");
 
-    }
+     }
 }

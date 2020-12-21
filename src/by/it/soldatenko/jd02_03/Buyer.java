@@ -1,19 +1,20 @@
 package by.it.soldatenko.jd02_03;
 
 
-import java.util.HashMap;
+import java.util.concurrent.Semaphore;
 
 class Buyer extends Thread implements IBuyer, IUseBasket {
-
+    private final QueueBuyers queueBuyers;
     private boolean isRunnable;
-    private static HashMap<String, Integer> set = new HashMap<>();
+    private static final Semaphore semaphore = new Semaphore(20);
 
     public void setRunnable(boolean runnable) {
         this.isRunnable = runnable;
     }
 
-    public Buyer(int number) {
+    public Buyer(int number, QueueBuyers queueBuyers) {
         super("Buyer №" + number + " ");
+        this.queueBuyers = queueBuyers;
         Dispetcher.addBuyer();
 
     }
@@ -21,14 +22,21 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void run() {
         enterToMarket();
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         takeBasket();
         chooseGoods();
+        semaphore.release();
         goToQueue();
         goOut();
         Dispetcher.completeBuyer();
     }
 
-    static boolean pensioneer() {
+    static boolean pensioner() {
 
         int pens = Helper.getRandom(1, 4);
         boolean pensioneer = false;
@@ -52,17 +60,14 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void chooseGoods() {
         double speed = 1;
-        if (pensioneer()) {
+        if (pensioner()) {
             speed = 1.5;
         }
         System.out.println(this + " started to choose goods");
-//        int goodsAmount = Helper.getRandom(1, 4);
-//        for (int i = 1; i <= goodsAmount; i++) {
-//            Helper.sleep((int) speed * Helper.getRandom(500, 2000));
+
+        Helper.sleep((int) speed * Helper.getRandom(500, 2000));
 //
-//            putGoodsToBasket();
-//
-//        }
+
         System.out.println(this + " finishded to choose goods");
     }
 
@@ -70,7 +75,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     public void goToQueue() {
         System.out.println(this + " added to Queue");
         synchronized (this) {
-            QueueBuyers.add(this);
+            queueBuyers.add(this);
             this.setRunnable(false);
             while (!this.isRunnable)
                 try {
