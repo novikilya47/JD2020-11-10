@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 class Basket {
 
-    private ArrayList<Good> goods = new ArrayList<>();
+    private final ArrayList<Good> goods = new ArrayList<>();
 
     public void put(Good good){
      this.goods.add(good);
