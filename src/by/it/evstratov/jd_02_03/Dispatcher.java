@@ -1,13 +1,16 @@
 package by.it.evstratov.jd_02_03;
 
 import java.util.Map;
+import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Dispatcher {
 
     static Semaphore buyersChooseGoods = new Semaphore(20);
+    static private final BlockingDeque<Basket> dequeBasket = new LinkedBlockingDeque<>(10);
     static final int K_SPEED = 100;
     static final int PLAN = 100;
     static final AtomicInteger buyersInMarket = new AtomicInteger(0);
@@ -22,6 +25,14 @@ public class Dispatcher {
         numbers.put(3,true);
         numbers.put(4,true);
         numbers.put(5,true);
+
+        for (int i = 0; i < 10; i++) {
+            try {
+                dequeBasket.putLast(new Basket());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     static void addBuyer(){
@@ -71,4 +82,7 @@ public class Dispatcher {
         return total.get();
     }
 
+    public static BlockingDeque<Basket> getBasket() {
+        return dequeBasket;
+    }
 }

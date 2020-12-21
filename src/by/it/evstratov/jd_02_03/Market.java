@@ -25,7 +25,6 @@ class Market {
             int count = Helper.getRandom((Math.abs(expectedNumberBuyers - Dispatcher.buyersInMarket.get())));
             for (int i = 1; i <= count && Dispatcher.marketIsOpened(); i++) {
                 Buyer buyer = new Buyer(++n, queueBuyers);
-                queueBuyers.add(buyer);
                 if(Dispatcher.buyersCompleted.get() % 4 == 0){
                     buyer.setPensioneer(true);
                 }

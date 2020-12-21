@@ -23,7 +23,6 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     public void run() {
         enterToMarket();
         takeBasket();
-        chooseGoods();
         goToQueue();
         goOut();
         Dispatcher.completeBuyer();
@@ -55,13 +54,23 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void goOut() {
-        System.out.println(this + " left to market");
+        try {
+            basket.getGoods().clear();
+            Dispatcher.getBasket().putLast(basket);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(this + " вернул корзину на место и left to market");
     }
 
     @Override
     public void takeBasket() {
-        System.out.println(this + " take a basket");
-        this.basket = new Basket();
+        try {
+            basket = Dispatcher.getBasket().take();
+            System.out.println(this + " взял корзину");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
