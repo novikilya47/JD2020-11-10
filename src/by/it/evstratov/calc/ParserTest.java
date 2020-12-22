@@ -4,8 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.regex.Matcher;
-
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
@@ -19,7 +17,7 @@ public class ParserTest {
     }
 
     @Test
-    public void addTest() throws CalcException {
+    public void addTestScalar() throws CalcException {
         Var actualScalar = parser.calc("2+2+7+8");
         double actual = Double.parseDouble(actualScalar.toString());
         double expected = 19.0;
@@ -59,6 +57,24 @@ public class ParserTest {
         Matrix matrix = (Matrix)parser.calc("M={{1,2,3},{4,5,6}}*2");
         double[][] actual = matrix.getValue();
         double[][] expected = {{2,4,6},{8,10,12}};
+        for (int i = 0; i < expected.length; i++) {
+            assertArrayEquals(expected[i], actual[i], 1e-5);
+        }
+        matrix = (Matrix)parser.calc("M={{1,2,3},{4,5,6}}*2+4");
+        actual = matrix.getValue();
+        expected = new double[][]{{6, 8, 10}, {12, 14, 16}};
+        for (int i = 0; i < expected.length; i++) {
+            assertArrayEquals(expected[i], actual[i], 1e-5);
+        }
+        matrix = (Matrix)parser.calc("M={{1,2,3},{4,5,6}}+4*2");
+        actual = matrix.getValue();
+        expected = new double[][]{{9,10,11},{12,13,14}};
+        for (int i = 0; i < expected.length; i++) {
+            assertArrayEquals(expected[i], actual[i], 1e-5);
+        }
+        matrix = (Matrix)parser.calc("M={{1,2,3},{4,5,6}}+4*2+{{0,2,0},{2,1,3}}");
+        actual = matrix.getValue();
+        expected = new double[][]{{9,12,11},{14,14,17}};
         for (int i = 0; i < expected.length; i++) {
             assertArrayEquals(expected[i], actual[i], 1e-5);
         }
