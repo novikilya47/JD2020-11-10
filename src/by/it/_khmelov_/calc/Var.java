@@ -15,6 +15,8 @@ abstract class Var implements Operation {
 
 
     public static Var createVar(String strVar) throws CalcException {
+        //добавил для надежности парсинга строки
+        strVar = strVar.replaceAll("\\s+", "");
         if (strVar.matches(Patterns.SCALAR)) {
             return new Scalar(strVar);
         } else if (strVar.matches(Patterns.VECTOR)) {

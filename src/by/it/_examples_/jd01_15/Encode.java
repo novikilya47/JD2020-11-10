@@ -53,7 +53,7 @@ public class Encode {
             }
             writer.flush();
         } catch (IOException e) {
-            System.out.println("Ошибка: "+e.getMessage());
+            System.out.println("Ошибка: " + e.getMessage());
         }
     }
 }

@@ -85,34 +85,4 @@ public class Dispatcher {
         return total;
     }
 
-    public static void printCheck(Cashier cashier, Buyer buyer){
-        synchronized (Dispatcher.lockForTotal){
-            StringBuilder space = new StringBuilder();
-            for (int i = 0; i < 40; i++) {
-                space.append(".");
-            }
-            StringBuilder spaceLeft = new StringBuilder();
-            StringBuilder spaceRight = new StringBuilder();
-            for (int i = 0; i < cashier.getNumber()-1; i++) {
-                spaceLeft.append(space);
-            }
-            for (int i = 0; i < 5-cashier.getNumber()-1; i++) {
-                spaceRight.append(space);
-            }
-            spaceRight.append(" ");
-
-            StringBuilder result = new StringBuilder();
-            result.append(spaceLeft).append(cashier).append("started service for ").append(buyer).append("\n");
-            int sumCheck = 0;
-            List<Good> allGoodsInBasket = buyer.getBasket().getGoods();
-            for (Good good : allGoodsInBasket) {
-                result.append(spaceLeft).append(good.toString()).append("\n");
-                sumCheck += good.getPrice();
-            }
-            Dispatcher.addTotal(sumCheck);
-            result.append(spaceLeft).append("Сумма чека для ").append(cashier).append(" = ").append(sumCheck).append("\n");
-            result.append(spaceLeft).append(cashier).append("finished service for ").append(buyer).append(spaceRight).append(Dispatcher.getTotal()).append(" ").append(QueueBuyers.getSize()).append("\n");
-            System.out.println(result);
-        }
-    }
 }
