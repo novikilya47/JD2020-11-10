@@ -46,14 +46,19 @@ public class Parser {
         }
     };
 
-    private static void calcWithBrackets(String ex){
-        if(!ex.replaceAll("[^()]+","").equals("") && checkBrackets(ex.replaceAll("[^()]+",""))){
-            //System.out.println(true);
+    private static String calcWithBrackets(String ex){
+        String reg = "[^()]+";
+        if(!ex.replaceAll(reg,"").equals("") && checkBrackets(ex.replaceAll(reg,""))){
+            //нужно вычислить выражения во всех скобках
+            //становиться ясно, что скобки стоят верно в данном выражении
+            return null;
+        }else{
+            return ex;
         }
     }
 
     public Var calc(String ex) throws CalcException{
-        calcWithBrackets(ex);
+        ex = calcWithBrackets(ex);
         ex = ex.replaceAll("\\s","");
         List<String> operands = new ArrayList<>(Arrays.asList(ex.split(Patterns.OPERATION)));
         Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(ex.replace(" ",""));
