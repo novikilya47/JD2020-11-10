@@ -98,7 +98,6 @@ public class Cashier implements Runnable{
     }
 
     public void setRunnable(boolean iWait) {
-        //если есть шанс, что кассира не разбудят, то оставить true
         this.isRunnable = iWait;
         if(iWait){
             openCashiers.getAndIncrement();
