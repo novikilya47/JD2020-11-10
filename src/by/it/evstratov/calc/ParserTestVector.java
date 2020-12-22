@@ -49,6 +49,10 @@ public class ParserTestVector {
         expected = new double[]{6,0};
         actual = vector.getValue();
         assertArrayEquals(expected, actual, 1e-5);
+        vector = (Vector)parser.calc("{9,7}-2");
+        expected = new double[]{7,5};
+        actual = vector.getValue();
+        assertArrayEquals(expected, actual, 1e-5);
     }
 
     @Test
