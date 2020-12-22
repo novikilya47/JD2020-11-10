@@ -27,7 +27,7 @@ public class TaskC3 {
             if(openBrackets.containsKey(chars[i])){
                 arrayDeque.add(chars[i]);
             }else if(closeBrackets.containsKey(chars[i]) && !arrayDeque.isEmpty()){
-                if(openBrackets.get(arrayDeque.getLast()) == closeBrackets.get(chars[i])){
+                if(openBrackets.get(arrayDeque.getLast()).equals(closeBrackets.get(chars[i]))){
                     arrayDeque.removeLast();
                 }
             }else{

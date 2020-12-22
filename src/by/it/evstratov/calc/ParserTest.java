@@ -40,9 +40,9 @@ public class ParserTest {
 
     @Test
     public void expressionVectors() throws CalcException {
-        Vector vector = (Vector)parser.calc("V={1,2,3}+{4,5,6}*2");
+        Vector vector = (Vector)parser.calc("V={1,2,3}*2+{4,5,6}");
         double[] actual = vector.getValue();
-        double[] expected = {9,12,15};
+        double[] expected = {6,9,12};
         assertArrayEquals(expected, actual, 1e-5);
     }
 
