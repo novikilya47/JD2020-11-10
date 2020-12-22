@@ -1,4 +1,4 @@
-package by.it.terentyev.jd01_13;
+package by.it.terentyev.calc;
 
 
 import by.it.HomeWork;
