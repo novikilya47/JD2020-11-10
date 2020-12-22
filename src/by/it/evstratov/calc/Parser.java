@@ -46,7 +46,14 @@ public class Parser {
         }
     };
 
+    private static void calcWithBrackets(String ex){
+        if(!ex.replaceAll("[^()]+","").equals("") && checkBrackets(ex.replaceAll("[^()]+",""))){
+            //System.out.println(true);
+        }
+    }
+
     public Var calc(String ex) throws CalcException{
+        calcWithBrackets(ex);
         ex = ex.replaceAll("\\s","");
         List<String> operands = new ArrayList<>(Arrays.asList(ex.split(Patterns.OPERATION)));
         Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(ex.replace(" ",""));
