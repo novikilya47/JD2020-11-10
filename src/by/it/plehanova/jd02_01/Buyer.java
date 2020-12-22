@@ -28,7 +28,11 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void enterToMarket() {
-        System.out.println(this + " entered to Market");
+        if (this.isPensioner()) {
+            System.out.println(this + " is pensioner entered to Market");
+        } else {
+            System.out.println(this + " entered to Market");
+        }
     }
 
     @Override
@@ -36,11 +40,11 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         System.out.println(this + " Started choose goods");
         for (int i = 0; i < Helper.getRandom(1, 4); i++) {
             putGoodsToBasket();
-            double timeout = Helper.getRandom(500, 2000);
+            int timeout = Helper.getRandom(500, 2000);
             if (this.isPensioner()) {
-                timeout = timeout * 1.5;
+                timeout = (int) (timeout * 1.5);
             }
-            Helper.sleep((int) timeout);
+            Helper.sleep(timeout);
         }
         System.out.println(this + " finished choose goods");
     }
@@ -53,14 +57,13 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void takeBasket() {
         System.out.println(this + " take a basket");
-
     }
 
     @Override
     public void putGoodsToBasket() {
-        System.out.println(this + " put a good in the basket");
         Good good = ListGoods.randomGood();
         basket.putGoods(good);
+        System.out.println(this + " put a good in the basket " + good);
     }
 
     @Override

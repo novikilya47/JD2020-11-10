@@ -9,11 +9,10 @@ public class Market {
         List<Buyer> buyers = new ArrayList<>();
 
         int n = 0;
-        int range = 30; //диапазон покупателей (амплитуда)
-        for (int t = 1; t < 120; t++) {
-            int buyersExpectedInMarket = Math.abs(Math.abs(t - 2 * range) - 2 * range) + 10;
+        for (int t = 0; t < 120; t++) {
+            int buyersExpectedInMarket = Math.abs(Math.abs(Math.abs(t - 60) - 30) - 30) + 10;
             int count = buyersExpectedInMarket - Dispatcher.getBuyersInMarket();
-            for (int i = 1; i <= Helper.getRandom(count); i++) {
+            for (int i = 0; i <= Helper.getRandom(count); i++) {
                 Buyer buyer = new Buyer(++n);
                 if (Dispatcher.getAllBuyers() % 4 == 0) {
                     buyer.setPensioner(true);
