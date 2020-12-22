@@ -46,15 +46,20 @@ public class Parser {
         }
     };
 
-    private static String calcWithBrackets(String ex){
+    private static String calcWithBrackets(String ex) throws CalcException {
         String reg = "[^()]+";
+        Parser parser = new Parser();
         if(!ex.replaceAll(reg,"").equals("") && checkBrackets(ex.replaceAll(reg,""))){
-            //нужно вычислить выражения во всех скобках
-            //становиться ясно, что скобки стоят верно в данном выражении
-            return null;
-        }else{
-            return ex;
+            Matcher matcher = Pattern.compile("\\([^()]+\\)").matcher(ex.replace(" ",""));
+            while (matcher.find()){
+                String line = matcher.group().substring(1,matcher.group().length()-1);
+                Var var = parser.calc(line);
+                String replace = ex.replace(matcher.group(), var.toString());
+                ex = replace;
+                ex = calcWithBrackets(ex);
+            }
         }
+        return ex;
     }
 
     public Var calc(String ex) throws CalcException{

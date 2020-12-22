@@ -34,8 +34,10 @@ public class ParserTest {
         assertEquals(25, actual, 1e-5);
         actual = Double.parseDouble(parser.calc("B2=A/2-1").toString());
         assertEquals(2.65, actual, 1e-5);
-        //actual = Double.parseDouble(parser.calc("C=B+(A*2)").toString());
-        //assertEquals(40.15, actual, 1e-5);
+        actual = Double.parseDouble(parser.calc("C=B+(A*2)").toString());
+        assertEquals(40.15, actual, 1e-5);
+        actual = Double.parseDouble(parser.calc("D=((C-0.15)-20)/(7-5)").toString());
+        assertEquals(10, actual, 1e-5);
     }
 
     @Test
@@ -43,6 +45,10 @@ public class ParserTest {
         Vector vector = (Vector)parser.calc("V={1,2,3}*2+{4,5,6}");
         double[] actual = vector.getValue();
         double[] expected = {6,9,12};
+        assertArrayEquals(expected, actual, 1e-5);
+        vector = (Vector)parser.calc("E={2,3}*(D/2)");
+        expected = new double[]{10,15};
+        actual = vector.getValue();
         assertArrayEquals(expected, actual, 1e-5);
     }
 
