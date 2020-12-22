@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.regex.Matcher;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
@@ -50,6 +52,16 @@ public class ParserTest {
         expected = new double[]{10,15};
         actual = vector.getValue();
         assertArrayEquals(expected, actual, 1e-5);
+    }
+
+    @Test
+    public void expressionMatrix() throws CalcException {
+        Matrix matrix = (Matrix)parser.calc("M={{1,2,3},{4,5,6}}*2");
+        double[][] actual = matrix.getValue();
+        double[][] expected = {{2,4,6},{8,10,12}};
+        for (int i = 0; i < expected.length; i++) {
+            assertArrayEquals(expected[i], actual[i], 1e-5);
+        }
     }
 
     @After
