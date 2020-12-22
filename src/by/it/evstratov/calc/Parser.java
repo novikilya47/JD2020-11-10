@@ -6,13 +6,13 @@ import java.util.regex.Pattern;
 
 public class Parser {
 
-    private static final Map<String, Integer> map = new HashMap<>(){
+    private static final Map<String, Integer> priorityMap = new HashMap<>(){
         {
             this.put("=", 0);
-            this.put("=", 1);
-            this.put("=", 2);
-            this.put("=", 3);
-            this.put("=", 4);
+            this.put("+", 1);
+            this.put("-", 1);
+            this.put("*", 2);
+            this.put("/", 2);
         }
     };
 
@@ -39,8 +39,14 @@ public class Parser {
     private int getIndex(List<String> operations) {
         int index = -1;
         int prior = -1;
-
-        return 0;
+        for (int i = 0, operationsSize = operations.size(); i < operationsSize; i++) {
+            String operation = operations.get(i);
+            if (prior < priorityMap.get(operation)) {
+                index = i;
+                prior = priorityMap.get(operation);
+            }
+        }
+        return index;
     }
 
     public Var calcOneOperation(String leftStr, String operation, String rightStr) throws CalcException {
@@ -53,11 +59,14 @@ public class Parser {
         switch (operation){
             case "+" :
                 RepoVar.saveToLog(right + " + " + left +" = "+right.addWidth(left));
-                return right.addWidth(left); case "-" : RepoVar.saveToLog(right + " - " + left+" = "+right.subWidth(left));
-                return right.subWidth(left); case "*" : RepoVar.saveToLog(right + " * " + left+" = "+right.mulWidth(left));
-                return right.mulWidth(left); case "/" : RepoVar.saveToLog(right + " / " + left+" = "+right.divWidth(left));
+                return right.addWidth(left);
+            case "-" : RepoVar.saveToLog(right + " - " + left+" = "+right.subWidth(left));
+                return right.subWidth(left);
+            case "*" : RepoVar.saveToLog(right + " * " + left+" = "+right.mulWidth(left));
+                return right.mulWidth(left);
+            case "/" : RepoVar.saveToLog(right + " / " + left+" = "+right.divWidth(left));
                 return right.divWidth(left);
         }
-        return null;
+        throw new CalcException("err");
     }
 }
