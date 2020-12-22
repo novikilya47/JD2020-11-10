@@ -1,4 +1,4 @@
-package by.it._khmelov_.calc;
+package by.it._khmelov_.jd02_04;
 
 import java.util.HashMap;
 import java.util.Map;
