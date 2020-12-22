@@ -19,8 +19,8 @@ class Matrix extends Var {
     }
 
    public Matrix(String strMatrix) {
-       String str = strMatrix.replaceAll("},","} и");
-       String[] arrayMatrixToString = str.split("и");
+       String str = strMatrix.replaceAll("},","} and");
+       String[] arrayMatrixToString = str.split("and");
        this.value = new double[arrayMatrixToString.length][];
        for (int i = 0; i < value.length; i++) {
            String line = arrayMatrixToString[i].replaceAll("[{}]","");
