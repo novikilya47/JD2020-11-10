@@ -15,10 +15,9 @@ public class Market {
             thread.start();
         }
         int n = 0;
-        int range = 30;
         int t = 1;
         while (Dispatcher.marketIsOpened()){
-            int buyersExpectedInMarket = Math.abs(Math.abs(t - 2 * range) - 2 * range) + 10;
+            int buyersExpectedInMarket = Math.abs(Math.abs(Math.abs(t - 60) - 30) - 30) + 10;
             int count = Helper.getRandom(buyersExpectedInMarket - Dispatcher.getBuyersInMarket());
             for (int i = 1; i <= count && Dispatcher.marketIsOpened(); i++) {
                 Buyer buyer = new Buyer(++n);

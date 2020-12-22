@@ -23,8 +23,8 @@ public class Cashier implements Runnable {
 
                 System.out.println(this + "Started service for" + buyer);
                 int t = Helper.getRandom(2000, 5000);
-                //printReceipt(buyer);
                 Helper.sleep(t);
+                printReceipt(buyer);
                 System.out.println(this + "finished service for" + buyer);
 
                 //noinspection SynchronizationOnLocalVariableOrMethodParameter
@@ -48,25 +48,24 @@ public class Cashier implements Runnable {
         }
     }
 
-    public static synchronized void printReceipt(Buyer buyer) {
+    public synchronized void printReceipt(Buyer buyer) {
 
-            ArrayList<Good> goods = buyer.getBasket().getGoodsInBasket();
-            String nameOfGood;
-            double priceOfGood;
-            double totalSum = 0;
-            System.out.printf("%25s\n", "---------------------");
-            System.out.printf("%25s\n", "Receipt of " + buyer);
-            System.out.printf("%25s\n", "---------------------");
-            for (Good good : goods) {
-                nameOfGood = good.getName();
-                priceOfGood = good.getPrice();
-                totalSum += priceOfGood;
-                System.out.printf("%15s | %-3.2f\n", nameOfGood, priceOfGood);
-            }
-            System.out.printf("%25s\n", "---------------------");
-            System.out.printf("%15s | %-3.2f\n", "total sum", totalSum);
-            System.out.printf("%25s\n", "---------------------");
-
+        ArrayList<Good> goods = buyer.getBasket().getGoodsInBasket();
+        String nameOfGood;
+        double priceOfGood;
+        double totalSum = 0;
+        System.out.printf("%25s\n", "---------------------");
+        System.out.printf("%25s\n", "Receipt of " + buyer);
+        System.out.printf("%25s\n", "---------------------");
+        for (Good good : goods) {
+            nameOfGood = good.getName();
+            priceOfGood = good.getPrice();
+            totalSum += priceOfGood;
+            System.out.printf("%15s | %-3.2f\n", nameOfGood, priceOfGood);
+        }
+        System.out.printf("%25s\n", "---------------------");
+        System.out.printf("%15s | %-3.2f\n", "total sum", totalSum);
+        System.out.printf("%25s\n", "---------------------");
     }
 
     @Override
