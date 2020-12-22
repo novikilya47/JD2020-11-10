@@ -6,6 +6,7 @@ public class Cashier implements Runnable{
 
     private final int number;
     private volatile static int openCashiers = 0;
+    static final Object lock = new Object();
 
     public Cashier(int number) {
         this.number = number;
@@ -27,19 +28,19 @@ public class Cashier implements Runnable{
             if(buyer != null){
                 int t = Helper.getRandom(2000,5000);
                 Helper.sleep(t);
-                Dispatcher.printCheck(this,buyer);
+                printCheck(this,buyer);
                 //noinspection SynchronizationOnLocalVariableOrMethodParameter
                 synchronized (buyer){
                     buyer.setRunnable(true);
                     buyer.notify();
                 }
             }else{
-                synchronized (Dispatcher.lock){
+                synchronized (this){
                     if(openCashiers == 1){
                         System.out.println(this + "в ожидании покупателей (единственная открытая касса)");
                         try {
                             if(Dispatcher.marketIsOpened()){
-                                Dispatcher.lock.wait();
+                                Cashier.lock.wait();
                             }
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
@@ -69,5 +70,36 @@ public class Cashier implements Runnable{
 
     public int getNumber() {
         return number;
+    }
+
+    public static void printCheck(Cashier cashier, Buyer buyer){
+        synchronized (Cashier.lock){
+            StringBuilder space = new StringBuilder();
+            for (int i = 0; i < 40; i++) {
+                space.append(".");
+            }
+            StringBuilder spaceLeft = new StringBuilder();
+            StringBuilder spaceRight = new StringBuilder();
+            for (int i = 0; i < cashier.getNumber()-1; i++) {
+                spaceLeft.append(space);
+            }
+            for (int i = 0; i < 5-cashier.getNumber()-1; i++) {
+                spaceRight.append(space);
+            }
+            spaceRight.append(" ");
+
+            StringBuilder result = new StringBuilder();
+            result.append(spaceLeft).append(cashier).append("started service for ").append(buyer).append("\n");
+            int sumCheck = 0;
+            List<Good> allGoodsInBasket = buyer.getBasket().getGoods();
+            for (Good good : allGoodsInBasket) {
+                result.append(spaceLeft).append(good.toString()).append("\n");
+                sumCheck += good.getPrice();
+            }
+            Dispatcher.addTotal(sumCheck);
+            result.append(spaceLeft).append("Сумма чека для ").append(cashier).append(" = ").append(sumCheck).append("\n");
+            result.append(spaceLeft).append(cashier).append("finished service for ").append(buyer).append(spaceRight).append(Dispatcher.getTotal()).append(" ").append(QueueBuyers.getSize()).append("\n");
+            System.out.println(result);
+        }
     }
 }
