@@ -62,12 +62,29 @@ public class Dispatcher {
     }
 
     public static synchronized void needToOpenNewCashiers(int sizeDeque){
-        int openCashiers = Cashier.getOpenCashiers();
-        int needToOpenCashiers =(int) Math.ceil((double) sizeDeque / 5.0);
-        int needToCloseCashiers = openCashiers - needToOpenCashiers;
-        if(openCashiers < needToOpenCashiers && !QueueCashiers.getWaitCashiers().isEmpty()){
-
+        int needToOpenCashiers =(int) Math.ceil((double) sizeDeque / 5.0) - Cashier.getOpenCashiers();
+        int countOpenCashiers = 0;
+        for (Cashier cashier : QueueCashiers.getAllCashiers()) {
+            if(!cashier.isRunnable() && countOpenCashiers != needToOpenCashiers){
+                countOpenCashiers++;
+                synchronized (cashier){
+                    cashier.setRunnable(true);
+                    System.out.println("---------------------------" +cashier.toString() + " открылась касса!");
+                    cashier.notify();
+                }
+            }
         }
+    }
 
+    public static synchronized void closeAllCashiers(){
+        for (int i = 0; i < QueueCashiers.getAllCashiers().size(); i++) {
+            Cashier cashier = QueueCashiers.getAllCashiers().get(i);
+            if(!QueueCashiers.getAllCashiers().get(i).isRunnable()){
+                synchronized (cashier){
+                    cashier.setRunnable(true);
+                    cashier.notify();
+                }
+            }
+        }
     }
 }

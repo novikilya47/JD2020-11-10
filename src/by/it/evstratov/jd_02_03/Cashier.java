@@ -33,9 +33,11 @@ public class Cashier implements Runnable{
                 }
             }else{
                 synchronized (this){
-                    setRunnable(false);
+                    if(openCashiers.get() != 1){
+                        setRunnable(false);
+                    }
                     while (!this.isRunnable){
-                        System.out.println(this + "закрывается, так как нет очереди");
+                        System.out.println(this + "ожидает, так как нет очереди");
                         try {
                             this.wait();
                         } catch (InterruptedException e) {
@@ -46,6 +48,9 @@ public class Cashier implements Runnable{
             }
         }
         System.out.println(this + "closed");
+        if(Dispatcher.marketIsClosed()){
+            Dispatcher.closeAllCashiers();
+        }
     }
 
     @Override
@@ -94,9 +99,15 @@ public class Cashier implements Runnable{
 
     public void setRunnable(boolean iWait) {
         //если есть шанс, что кассира не разбудят, то оставить true
-        if(openCashiers.get() != 1){
+        this.isRunnable = iWait;
+        if(iWait){
+            openCashiers.getAndIncrement();
+        }else{
             openCashiers.getAndDecrement();
-            this.isRunnable = iWait;
         }
+    }
+
+    public boolean isRunnable() {
+        return isRunnable;
     }
 }
