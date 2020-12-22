@@ -33,7 +33,7 @@ public class Cashier implements Runnable{
                 }
             }else{
                 synchronized (this){
-                    //setRunnable(false);
+                    setRunnable(false);
                     while (!this.isRunnable){
                         System.out.println(this + "закрывается, так как нет очереди");
                         try {
@@ -94,6 +94,9 @@ public class Cashier implements Runnable{
 
     public void setRunnable(boolean iWait) {
         //если есть шанс, что кассира не разбудят, то оставить true
-        this.isRunnable = iWait;
+        if(openCashiers.get() != 1){
+            openCashiers.getAndDecrement();
+            this.isRunnable = iWait;
+        }
     }
 }
