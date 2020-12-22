@@ -77,9 +77,8 @@ public class Dispatcher {
     }
 
     public static synchronized void closeAllCashiers(){
-        for (int i = 0; i < QueueCashiers.getAllCashiers().size(); i++) {
-            Cashier cashier = QueueCashiers.getAllCashiers().get(i);
-            if(!QueueCashiers.getAllCashiers().get(i).isRunnable()){
+        for (Cashier cashier : QueueCashiers.getAllCashiers()) {
+            if(!cashier.isRunnable()){
                 synchronized (cashier){
                     cashier.setRunnable(true);
                     cashier.notify();
