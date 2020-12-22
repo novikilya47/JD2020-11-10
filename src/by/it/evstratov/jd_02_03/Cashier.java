@@ -32,19 +32,7 @@ public class Cashier implements Runnable{
                     buyer.notify();
                 }
             }else{
-                try {
-                    synchronized (this){
-                        System.out.println(this + "закрывается - нет очереди");
-                        QueueCashiers.getWaitCashiers().putLast(this);
-                        QueueCashiers.getOpenCashiers().remove(this);
-                        openCashiers.getAndDecrement();
-                        while (true){
-                            wait();
-                        }
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+
             }
         }
         System.out.println(this + "closed");
