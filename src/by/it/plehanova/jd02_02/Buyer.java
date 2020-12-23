@@ -37,7 +37,11 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void enterToMarket() {
-        System.out.println(this + " entered to Market");
+        if (this.isPensioner()) {
+            System.out.println(this + " is pensioner entered to Market");
+        } else {
+            System.out.println(this + " entered to Market");
+        };
     }
 
     @Override
