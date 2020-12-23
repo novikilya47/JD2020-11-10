@@ -76,27 +76,6 @@ public class ScalarTest {
         assertEquals(expected, actual, 1e-5);
     }
 
-    @Test
-    public void expressionScalars() throws CalcException {
-        double actual = Double.parseDouble(parser.calc("A=2+5.3").toString());
-        assertEquals(7.3,actual,1e-5);
-
-        actual = Double.parseDouble(parser.calc("B=A*3.5").toString());
-        assertEquals(25.55,actual,1e-5);
-
-        actual = Double.parseDouble(parser.calc("B1=B+0.11*-5").toString());
-        assertEquals(25.0,actual,1e-5);
-
-        actual = Double.parseDouble(parser.calc("B2=A/2-1").toString());
-        assertEquals(2.65,actual,1e-5);
-
-        actual = Double.parseDouble(parser.calc("C=B+(A*2)").toString());
-        assertEquals(40.15,actual,1e-5);
-
-        actual = Double.parseDouble(parser.calc("D=((C-0.15)-20)/(7-5)").toString());
-        assertEquals(10,actual,1e-5);
-    }
-
     @After
     public void tearDown() throws Exception {
     }
