@@ -1,4 +1,4 @@
-package by.it.plehanova.calc;
+package by.it.plehanova.jd02_04.calc;
 
 import java.util.*;
 import java.util.regex.Matcher;

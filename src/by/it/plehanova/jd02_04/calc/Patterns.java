@@ -1,4 +1,4 @@
-package by.it.plehanova.calc;
+package by.it.plehanova.jd02_04.calc;
 
 public class Patterns {
     static final String OPERATION = "(?<=[^,{+/*=-])[-+*/=]";
