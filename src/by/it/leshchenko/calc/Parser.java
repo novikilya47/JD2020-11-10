@@ -18,7 +18,6 @@ public class Parser {
 
     public Var calc(String expression) throws CalcException {
         expression = expression.trim().replaceAll("\\s+", "");
-        final Matcher expressionInBrackets = Pattern.compile(Patterns.BRACKETS).matcher(expression);
 
         final List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
         final Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
@@ -36,11 +35,6 @@ public class Parser {
         }
         return Var.createVar(operands.get(0));
     }
-
-//    public Var calcBrackets(String expression) throws CalcException {
-//        expression = expression.trim().replaceAll("\\(", "").replaceAll("\\)", "");
-//
-//    }
 
         private int getIndex(List<String> operations) {
         int index = -1;
