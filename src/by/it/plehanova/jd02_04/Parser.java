@@ -1,4 +1,4 @@
-package by.it.plehanova.jd02_04.calc;
+package by.it.plehanova.jd02_04;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -83,7 +83,7 @@ public class Parser {
                 Var result = calc(expressionInBrackets.replaceAll("[()]", ""));
                 expression = expression.replace(expressionInBrackets, result.toString());
             }
-            expression=calcInBrackets(expression);
+            expression = calcInBrackets(expression);
         }
         return expression;
     }

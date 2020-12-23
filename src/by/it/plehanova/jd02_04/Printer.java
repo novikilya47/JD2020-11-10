@@ -1,4 +1,4 @@
-package by.it.plehanova.jd02_04.calc;
+package by.it.plehanova.jd02_04;
 
 import java.util.Objects;
 
