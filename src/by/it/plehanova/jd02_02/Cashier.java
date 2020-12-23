@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Cashier implements Runnable {
     private final int number;
+    private static int count = 5;
 
     public Cashier(int number) {
         this.number = number;
@@ -26,7 +27,6 @@ public class Cashier implements Runnable {
                 Helper.sleep(t);
                 printReceipt(buyer);
                 System.out.println(this + "finished service for" + buyer);
-
                 //noinspection SynchronizationOnLocalVariableOrMethodParameter
                 synchronized (buyer) {
                     buyer.setRunnable(true);

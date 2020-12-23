@@ -58,6 +58,16 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     public void goToQueue() {
 
         QueueBuyers.add(this);
+        /*if (Dispatcher.needToOpenCashier() < Dispatcher.getOpenCashier()) {
+            for (int i = 0; i < Dispatcher.needToOpenCashier() - Dispatcher.getOpenCashier(); i++) {
+                if (Dispatcher.getOpenCashier() < Dispatcher.MAX_CASHIERS) {
+                    Cashier cashier = ListCashiers.extract();
+                    Thread cashierThread = new Thread(cashier);
+                    ListCashiers.setCashiers(cashierThread);
+                    cashierThread.start();
+                }
+            }
+        }*/
         System.out.println(this + " add to queue");
         synchronized (Dispatcher.cashierMonitor) {
             if (Dispatcher.getOpenCashier() == 0) {
