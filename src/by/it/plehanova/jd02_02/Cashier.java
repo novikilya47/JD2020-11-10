@@ -49,25 +49,30 @@ public class Cashier implements Runnable {
         }
     }
 
-    public synchronized void printReceipt(Buyer buyer) {
+    public void printReceipt(Buyer buyer) {
         synchronized (System.in) {
             ArrayList<Good> goods = buyer.getBasket().getGoodsInBasket();
             String nameOfGood;
             double priceOfGood;
             double totalSum = 0;
-            int x = 25;
-            System.out.printf("%25s\n", "---------------------");
-            System.out.printf("%25s\n", "Receipt of " + buyer);
-            System.out.printf("%25s\n", "---------------------");
+            int countSpace = 25;
+            StringBuffer space = new StringBuffer("");
+            for (int i = 0; i < countSpace * this.number; i++) {
+                space.append(" ");
+            }
+            System.out.printf("%s%s%s%s\n",space, "-----",this,"-----");
+            System.out.printf("%s%s\n",space, "Receipt of " + buyer);
+            System.out.printf("%s%s\n",space, "---------------------");
             for (Good good : goods) {
                 nameOfGood = good.getName();
                 priceOfGood = good.getPrice();
                 totalSum += priceOfGood;
-                System.out.printf("%15s | %-3.2f\n", nameOfGood, priceOfGood);
+                System.out.printf("%s%s | %-3.2f\n",space, nameOfGood, priceOfGood);
             }
-            System.out.printf("%25s\n", "---------------------");
-            System.out.printf("%15s | %-3.2f\n", "total sum", totalSum);
-            System.out.printf("%25s\n", "---------------------");
+
+            System.out.printf("%s%s\n",space, "---------------------");
+            System.out.printf("%s%s | %-3.2f\n",space, "total sum", totalSum);
+            System.out.printf("%s%s\n",space, "---------------------");
         }
     }
 
