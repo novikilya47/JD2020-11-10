@@ -80,10 +80,10 @@ public class Cashier<TOTAL_SUM> implements Runnable {
                 System.out.printf("%s%15s | %-3.2f\n", space, nameOfGood, priceOfGood);
             }
             TOTAL_SUM += totalSum;
-
+int queue = QueueBuyers.getQueue().size();
             System.out.printf("%s%25s\n", space, "---------------------");
             System.out.printf("%s%15s | %-3.2f\n", space, "total sum", totalSum);
-            System.out.printf("%s%25s%s%.2f\n", space, "---------------------", spaceForTotalSum, TOTAL_SUM);
+            System.out.printf("%s%25s%s%7.2f   %d - queue\n", space, "---------------------", spaceForTotalSum, TOTAL_SUM, queue);
         }
     }
 
