@@ -1,4 +1,4 @@
-package by.it.plehanova.calc;
+package by.it.plehanova.jd02_04;
 
 import java.util.Arrays;
 
@@ -23,7 +23,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var add(Var other) throws CalcException{
+    public Var add(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double[][] arr = copyArray(this.matrix);
             for (int i = 0; i < arr.length; i++) {
@@ -52,7 +52,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var sub(Var other) throws CalcException{
+    public Var sub(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double[][] arr = copyArray(this.matrix);
             for (int i = 0; i < arr.length; i++) {
@@ -81,7 +81,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var mul(Var other) throws CalcException{
+    public Var mul(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double[][] arr = copyArray(this.matrix);
             for (int i = 0; i < arr.length; i++) {
@@ -126,7 +126,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var div(Var other) throws CalcException{
+    public Var div(Var other) throws CalcException {
         if (other instanceof Scalar) {
             if (((Scalar) other).getValue() == 0) {
                 System.out.println("Division by zero");
@@ -146,13 +146,13 @@ class Matrix extends Var {
 
     private double[][] numberOfString(String str) {
 
-        str.replace("[{]+|[}]$", "");
+        str = str.replace("[{]+|[}]$", "");
         String[] number = str.split("},");
 
         String[][] multiNumber = new String[number.length][];
 
         for (int i = 0; i < number.length; i++) {
-            multiNumber[i] = number[i].replaceAll("[^0-9\\.]+", " ").trim().split(" ");
+            multiNumber[i] = number[i].replaceAll("[^0-9.]+", " ").trim().split(" ");
         }
 
         double[][] matrix = new double[multiNumber.length][multiNumber[0].length];
@@ -179,8 +179,8 @@ class Matrix extends Var {
         for (double[] element : matrix) {
             sb.append(delimiter).append("{");
             delimiter = "";
-            for (int j = 0; j < element.length; j++) {
-                sb.append(delimiter).append(element[j]);
+            for (double v : element) {
+                sb.append(delimiter).append(v);
                 delimiter = ", ";
             }
             sb.append("}");

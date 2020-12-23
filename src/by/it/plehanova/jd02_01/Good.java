@@ -27,6 +27,6 @@ class Good {
 
     @Override
     public String toString() {
-        return "name=" + name + ", price=" + price;
+        return  name + ", price=" + price;
     }
 }

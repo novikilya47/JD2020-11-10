@@ -1,4 +1,4 @@
-package by.it.plehanova.calc;
+package by.it.plehanova.jd02_04;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,13 +14,13 @@ abstract class Var implements Operation {
         return varValue;
     }
     public static void printVar(){
-        for(Map.Entry<String,Var> entry: variables.entrySet()){
+        for(Map.Entry<String, Var> entry: variables.entrySet()){
             System.out.printf("%s=%s\n", entry.getKey(), entry.getValue());
         }
     }
     public static void sortVar(){
         TreeMap<String, Var> sort = new TreeMap<>(variables);
-        for(Map.Entry<String,Var> entry: sort.entrySet()){
+        for(Map.Entry<String, Var> entry: sort.entrySet()){
             System.out.printf("%s=%s\n", entry.getKey(), entry.getValue());
         }
     }
