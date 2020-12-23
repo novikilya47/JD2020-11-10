@@ -35,6 +35,7 @@ public class RepoVar {
         }
     }
 
+    @SuppressWarnings("SameParameterValue")
     static void saveVariables(Map<String, Var> vars) {
         try (PrintWriter writer = new PrintWriter(getFileName() + VARS_TXT)) {
 

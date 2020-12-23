@@ -146,13 +146,13 @@ class Matrix extends Var {
 
     private double[][] numberOfString(String str) {
 
-        str.replace("[{]+|[}]$", "");
+        str = str.replace("[{]+|[}]$", "");
         String[] number = str.split("},");
 
         String[][] multiNumber = new String[number.length][];
 
         for (int i = 0; i < number.length; i++) {
-            multiNumber[i] = number[i].replaceAll("[^0-9\\.]+", " ").trim().split(" ");
+            multiNumber[i] = number[i].replaceAll("[^0-9.]+", " ").trim().split(" ");
         }
 
         double[][] matrix = new double[multiNumber.length][multiNumber[0].length];
@@ -179,8 +179,8 @@ class Matrix extends Var {
         for (double[] element : matrix) {
             sb.append(delimiter).append("{");
             delimiter = "";
-            for (int j = 0; j < element.length; j++) {
-                sb.append(delimiter).append(element[j]);
+            for (double v : element) {
+                sb.append(delimiter).append(v);
                 delimiter = ", ";
             }
             sb.append("}");

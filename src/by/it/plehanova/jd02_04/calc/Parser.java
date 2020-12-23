@@ -80,7 +80,7 @@ public class Parser {
             Matcher matcher = patterns.matcher(expression);
             while (matcher.find()) {
                 String expressionInBrackets = matcher.group();
-                Var result = calc(expressionInBrackets.replaceAll("[\\(\\)]", ""));
+                Var result = calc(expressionInBrackets.replaceAll("[()]", ""));
                 expression = expression.replace(expressionInBrackets, result.toString());
             }
             expression=calcInBrackets(expression);
