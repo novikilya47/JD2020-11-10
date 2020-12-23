@@ -19,8 +19,7 @@ public class ScalarTest {
         String strVar = "9.4";
         Scalar scalar = new Scalar(strVar);
         String actual = scalar.toString();
-        String expected = strVar;
-        assertEquals(expected, actual);
+        assertEquals(strVar, actual);
     }
 
     @Test
