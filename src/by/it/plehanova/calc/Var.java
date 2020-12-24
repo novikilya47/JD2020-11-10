@@ -10,6 +10,7 @@ abstract class Var implements Operation {
 
     public static Var save(String varName, Var varValue) {
         variables.put(varName, varValue);
+        RepoVar.saveVariables(variables);
         return varValue;
     }
     public static void printVar(){
@@ -18,14 +19,14 @@ abstract class Var implements Operation {
         }
     }
     public static void sortVar(){
-        TreeMap<String, Var> sort = new TreeMap<>();
-        sort.putAll(variables);
+        TreeMap<String, Var> sort = new TreeMap<>(variables);
         for(Map.Entry<String,Var> entry: sort.entrySet()){
             System.out.printf("%s=%s\n", entry.getKey(), entry.getValue());
         }
     }
 
     public static Var createVar(String operand) throws CalcException {
+        operand = operand.trim().replaceAll("\\s+", "");
         if (operand.matches(Patterns.SCALAR)) {
             return new Scalar(operand);
         } else if (operand.matches(Patterns.VECTOR)) {

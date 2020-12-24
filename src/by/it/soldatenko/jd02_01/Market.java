@@ -18,9 +18,9 @@ public class Market {
             if (sin >0){p++;}
             if (sin <0){p--;}
             int nN=quantityIn-quantityOut;
-            if(nN<p+10){x=2*(p+10-nN);}
+            if(nN<p+10){x=10;}//
             if(nN>p+10){x=0;}
-//            System.out.println(p +" "+t +" nN " + nN + " "+x);
+            System.out.println(p +" "+t +" nN " + nN + " "+x);
             for (int i = 0; i <= x; i++) {
                 Buyer buyer = new Buyer(++n);
                 buyers.add(buyer);
