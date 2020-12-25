@@ -1,4 +1,2 @@
-message.welcome=Привет!
-message.question=Как твои дела?
-user.firstname=Митя
-user.lastname=Евстратов
+error.error=ОШИБКА
+error.size=различных размеров

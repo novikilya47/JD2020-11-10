@@ -65,7 +65,7 @@ class Matrix extends Var {
             }
             return new Matrix(res);
         }else{
-            throw new CalcException(this+ "и "+matrix+" разных размеров");
+            throw new CalcException(this+ " - "+matrix+" разных размеров");
         }
     }
 
@@ -107,7 +107,7 @@ class Matrix extends Var {
             }
             return new Vector(result);
         }else{
-            throw new CalcException(this+ "и "+vector+" разных размеров");
+            throw new CalcException(this+ " - "+vector+" разных размеров");
         }
     }
 
@@ -124,7 +124,7 @@ class Matrix extends Var {
             }
             return new Matrix(res);
         }else{
-            throw new CalcException(this+ "и "+matrix+" разных размеров");
+            throw new CalcException(this+ " - "+matrix+" разных размеров");
         }
     }
 
@@ -143,7 +143,7 @@ class Matrix extends Var {
         if(this.value.length == matrix.value.length && this.value[0].length == matrix.value[0].length){
             return this.add(new Matrix((Matrix) matrix.mul(new Scalar(-1))));
         }else{
-            throw new CalcException(this+ "и "+matrix+" разных размеров");
+            throw new CalcException(this+ " - "+matrix+" разных размеров");
         }
     }
 

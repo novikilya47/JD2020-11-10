@@ -1,4 +1,2 @@
-message.welcome=Welcome!
-message.question=How are you?
-user.firstname=Mitya
-user.lastname=Evstratov
+error.error=ERROR
+error.size=different sizes
