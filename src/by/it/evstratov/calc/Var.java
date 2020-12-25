@@ -42,7 +42,7 @@ abstract class Var implements OperationAdd, OperationDiv, OperationMul, Operatio
         }else if(vars.containsKey(strVar)){
             return vars.get(strVar);
         }else{
-            throw new CalcException(ErrorLang.IMPOSSIBLE + " "+strVar);
+            throw new CalcException(ErrorLang.CREATE + " "+strVar);
         }
     }
 
