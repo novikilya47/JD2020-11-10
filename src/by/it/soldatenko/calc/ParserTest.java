@@ -40,7 +40,6 @@ public class ParserTest {
     @Test
     public void expressionVector() throws CalcException {
         Vector vector = (Vector) parser.calc("{1,2,3}+{4,5,6}");
-//       Vector vector = (Vector ) parser.calc("{1,2,3}+{4,5,6}").toString();
         double[] actual = vector.getValue();
         double[] expected ={5.0,7.0,9.0};
         assertArrayEquals(expected,actual,1e-5);

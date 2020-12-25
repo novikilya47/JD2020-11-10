@@ -7,4 +7,5 @@ division=division
 addition=addition
 subtraction=subtraction
 multiplication=multiplication
+error=ERROR
 

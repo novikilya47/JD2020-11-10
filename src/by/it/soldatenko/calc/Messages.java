@@ -10,4 +10,5 @@ public interface Messages {
     String ADDITION="addition";
     String SUBTRACTION="subtraction";
     String MULTIPLICATION="multiplication";
+    String ERROR= "error";
 }

@@ -7,3 +7,4 @@ division=деления
 addition=суммирования
 subtraction=вычитания
 multiplication=умножения
+error=ОШИБКА

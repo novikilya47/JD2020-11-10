@@ -3,9 +3,9 @@ package by.it.soldatenko.calc;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public enum Language {
+class Language {
 
-    ISTANCE;
+
    public static ResourceBundle bundle;
    public static void setLocale(Locale l){
 

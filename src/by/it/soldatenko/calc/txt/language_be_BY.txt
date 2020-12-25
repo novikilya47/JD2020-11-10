@@ -7,3 +7,4 @@ division=дзялення
 addition=падсумоўвання
 subtraction=аднімання
 multiplication=множання
+error=ПАМЫЛКА
