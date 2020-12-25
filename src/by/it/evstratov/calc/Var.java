@@ -1,6 +1,9 @@
 package by.it.evstratov.calc;
 
 
+import by.it.evstratov.calc.language.ErrorLang;
+import by.it.evstratov.calc.language.VarLang;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -39,68 +42,68 @@ abstract class Var implements OperationAdd, OperationDiv, OperationMul, Operatio
         }else if(vars.containsKey(strVar)){
             return vars.get(strVar);
         }else{
-            throw new CalcException("Unable to create "+strVar);
+            throw new CalcException(ErrorLang.IMPOSSIBLE + " "+strVar);
         }
     }
 
     @Override
     public Var add(Scalar scalar) throws CalcException{
-        throw new CalcException("Операция сложения "+ this+" + "+scalar+" невозможна");
+        throw new CalcException(ErrorLang.SUM + " "+ this+" + "+scalar+" " + ErrorLang.IMPOSSIBLE);
     }
 
     @Override
     public Var add(Vector vector) throws CalcException{
-        throw new CalcException("Операция сложения "+ this+" + "+vector+" невозможна");
+        throw new CalcException(ErrorLang.SUM + " "+ this+" + "+vector+" " + ErrorLang.IMPOSSIBLE);
     }
 
     @Override
     public Var add(Matrix matrix) throws CalcException{
-        throw new CalcException("Операция сложения "+ this+" + "+matrix+" невозможна");
+        throw new CalcException(ErrorLang.SUM + " "+ this+" + "+matrix+" " + ErrorLang.IMPOSSIBLE);
     }
 
     @Override
     public Var div(Scalar scalar) throws CalcException {
-        throw new CalcException("Операция деления "+ this+" / "+scalar+" невозможна");
+        throw new CalcException(ErrorLang.DIV + " "+ this+" / "+scalar+" " + ErrorLang.IMPOSSIBLE);
     }
 
     @Override
     public Var div(Vector vector) throws CalcException{
-        throw new CalcException("Операция деления "+ vector+" / "+this+" невозможна");
+        throw new CalcException(ErrorLang.DIV + " "+ vector+" / "+this+" " + ErrorLang.IMPOSSIBLE);
     }
 
     @Override
     public Var div(Matrix matrix) throws CalcException{
-        throw new CalcException("Операция деления "+ this+" / "+matrix+" невозможна");
+        throw new CalcException(ErrorLang.DIV + " "+ this+" / "+matrix+" " + ErrorLang.IMPOSSIBLE);
     }
 
     @Override
     public Var mul(Scalar scalar) throws CalcException{
-        throw new CalcException("Операция умножения "+ this+" * "+scalar+" невозможна");
+        throw new CalcException(ErrorLang.MUL + " "+ this+" * "+scalar+" " + ErrorLang.IMPOSSIBLE);
     }
 
     @Override
     public Var mul(Vector vector) throws CalcException{
-        throw new CalcException("Операция умножения "+ this+" * "+vector+" невозможна");
+        throw new CalcException(ErrorLang.MUL + " "+ this+" * "+vector+" " + ErrorLang.IMPOSSIBLE);
     }
 
     @Override
     public Var mul(Matrix matrix) throws CalcException{
-        throw new CalcException("Операция умножения "+ this+" * "+matrix+" невозможна");
+        throw new CalcException(ErrorLang.MUL + " "+ this+" * "+matrix+" " + ErrorLang.IMPOSSIBLE);
     }
 
     @Override
     public Var sub(Scalar scalar) throws CalcException{
-        throw new CalcException("Операция вычитания "+ this+" * "+scalar+" невозможна");
+        throw new CalcException(ErrorLang.SUB + " "+ this+" * "+scalar+" " + ErrorLang.IMPOSSIBLE);
     }
 
     @Override
     public Var sub(Vector vector) throws CalcException{
-        throw new CalcException("Операция вычитания "+ this+" * "+vector+" невозможна");
+        throw new CalcException(ErrorLang.SUB + " "+ this+" * "+vector+" " + ErrorLang.IMPOSSIBLE);
     }
 
     @Override
     public Var sub(Matrix matrix) throws CalcException{
-        throw new CalcException("Операция вычитания "+ this+" * "+matrix+" невозможна");
+        throw new CalcException(ErrorLang.SUB + " "+ this+" * "+matrix+" " + ErrorLang.IMPOSSIBLE);
     }
 
     public abstract Var addWidth(Var right) throws CalcException;
@@ -113,7 +116,7 @@ abstract class Var implements OperationAdd, OperationDiv, OperationMul, Operatio
 
     @Override
     public String toString() {
-        return "some abstract Var{}";
+        return VarLang.SOME_ABS + " Var{}";
     }
 
 }

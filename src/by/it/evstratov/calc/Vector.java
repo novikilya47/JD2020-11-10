@@ -1,6 +1,8 @@
 package by.it.evstratov.calc;
 
 
+import by.it.evstratov.calc.language.ErrorLang;
+
 import java.util.Arrays;
 import java.util.StringJoiner;
 
@@ -45,7 +47,7 @@ class Vector extends Var {
             }
             return new Vector(arr);
         }else{
-            throw new CalcException(this+ "и "+vector+" разных длинны");
+            throw new CalcException(this+ ErrorLang.AND + " "+vector+" " + ErrorLang.SIZE);
         }
     }
 
@@ -57,7 +59,7 @@ class Vector extends Var {
     @Override
     public Var div(Scalar scalar) throws CalcException {
         if (scalar.getValue()==0){
-            throw new CalcException("Деление на 0");
+            throw new CalcException(ErrorLang.DIV_BY_ZERO);
         }else{
             double[] res = Arrays.copyOf(value, value.length);
             for (int i = 0; i < res.length; i++) {
@@ -95,7 +97,7 @@ class Vector extends Var {
             }
             return new Scalar(res);
         }else{
-            throw new CalcException(this+ "и "+vector+" разных длинны");
+            throw new CalcException(this+ ErrorLang.AND + " "+vector+" " + ErrorLang.SIZE);
         }
     }
 
@@ -114,7 +116,7 @@ class Vector extends Var {
         if(this.value.length == vector.value.length){
             return this.add(new Vector((Vector) vector.mul(new Scalar(-1))));
         }else{
-            throw new CalcException(this+ "и "+vector+" разных длинны");
+            throw new CalcException(this+ ErrorLang.AND + " "+vector+" " + ErrorLang.SIZE);
         }
     }
 

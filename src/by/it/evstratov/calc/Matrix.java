@@ -1,5 +1,7 @@
 package by.it.evstratov.calc;
 
+import by.it.evstratov.calc.language.ErrorLang;
+
 import java.util.StringJoiner;
 
 class Matrix extends Var {
@@ -65,7 +67,7 @@ class Matrix extends Var {
             }
             return new Matrix(res);
         }else{
-            throw new CalcException(this+ " - "+matrix+" разных размеров");
+            throw new CalcException(this+ " - "+matrix+" " + ErrorLang.SIZE);
         }
     }
 
@@ -107,7 +109,7 @@ class Matrix extends Var {
             }
             return new Vector(result);
         }else{
-            throw new CalcException(this+ " - "+vector+" разных размеров");
+            throw new CalcException(this+ " - "+vector+" " + ErrorLang.SIZE);
         }
     }
 
@@ -124,7 +126,7 @@ class Matrix extends Var {
             }
             return new Matrix(res);
         }else{
-            throw new CalcException(this+ " - "+matrix+" разных размеров");
+            throw new CalcException(this+ " - "+matrix+" " + ErrorLang.SIZE);
         }
     }
 
@@ -143,7 +145,7 @@ class Matrix extends Var {
         if(this.value.length == matrix.value.length && this.value[0].length == matrix.value[0].length){
             return this.add(new Matrix((Matrix) matrix.mul(new Scalar(-1))));
         }else{
-            throw new CalcException(this+ " - "+matrix+" разных размеров");
+            throw new CalcException(this+ " - "+matrix+" " + ErrorLang.SIZE);
         }
     }
 

@@ -1,5 +1,7 @@
 package by.it.evstratov.calc;
 
+import by.it.evstratov.calc.language.ErrorLang;
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -114,6 +116,6 @@ public class Parser {
             case "/" : RepoVar.saveToLog(right + " / " + left+" = "+right.divWidth(left));
                 return right.divWidth(left);
         }
-        throw new CalcException("ERROR");
+        throw new CalcException(ErrorLang.ERROR);
     }
 }
