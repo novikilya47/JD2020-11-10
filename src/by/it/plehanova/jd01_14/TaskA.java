@@ -41,7 +41,7 @@ public class TaskA {
             System.out.print(integer + " ");
         }
         avg = sum / list.size();
-        System.out.printf(Locale.ENGLISH, "\navg=%f\n", avg);
+        System.out.print("avg="+avg);
     }
 
     private static List<Integer> readFile(String path) {
