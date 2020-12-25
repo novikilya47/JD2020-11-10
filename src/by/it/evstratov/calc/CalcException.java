@@ -1,5 +1,7 @@
 package by.it.evstratov.calc;
 
+import by.it.evstratov.calc.language.ErrorLang;
+
 public class CalcException extends Exception{
 
     public CalcException() {
@@ -8,12 +10,12 @@ public class CalcException extends Exception{
     }
 
     public CalcException(String message) {
-        super("ERROR: "+message);
+        super(ErrorLang.ERROR+": "+message);
         RepoVar.saveToLog(this.getMessage());
     }
 
     public CalcException(String message, Throwable cause) {
-        super("ERROR: "+message, cause);
+        super(ErrorLang.ERROR+": "+message, cause);
         RepoVar.saveToLog(this.getMessage());
     }
 
@@ -23,7 +25,7 @@ public class CalcException extends Exception{
     }
 
     public CalcException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super("ERROR: "+ message, cause, enableSuppression, writableStackTrace);
+        super(ErrorLang.ERROR+": "+ message, cause, enableSuppression, writableStackTrace);
         RepoVar.saveToLog(this.getMessage());
     }
 }
