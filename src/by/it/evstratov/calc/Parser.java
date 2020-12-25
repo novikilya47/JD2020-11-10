@@ -36,7 +36,7 @@ public class Parser {
         return arrayDeque.isEmpty();
     }
 
-    private static final Map<String, Integer> priorityMap = new HashMap<>(){
+    private static final Map<String, Integer> priorityMap = new HashMap<String, Integer>(){
         {
             this.put("=", 0);
             this.put("+", 1);
