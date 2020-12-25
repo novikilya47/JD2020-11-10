@@ -114,6 +114,6 @@ public class Parser {
             case "/" : RepoVar.saveToLog(right + " / " + left+" = "+right.divWidth(left));
                 return right.divWidth(left);
         }
-        throw new CalcException("err");
+        throw new CalcException("ERROR");
     }
 }

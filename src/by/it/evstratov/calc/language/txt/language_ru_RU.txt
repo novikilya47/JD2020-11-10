@@ -1,2 +1,3 @@
 error.error=ОШИБКА
 error.size=различных размеров
+error.div=Деление на 0
