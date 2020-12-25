@@ -42,68 +42,68 @@ abstract class Var implements OperationAdd, OperationDiv, OperationMul, Operatio
         }else if(vars.containsKey(strVar)){
             return vars.get(strVar);
         }else{
-            throw new CalcException(ErrorLang.CREATE + " "+strVar);
+            throw new CalcException(ConsoleRunner.lang.get(ErrorLang.CREATE) + " " + strVar);
         }
     }
 
     @Override
     public Var add(Scalar scalar) throws CalcException{
-        throw new CalcException(ErrorLang.SUM + " "+ this+" + "+scalar+" " + ErrorLang.IMPOSSIBLE);
+        throw new CalcException(ConsoleRunner.lang.get(ErrorLang.SUM) + " "+ this+" + "+scalar+" " + ConsoleRunner.lang.get(ErrorLang.IMPOSSIBLE));
     }
 
     @Override
     public Var add(Vector vector) throws CalcException{
-        throw new CalcException(ErrorLang.SUM + " "+ this+" + "+vector+" " + ErrorLang.IMPOSSIBLE);
+        throw new CalcException(ConsoleRunner.lang.get(ErrorLang.SUM) + " "+ this+" + "+vector+" " + ConsoleRunner.lang.get(ErrorLang.IMPOSSIBLE));
     }
 
     @Override
     public Var add(Matrix matrix) throws CalcException{
-        throw new CalcException(ErrorLang.SUM + " "+ this+" + "+matrix+" " + ErrorLang.IMPOSSIBLE);
+        throw new CalcException(ConsoleRunner.lang.get(ErrorLang.SUM) + " "+ this+" + "+matrix+" " + ConsoleRunner.lang.get(ErrorLang.IMPOSSIBLE));
     }
 
     @Override
     public Var div(Scalar scalar) throws CalcException {
-        throw new CalcException(ErrorLang.DIV + " "+ this+" / "+scalar+" " + ErrorLang.IMPOSSIBLE);
+        throw new CalcException(ConsoleRunner.lang.get(ErrorLang.DIV) + " "+ this+" / "+scalar+" " + ConsoleRunner.lang.get(ErrorLang.IMPOSSIBLE));
     }
 
     @Override
     public Var div(Vector vector) throws CalcException{
-        throw new CalcException(ErrorLang.DIV + " "+ vector+" / "+this+" " + ErrorLang.IMPOSSIBLE);
+        throw new CalcException(ConsoleRunner.lang.get(ErrorLang.DIV) + " "+ vector+" / "+this+" " + ConsoleRunner.lang.get(ErrorLang.IMPOSSIBLE));
     }
 
     @Override
     public Var div(Matrix matrix) throws CalcException{
-        throw new CalcException(ErrorLang.DIV + " "+ this+" / "+matrix+" " + ErrorLang.IMPOSSIBLE);
+        throw new CalcException(ConsoleRunner.lang.get(ErrorLang.DIV) + " "+ this+" / "+matrix+" " + ConsoleRunner.lang.get(ErrorLang.IMPOSSIBLE));
     }
 
     @Override
     public Var mul(Scalar scalar) throws CalcException{
-        throw new CalcException(ErrorLang.MUL + " "+ this+" * "+scalar+" " + ErrorLang.IMPOSSIBLE);
+        throw new CalcException(ConsoleRunner.lang.get(ErrorLang.MUL) + " "+ this+" * "+scalar+" " + ConsoleRunner.lang.get(ErrorLang.IMPOSSIBLE));
     }
 
     @Override
     public Var mul(Vector vector) throws CalcException{
-        throw new CalcException(ErrorLang.MUL + " "+ this+" * "+vector+" " + ErrorLang.IMPOSSIBLE);
+        throw new CalcException(ConsoleRunner.lang.get(ErrorLang.MUL) + " "+ this+" * "+vector+" " + ConsoleRunner.lang.get(ErrorLang.IMPOSSIBLE));
     }
 
     @Override
     public Var mul(Matrix matrix) throws CalcException{
-        throw new CalcException(ErrorLang.MUL + " "+ this+" * "+matrix+" " + ErrorLang.IMPOSSIBLE);
+        throw new CalcException(ConsoleRunner.lang.get(ErrorLang.MUL) + " "+ this+" * "+matrix+" " + ConsoleRunner.lang.get(ErrorLang.IMPOSSIBLE));
     }
 
     @Override
     public Var sub(Scalar scalar) throws CalcException{
-        throw new CalcException(ErrorLang.SUB + " "+ this+" * "+scalar+" " + ErrorLang.IMPOSSIBLE);
+        throw new CalcException(ConsoleRunner.lang.get(ErrorLang.SUB) + " "+ this+" * "+scalar+" " + ConsoleRunner.lang.get(ErrorLang.IMPOSSIBLE));
     }
 
     @Override
     public Var sub(Vector vector) throws CalcException{
-        throw new CalcException(ErrorLang.SUB + " "+ this+" * "+vector+" " + ErrorLang.IMPOSSIBLE);
+        throw new CalcException(ConsoleRunner.lang.get(ErrorLang.SUB) + " "+ this+" * "+vector+" " + ConsoleRunner.lang.get(ErrorLang.IMPOSSIBLE));
     }
 
     @Override
     public Var sub(Matrix matrix) throws CalcException{
-        throw new CalcException(ErrorLang.SUB + " "+ this+" * "+matrix+" " + ErrorLang.IMPOSSIBLE);
+        throw new CalcException(ConsoleRunner.lang.get(ErrorLang.SUB) + " "+ this+" * "+matrix+" " + ConsoleRunner.lang.get(ErrorLang.IMPOSSIBLE));
     }
 
     public abstract Var addWidth(Var right) throws CalcException;
@@ -116,7 +116,7 @@ abstract class Var implements OperationAdd, OperationDiv, OperationMul, Operatio
 
     @Override
     public String toString() {
-        return VarLang.SOME_ABS + " Var{}";
+        return ConsoleRunner.lang.get(VarLang.SOME_ABS) + " Var{}";
     }
 
 }

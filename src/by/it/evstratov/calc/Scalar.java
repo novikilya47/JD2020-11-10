@@ -37,7 +37,7 @@ class Scalar extends Var {
     public Var div(Scalar scalar) throws CalcException{
         double otherValue = scalar.value;
         if (otherValue==0){
-            throw new CalcException(ErrorLang.DIV_BY_ZERO);
+            throw new CalcException(ConsoleRunner.lang.get(ErrorLang.DIV_BY_ZERO));
         }
         double result = this.value / otherValue;
         return new Scalar(result);

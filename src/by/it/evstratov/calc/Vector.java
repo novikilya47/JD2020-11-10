@@ -47,7 +47,7 @@ class Vector extends Var {
             }
             return new Vector(arr);
         }else{
-            throw new CalcException(this+ ErrorLang.AND + " "+vector+" " + ErrorLang.SIZE);
+            throw new CalcException(this+ ConsoleRunner.lang.get(ErrorLang.AND) + " "+vector+" " + ConsoleRunner.lang.get(ErrorLang.SIZE));
         }
     }
 
@@ -59,7 +59,7 @@ class Vector extends Var {
     @Override
     public Var div(Scalar scalar) throws CalcException {
         if (scalar.getValue()==0){
-            throw new CalcException(ErrorLang.DIV_BY_ZERO);
+            throw new CalcException(ConsoleRunner.lang.get(ErrorLang.DIV_BY_ZERO));
         }else{
             double[] res = Arrays.copyOf(value, value.length);
             for (int i = 0; i < res.length; i++) {
@@ -97,7 +97,7 @@ class Vector extends Var {
             }
             return new Scalar(res);
         }else{
-            throw new CalcException(this+ ErrorLang.AND + " "+vector+" " + ErrorLang.SIZE);
+            throw new CalcException(this+ ConsoleRunner.lang.get(ErrorLang.AND) + " "+vector+" " + ConsoleRunner.lang.get(ErrorLang.SIZE));
         }
     }
 
@@ -116,7 +116,7 @@ class Vector extends Var {
         if(this.value.length == vector.value.length){
             return this.add(new Vector((Vector) vector.mul(new Scalar(-1))));
         }else{
-            throw new CalcException(this+ ErrorLang.AND + " "+vector+" " + ErrorLang.SIZE);
+            throw new CalcException(this+ ConsoleRunner.lang.get(ErrorLang.AND) + " "+vector+" " + ConsoleRunner.lang.get(ErrorLang.SIZE));
         }
     }
 

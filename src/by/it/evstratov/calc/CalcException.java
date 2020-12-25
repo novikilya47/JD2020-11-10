@@ -10,12 +10,12 @@ public class CalcException extends Exception{
     }
 
     public CalcException(String message) {
-        super(ErrorLang.ERROR+": "+message);
+        super(ConsoleRunner.lang.get(ErrorLang.ERROR)+": "+message);
         RepoVar.saveToLog(this.getMessage());
     }
 
     public CalcException(String message, Throwable cause) {
-        super(ErrorLang.ERROR+": "+message, cause);
+        super(ConsoleRunner.lang.get(ErrorLang.ERROR)+": "+message, cause);
         RepoVar.saveToLog(this.getMessage());
     }
 
@@ -25,7 +25,7 @@ public class CalcException extends Exception{
     }
 
     public CalcException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(ErrorLang.ERROR+": "+ message, cause, enableSuppression, writableStackTrace);
+        super(ConsoleRunner.lang.get(ErrorLang.ERROR)+": "+ message, cause, enableSuppression, writableStackTrace);
         RepoVar.saveToLog(this.getMessage());
     }
 }

@@ -2,7 +2,7 @@ package by.it.evstratov.calc.language;
 
 public interface ErrorLang {
 
-    String ERROR="error.ERROR";
+    String ERROR="error.error";
     String SIZE="error.size";
     String DIV_BY_ZERO="error.divByZero";
     String CREATE="error.create";
