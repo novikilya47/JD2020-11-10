@@ -13,12 +13,12 @@ public class Runner {
         String str;
         while (!(str = scanner.nextLine()).equals("end")){
             switch (str){
-                case "ru":
+                case Lang.RU:
                     lang.setLocale(new Locale("ru","RU"));
                     break;
-                case "be": lang.setLocale(new Locale("be","BY"));
+                case Lang.BE: lang.setLocale(new Locale("be","BY"));
                     break;
-                case "en": lang.setLocale(new Locale("en","EN"));
+                case Lang.EN: lang.setLocale(new Locale("en","EN"));
                     break;
                 default:
                     lang.setLocale(Locale.ENGLISH);
