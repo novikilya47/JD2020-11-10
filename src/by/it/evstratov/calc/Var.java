@@ -7,7 +7,7 @@ import java.util.TreeMap;
 
 abstract class Var implements OperationAdd, OperationDiv, OperationMul, OperationSub {
 
-    private static Map<String, Var> vars = new HashMap<>();
+    private static final Map<String, Var> vars = new HashMap<>();
 
     static Var saveVar(String name, Var var){
         vars.put(name, var);
@@ -39,7 +39,7 @@ abstract class Var implements OperationAdd, OperationDiv, OperationMul, Operatio
         }else if(vars.containsKey(strVar)){
             return vars.get(strVar);
         }else{
-            throw new CalcException("Невозможно создать "+strVar);
+            throw new CalcException("Unable to create "+strVar);
         }
     }
 
