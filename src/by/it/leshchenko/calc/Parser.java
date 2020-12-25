@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
-    private static final Map<String, Integer> map = new HashMap<String, Integer>() {
+    private static final Map<String, Integer> map = new HashMap<>() {
         private static final long serialVersionUID = -1589178250133784261L;
         {
             this.put("=", 0);

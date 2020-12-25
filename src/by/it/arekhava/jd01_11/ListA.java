@@ -88,7 +88,7 @@ private int size=0;
         return null;
     }
 
-    //@Override
+    @Override
     public <T> T[] toArray(IntFunction<T[]> generator) {
         return null;
     }
