@@ -1,4 +1,11 @@
 error.error=ERROR
 error.size=different sizes
-error.div=Division by 0
+error.divByZero=Division by 0
 error.create=Unable to create
+error.sum=Операция сложения
+error.div=Операция деления
+error.mul=Операция умножения
+error.sub=Операция вычитания
+error.impossible=impossible
+error.and=and;
+var.someAbs=some abstract;
