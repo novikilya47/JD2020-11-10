@@ -24,7 +24,7 @@ abstract class Var implements Operation {
 
 
     static Var createVar(String operand) throws CalcException {
-        operand = operand.trim().replace("\\s+", "");
+        operand = operand.replaceAll("\\s+", "");
         if (operand.matches(Patterns.SCALAR)) {
             return new Scalar(operand);
         }
@@ -39,31 +39,31 @@ abstract class Var implements Operation {
             }
         }
 
-        throw new CalcException("Var "+ operand+"not found");
+        throw new CalcException("Var "+ operand+" "+ Language.get(Messages.NOT_FOUND));
 
     }
 
 
     @Override
     public Var add(Var other) throws CalcException{
-        throw new CalcException("Операция сложения " + this + "+" + other + " невозможна");
+        throw new CalcException(Language.get(Messages.OPERATION)+" "+Language.get(Messages.ADDITION) +" "+ this + "+" + other + " "+Language.get(Messages.IMPOSSIBLE));
 
     }
 
     @Override
     public Var sub(Var other) throws CalcException {
-        throw new CalcException("Операция вычитания " + this + "-" + other + " невозможна");
+        throw new CalcException(Language.get(Messages.OPERATION)+" "+Language.get(Messages.SUBTRACTION) +" "+ this + "-" + other + " "+Language.get(Messages.IMPOSSIBLE));
 
     }
 
     @Override
     public Var mul(Var other) throws CalcException {
-        throw new CalcException("Операция умножения " + this + "*" + other + " невозможна");
+        throw new CalcException(Language.get(Messages.OPERATION)+" "+Language.get(Messages.MULTIPLICATION) + " "+ this + "*" + other + " "+Language.get(Messages.IMPOSSIBLE));
     }
 
     @Override
     public Var div(Var other) throws CalcException{
-        throw new CalcException("Операция деления " + this + "/" + other + " невозможна");
+        throw new CalcException(Language.get(Messages.OPERATION)+ " "+Language.get(Messages.DIVISION) +" "+ this + "/" + other + " "+Language.get(Messages.IMPOSSIBLE));
     }
 
     @Override
