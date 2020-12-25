@@ -6,6 +6,10 @@ class Vector extends Var {
 
     private final double[] value;
 
+    public double[] getValue(){
+        return value;
+    }
+
     public double[] getArray() {
         return value;
     }

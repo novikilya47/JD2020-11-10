@@ -8,6 +8,4 @@ public interface Patterns {
     String MATRIX = "\\{" + VECTOR + "(," + VECTOR + ")*}";
 
     //-4*{1,2,3.5,4.775,-8,-99}-{-1,2,3,-4}
-
-    // выражение для поиска regex     "(?<=[^,{+*/=-])[+=*/-]";
 }

@@ -36,6 +36,9 @@ abstract class Var implements Operation {
     }
 
     public static Var createVar(String strVar) {
+        // в строке с векторами введены пробелы, убераем их, иначе проблемы
+        strVar = strVar.replaceAll("\\s+", "");
+
         if (strVar.matches(Patterns.SCALAR)) {
             return new Scalar(strVar);
         } else if (strVar.matches(Patterns.VECTOR)) {
