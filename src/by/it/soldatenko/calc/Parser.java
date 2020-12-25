@@ -55,19 +55,6 @@ public class Parser {
 
     private Var calcOneOperation(String leftStr, String operation, String rightStr) throws CalcException {
 
-//        if (expression.contains("printvar")) {
-//            Var.printVar();
-//        }
-//        if (expression.contains("sortvar")) {
-//            Var.sortVar();
-//        }
-
-
-//        String[] operand = expression.split(Patterns.OPERATION);
-//        if (operand.length < 2) {
-//            return Var.createVar(expression);
-//        }
-
 
         Var two = Var.createVar(rightStr);
         if (operation.equals("=")) {
@@ -76,12 +63,7 @@ public class Parser {
         }
 
         Var one = Var.createVar(leftStr);
-//        if (one == null || two == null)
-//            return null; //TODO  create error
-//        Pattern p = Pattern.compile(Patterns.OPERATION);
-//        Matcher m = p.matcher(expression);
-//        if (m.find()) {
-//            String operation = m.group();
+
         switch (operation) {
             case "+":
                 return one.add(two);
@@ -92,7 +74,7 @@ public class Parser {
             case "/":
                 return one.div(two);
         }
-//        }
+
         throw new CalcException("error");
     }
 
