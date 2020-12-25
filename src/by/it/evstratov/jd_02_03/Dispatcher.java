@@ -62,34 +62,26 @@ public class Dispatcher {
     }
 
     public static synchronized void needToOpenNewCashiers(int sizeDeque){
-        int openCashiers = Cashier.getOpenCashiers();
-        int needToOpenCashiers =(int) Math.ceil((double) sizeDeque / 5.0);
-        int needToCloseCashiers = openCashiers - needToOpenCashiers;
-        if(openCashiers < needToOpenCashiers && !QueueCashiers.getWaitCashiers().isEmpty()){
-            for (int i = 0; i < needToOpenCashiers - openCashiers; i++) {
-                Cashier cashier = QueueCashiers.getWaitCashiers().poll();
-                System.out.println(cashier + "начала работать");
-                QueueCashiers.getOpenCashiers().remove(cashier);
-                if (cashier != null) {
-                    synchronized (cashier){
-                        cashier.notify();
-                    }
+        int needToOpenCashiers =(int) Math.ceil((double) sizeDeque / 5.0) - Cashier.getOpenCashiers();
+        int countOpenCashiers = 0;
+        for (Cashier cashier : QueueCashiers.getAllCashiers()) {
+            if(!cashier.isRunnable() && countOpenCashiers != needToOpenCashiers){
+                countOpenCashiers++;
+                synchronized (cashier){
+                    cashier.setRunnable(true);
+                    System.out.println("---------------------------" +cashier.toString() + " открылась касса!");
+                    cashier.notify();
                 }
             }
         }
-        if(needToCloseCashiers > 0){
-            for (int i = 0; i < needToCloseCashiers; i++) {
-                Cashier cashier = QueueCashiers.getOpenCashiers().poll();
-                System.out.println(cashier + " завершает работать - нет очереди");
-                QueueCashiers.getWaitCashiers().remove(cashier);
-                if (cashier != null) {
-                    synchronized (cashier){
-                        try {
-                            cashier.wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
+    }
+
+    public static synchronized void closeAllCashiers(){
+        for (Cashier cashier : QueueCashiers.getAllCashiers()) {
+            if(!cashier.isRunnable()){
+                synchronized (cashier){
+                    cashier.setRunnable(true);
+                    cashier.notify();
                 }
             }
         }

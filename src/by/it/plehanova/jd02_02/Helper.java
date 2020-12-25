@@ -11,7 +11,7 @@ class Helper {
     }
 
     public static int getRandom(int max) {
-        return getRandom(0,max);
+        return getRandom(0, max);
     }
 
     public static void sleep(int timeout) {
