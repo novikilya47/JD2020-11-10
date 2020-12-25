@@ -26,6 +26,7 @@ abstract class Var implements Operation {
     }
 
     public static Var createVar(String operand) throws CalcException {
+        operand = operand.trim().replaceAll("\\s+", "");
         if (operand.matches(Patterns.SCALAR)) {
             return new Scalar(operand);
         } else if (operand.matches(Patterns.VECTOR)) {

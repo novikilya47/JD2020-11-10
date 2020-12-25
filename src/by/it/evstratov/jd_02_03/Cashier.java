@@ -7,8 +7,8 @@ public class Cashier implements Runnable{
 
     private final int number;
     private static final AtomicInteger openCashiers = new AtomicInteger(0);
-    static final Object lock = new Object();
     private final QueueBuyers queueBuyers;
+    private boolean isRunnable = true;
 
     public Cashier(int number, QueueBuyers queueBuyers) {
         this.number = number;
@@ -32,22 +32,25 @@ public class Cashier implements Runnable{
                     buyer.notify();
                 }
             }else{
-                try {
-                    synchronized (this){
-                        System.out.println(this + "закрывается - нет очереди");
-                        QueueCashiers.getWaitCashiers().putLast(this);
-                        QueueCashiers.getOpenCashiers().remove(this);
-                        openCashiers.getAndDecrement();
-                        while (true){
-                            wait();
+                synchronized (this){
+                    if(openCashiers.get() != 1){
+                        setRunnable(false);
+                    }
+                    while (!this.isRunnable){
+                        System.out.println(this + "ожидает, так как нет очереди");
+                        try {
+                            this.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
                     }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
             }
         }
         System.out.println(this + "closed");
+        if(Dispatcher.marketIsClosed()){
+            Dispatcher.closeAllCashiers();
+        }
     }
 
     @Override
@@ -64,7 +67,7 @@ public class Cashier implements Runnable{
     }
 
     public void printCheck(Cashier cashier, Buyer buyer){
-        synchronized (Cashier.lock){
+        synchronized (this){
             StringBuilder space = new StringBuilder();
             for (int i = 0; i < 40; i++) {
                 space.append(".");
@@ -92,5 +95,18 @@ public class Cashier implements Runnable{
             result.append(spaceLeft).append(cashier).append("finished service for ").append(buyer).append(spaceRight).append(Dispatcher.getTotal()).append(" ").append(queueBuyers.getSize()).append("\n");
             System.out.println(result);
         }
+    }
+
+    public void setRunnable(boolean iWait) {
+        this.isRunnable = iWait;
+        if(iWait){
+            openCashiers.getAndIncrement();
+        }else{
+            openCashiers.getAndDecrement();
+        }
+    }
+
+    public boolean isRunnable() {
+        return isRunnable;
     }
 }

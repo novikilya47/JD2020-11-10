@@ -37,7 +37,11 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void enterToMarket() {
-        System.out.println(this + " entered to Market");
+        if (this.isPensioner()) {
+            System.out.println(this + " is pensioner entered to Market");
+        } else {
+            System.out.println(this + " entered to Market");
+        };
     }
 
     @Override
@@ -58,6 +62,16 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     public void goToQueue() {
 
         QueueBuyers.add(this);
+        /*if (Dispatcher.needToOpenCashier() < Dispatcher.getOpenCashier()) {
+            for (int i = 0; i < Dispatcher.needToOpenCashier() - Dispatcher.getOpenCashier(); i++) {
+                if (Dispatcher.getOpenCashier() < Dispatcher.MAX_CASHIERS) {
+                    Cashier cashier = ListCashiers.extract();
+                    Thread cashierThread = new Thread(cashier);
+                    ListCashiers.setCashiers(cashierThread);
+                    cashierThread.start();
+                }
+            }
+        }*/
         System.out.println(this + " add to queue");
         synchronized (Dispatcher.cashierMonitor) {
             if (Dispatcher.getOpenCashier() == 0) {

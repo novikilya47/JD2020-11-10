@@ -1,18 +1,14 @@
 package by.it.evstratov.jd_02_03;
 
-import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.LinkedBlockingDeque;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class QueueCashiers {
 
-    private static final BlockingDeque<Cashier> openCashiers = new LinkedBlockingDeque<>();
-    private static final BlockingDeque<Cashier> waitCashiers = new LinkedBlockingDeque<>();
+    private static final List<Cashier> openCashiers = new CopyOnWriteArrayList<>();
 
-    public static BlockingDeque<Cashier> getOpenCashiers() {
+    public static List<Cashier> getAllCashiers() {
         return openCashiers;
     }
 
-    public static BlockingDeque<Cashier> getWaitCashiers() {
-        return waitCashiers;
-    }
 }
