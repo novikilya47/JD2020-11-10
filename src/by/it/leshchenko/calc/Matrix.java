@@ -16,6 +16,10 @@ class Matrix extends Var {
         this.value = matrix.value;
     }
 
+    public double[][] getValue() {
+        return value;
+    }
+
     public Matrix(String strMatrix) {
         // Получаем строки матрицы и количество столбцов
         Matcher matcher = Pattern.compile("\\{\\{(.*)}}").matcher(strMatrix);
