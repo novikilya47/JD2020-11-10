@@ -8,7 +8,7 @@ public class Time {
 
     static public String getTime(Locale locale) {
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
-        String s = dateFormat.format(new Date());
-        return s;
+        String time = dateFormat.format(new Date());
+        return time;
     }
 }
