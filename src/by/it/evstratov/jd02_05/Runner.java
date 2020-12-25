@@ -11,9 +11,13 @@ public class Runner {
             lang.setLocale(new Locale(args[0], args[1]));
         }
 
+        System.out.println(Time.getTime(lang.getLocale()));
         System.out.println(lang.get(Messages.WELCOME));
+        System.out.println(Time.getTime(lang.getLocale()));
         System.out.println(lang.get(Messages.QUESTION));
+        System.out.println(Time.getTime(lang.getLocale()));
         System.out.println(lang.get(User.FIRST_NAME));
+        System.out.println(Time.getTime(lang.getLocale()));
         System.out.println(lang.get(User.LAST_NAME));
     }
 

@@ -21,4 +21,8 @@ public enum Language {
     String get(String key){
         return bundle.getString(key);
     }
+
+    Locale getLocale(){
+        return bundle.getLocale();
+    }
 }
