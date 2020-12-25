@@ -129,7 +129,7 @@ class Matrix extends Var {
     public Var div(Var other) throws CalcException{
         if (other instanceof Scalar) {
             if (((Scalar) other).getValue() == 0) {
-                System.out.println("Division by zero");
+                System.out.println(ConsoleRunner.lang.get(Error.DIV_BY_ZERO));
                 return null;
             }
             double[][] result = copyArray(matrix);

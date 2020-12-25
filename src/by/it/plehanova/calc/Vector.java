@@ -44,7 +44,7 @@ class Vector extends Var {
 
         } else if (other instanceof Vector) {
             if (this.array.length != ((Vector) other).array.length) {
-                throw new CalcException("Different length");
+                throw new CalcException(ConsoleRunner.lang.get(Error.DIFFERENT_LENGTH));
             }
             double[] arr = Arrays.copyOf(array, array.length);
             for (int i = 0; i < arr.length; i++) {
@@ -66,7 +66,7 @@ class Vector extends Var {
 
         } else if (other instanceof Vector) {
             if (this.array.length != ((Vector) other).array.length) {
-                throw new CalcException("Different length");
+                throw new CalcException(ConsoleRunner.lang.get(Error.DIFFERENT_LENGTH));
             }
             double[] arr = Arrays.copyOf(array, array.length);
             for (int i = 0; i < arr.length; i++) {
@@ -87,7 +87,7 @@ class Vector extends Var {
             return new Vector(arr);
         } else if (other instanceof Vector) {
             if (this.array.length != ((Vector) other).array.length) {
-                throw new CalcException("Different length");
+                throw new CalcException(ConsoleRunner.lang.get(Error.DIFFERENT_LENGTH));
             }
             double sum = 0;
             for (int i = 0; i < this.array.length; i++) {
@@ -103,7 +103,7 @@ class Vector extends Var {
     public Var div(Var other) throws CalcException {
         if (other instanceof Scalar) {
             if (((Scalar) other).getValue() == 0) {
-                throw new CalcException("Division by zero");
+                throw new CalcException(ConsoleRunner.lang.get(Error.DIV_BY_ZERO));
             }
             double[] arr = Arrays.copyOf(array, array.length);
             for (int i = 0; i < arr.length; i++) {
