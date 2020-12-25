@@ -10,20 +10,24 @@ public class Runner {
         Locale.setDefault(Locale.ENGLISH);
 
         Scanner scanner = new Scanner(System.in);
-        String str = scanner.nextLine();
-        switch (str){
-            case "ru":
-                lang.setLocale(new Locale("ru","RU"));
-                break;
-            case "be": lang.setLocale(new Locale("be","BY"));
-                break;
-            default: lang.setLocale(new Locale("en","EN"));
-                break;
+        String str;
+        while (!(str = scanner.nextLine()).equals("end")){
+            switch (str){
+                case "ru":
+                    lang.setLocale(new Locale("ru","RU"));
+                    break;
+                case "be": lang.setLocale(new Locale("be","BY"));
+                    break;
+                case "en": lang.setLocale(new Locale("en","EN"));
+                    break;
+                default:
+                    lang.setLocale(Locale.ENGLISH);
+            }
+            System.out.println(Time.getTime(lang.getLocale()) + " : " + lang.get(Messages.WELCOME));
+            System.out.println(Time.getTime(lang.getLocale()) + " : " + lang.get(Messages.QUESTION));
+            System.out.println(Time.getTime(lang.getLocale()) + " : " + lang.get(User.FIRST_NAME));
+            System.out.println(Time.getTime(lang.getLocale()) + " : " + lang.get(User.LAST_NAME));
         }
-        System.out.println(Time.getTime(lang.getLocale()) + ":" + lang.get(Messages.WELCOME));
-        System.out.println(Time.getTime(lang.getLocale()) + ":" + lang.get(Messages.QUESTION));
-        System.out.println(Time.getTime(lang.getLocale()) + ":" + lang.get(User.FIRST_NAME));
-        System.out.println(Time.getTime(lang.getLocale()) + ":" + lang.get(User.LAST_NAME));
     }
 
 }
