@@ -9,6 +9,7 @@ class Logger {
 
     private static volatile Logger logger;
 
+    @SuppressWarnings("FieldCanBeLocal")
     private final String logName = "log.txt";
 
     private Logger() {
