@@ -1,6 +1,6 @@
 package by.it.novik.jd02_01;
 
-class Buyer extends Thread implements IBuyer {
+class Buyer extends Thread implements IBuyer, IUseBasket {
     public Buyer(int number) {
         super("Buyer №" + number);
     }
@@ -8,9 +8,9 @@ class Buyer extends Thread implements IBuyer {
     @Override
     public void run() {
         enterToMarket();
-
+        takeBasket();
         chooseGoods();
-
+        putGoodsToBasket();
         goOut();
     }
 
@@ -26,7 +26,7 @@ class Buyer extends Thread implements IBuyer {
 
     @Override
     public void chooseGoods() {
-        System.out.println(this + " star choose");
+        System.out.println(this + " start choose");
         int time = Helper.getRandom(500, 2000);
         Helper.sleep(time);
         System.out.println(this + " end choose");
@@ -35,6 +35,22 @@ class Buyer extends Thread implements IBuyer {
     @Override
     public void goOut() {
         System.out.println(this + " leaved the market");
+    }
+
+    @Override
+    public void takeBasket() {
+        int time = Helper.getRandom(500, 2000);
+        Helper.sleep(time);
+        System.out.println(this + " take basket");
+    }
+
+    @Override
+    public void putGoodsToBasket() {
+        int time = Helper.getRandom(500, 2000);
+        Helper.sleep(time);
+        for (int i = 1; i < Helper.getRandom(2, 4); i++) {
+            System.out.println(this + Good.randomGood());
+        }
     }
 }
 
