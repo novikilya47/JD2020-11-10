@@ -60,7 +60,7 @@ class Scalar extends Var {
             double otherValue = ((Scalar) other).value;
 
             if (otherValue == 0) {
-                throw new CalcException("Division by zero");
+                throw new CalcException(ConsoleRunner.lang.get(Error.DIV_BY_ZERO));
             }
             double result = this.value / otherValue;
             return new Scalar(result);

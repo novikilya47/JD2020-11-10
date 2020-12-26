@@ -4,7 +4,7 @@ package by.it.soldatenko.calc;
 import java.util.Arrays;
 
 class Vector extends Var {
-    private double[] value;
+    private final double[] value;
 
     public double[] getValue() {
         return value;

@@ -71,7 +71,7 @@ public class Parser {
                 RepoVar.saveConsoleOut(left + "/" + right + "=" + left.div(right));
                 return left.div(right);
         }
-        throw new CalcException("Error");
+        throw new CalcException(ConsoleRunner.lang.get(Error.ERROR));
     }
 
     private String calcInBrackets(String expression) throws CalcException {

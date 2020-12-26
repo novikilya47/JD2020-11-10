@@ -1,6 +1,8 @@
 package by.it.evstratov.calc;
 
 
+import by.it.evstratov.calc.language.ErrorLang;
+
 class Scalar extends Var {
 
     private final double value;
@@ -17,8 +19,7 @@ class Scalar extends Var {
 
     @Override
     public Var add(Scalar scalar) {
-        double otherValue = scalar.value;
-        double result = otherValue + this.value;
+        double result = scalar.value + this.value;
         return new Scalar(result);
     }
 
@@ -36,7 +37,7 @@ class Scalar extends Var {
     public Var div(Scalar scalar) throws CalcException{
         double otherValue = scalar.value;
         if (otherValue==0){
-            throw new CalcException("Деление на 0");
+            throw new CalcException(ConsoleRunner.lang.get(ErrorLang.DIV_BY_ZERO));
         }
         double result = this.value / otherValue;
         return new Scalar(result);
@@ -54,8 +55,7 @@ class Scalar extends Var {
 
     @Override
     public Var mul(Scalar scalar) {
-        double otherValue = scalar.value;
-        double result = otherValue * this.value;
+        double result = scalar.value * this.value;
         return new Scalar(result);
     }
 
@@ -71,8 +71,7 @@ class Scalar extends Var {
 
     @Override
     public Var sub(Scalar scalar) {
-        double otherValue = scalar.value;
-        double result = this.value - otherValue;
+        double result = this.value - scalar.value;
         return new Scalar(result);
     }
 
