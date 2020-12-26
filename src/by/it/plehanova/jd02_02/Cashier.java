@@ -2,7 +2,7 @@ package by.it.plehanova.jd02_02;
 
 import java.util.ArrayList;
 
-public class Cashier<TOTAL_SUM> implements Runnable {
+public class Cashier implements Runnable {
     private final int number;
     private static int count = 5;
     private static double TOTAL_SUM = 0;
@@ -62,9 +62,7 @@ public class Cashier<TOTAL_SUM> implements Runnable {
             int countTotal = 100;
             StringBuffer space = new StringBuffer();
             StringBuffer spaceForTotalSum = new StringBuffer();
-            for (int i = 0; i < countSpace * this.number - 25; i++) {
-                space.append(" ");
-            }
+            space.append(" ".repeat(Math.max(0, countSpace * this.number - 25)));
             for (int i = 0; i < countTotal - space.length() - 25; i++) {
                 spaceForTotalSum.append(" ");
             }
@@ -80,7 +78,7 @@ public class Cashier<TOTAL_SUM> implements Runnable {
                 System.out.printf("%s%15s | %-3.2f\n", space, nameOfGood, priceOfGood);
             }
             TOTAL_SUM += totalSum;
-int queue = QueueBuyers.getQueue().size();
+            int queue = QueueBuyers.getQueue().size();
             System.out.printf("%s%25s\n", space, "---------------------");
             System.out.printf("%s%15s | %-3.2f\n", space, "total sum", totalSum);
             System.out.printf("%s%25s%s%7.2f$   %d - queue\n", space, "---------------------", spaceForTotalSum, TOTAL_SUM, queue);

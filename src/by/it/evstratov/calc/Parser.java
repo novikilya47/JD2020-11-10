@@ -1,5 +1,7 @@
 package by.it.evstratov.calc;
 
+import by.it.evstratov.calc.language.ErrorLang;
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,7 +38,7 @@ public class Parser {
         return arrayDeque.isEmpty();
     }
 
-    private static final Map<String, Integer> priorityMap = new HashMap<>(){
+    private static final Map<String, Integer> priorityMap = new HashMap<String, Integer>(){
         {
             this.put("=", 0);
             this.put("+", 1);
@@ -114,6 +116,6 @@ public class Parser {
             case "/" : RepoVar.saveToLog(right + " / " + left+" = "+right.divWidth(left));
                 return right.divWidth(left);
         }
-        throw new CalcException("err");
+        throw new CalcException(ConsoleRunner.lang.get(ErrorLang.ERROR));
     }
 }
